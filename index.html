@@ -2,15 +2,14 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <!-- Important for mobile devices: sets the viewport to scale correctly -->
+    <!-- mobile viewport -->
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes">
-    <title>MobileMCTIERS · Top 10 Overall</title>
-    <!-- Simple, clean font from Google Fonts -->
+    <title>ASIA MOBILE · MCBE TIERLIST</title>
+    <!-- Red theme · bold mobile design -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,500;14..32,600;14..32,700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,700;14..32,800;14..32,600&display=swap" rel="stylesheet">
     <style>
-        /* RESET & BASE — minimal, mobile-first */
         * {
             margin: 0;
             padding: 0;
@@ -18,126 +17,171 @@
         }
 
         body {
-            background-color: #0e0f14;   /* deep dark background, like the original vibe */
+            background-color: #1a0c0c;   /* deep red-black base */
             font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
-            font-weight: 500;
-            color: #ededf0;
-            line-height: 1.4;
-            padding: 16px 12px 32px 12px;
+            font-weight: 600;
+            color: #ffdddd;
+            padding: 18px 14px 36px 14px;
             min-height: 100vh;
             display: flex;
             flex-direction: column;
+            background-image: radial-gradient(circle at 10% 20%, #3f1a1a 0%, #0f0606 90%);
         }
 
-        /* main container – narrow, comfortable on mobile */
         .container {
-            max-width: 480px;        /* typical mobile width */
+            max-width: 480px;
             margin: 0 auto;
             width: 100%;
         }
 
-        /* header = server IP + tagline */
+        /* RED THEME elements — fiery accents */
         .server-badge {
-            background: #1a1c23;
+            background: #2f1418;         /* dark crimson */
             border-radius: 40px;
-            padding: 14px 20px;
+            padding: 16px 22px;
             margin-bottom: 24px;
             text-align: center;
-            border: 1px solid #2c2f3a;
-            box-shadow: 0 6px 0 #08090c;
+            border: 2px solid #b53b3b;
+            box-shadow: 0 6px 0 #631f1f, 0 0 0 2px #ff5e5e33 inset;
         }
 
         .server-ip {
-            font-size: 1.8rem;
-            font-weight: 700;
+            font-size: 2rem;
+            font-weight: 800;
             letter-spacing: -0.5px;
-            color: white;
+            color: #ffcfcf;
+            text-shadow: 0 2px 0 #8b2a2a;
             line-height: 1.2;
         }
 
         .server-ip span {
-            background: #2f3340;
-            padding: 4px 10px;
-            border-radius: 30px;
+            background: #a04545;
+            padding: 4px 12px;
+            border-radius: 40px;
             font-size: 1rem;
-            font-weight: 600;
-            color: #b9c2da;
-            margin-left: 8px;
+            font-weight: 700;
+            color: #ffe1e1;
+            border: 1px solid #ff8a8a;
+            margin-left: 10px;
             vertical-align: middle;
-            border: 1px solid #404654;
         }
 
         .sub-title {
-            color: #8e9ac0;
+            color: #f7a6a6;
             font-size: 0.85rem;
             text-transform: uppercase;
-            letter-spacing: 1px;
-            margin-top: 8px;
-            font-weight: 600;
+            letter-spacing: 2px;
+            margin-top: 10px;
+            font-weight: 700;
         }
 
-        /* filter / region tabs — small hint, not interactive in demo */
+        /* region tabs – asia focused */
         .region-tabs {
             display: flex;
             gap: 8px;
-            margin-bottom: 18px;
+            margin-bottom: 22px;
+            flex-wrap: wrap;
         }
 
         .region-tab {
-            background: #1e2028;
-            padding: 8px 18px;
-            border-radius: 30px;
+            background: #2d1719;
+            padding: 8px 20px;
+            border-radius: 40px;
             font-size: 0.9rem;
-            font-weight: 600;
-            color: #9ca9cf;
-            border: 1px solid #2d313e;
+            font-weight: 700;
+            color: #f3b2b2;
+            border: 1.5px solid #ad4545;
             flex: 0 1 auto;
         }
 
         .region-tab.active {
-            background: #2f354a;
-            color: white;
-            border-color: #4e5a7c;
+            background: #c93434;
+            color: #ffffff;
+            border-color: #ffa3a3;
+            box-shadow: 0 2px 0 #621111;
         }
 
-        /* leaderboard list — CARD style, each player is a block */
-        .rank-list {
+        /* MAIN TIER LIST - blocks with red intensity */
+        .tier-section {
+            margin-bottom: 30px;
+        }
+
+        .tier-header {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 12px;
+            border-bottom: 3px solid #b34444;
+            padding-bottom: 6px;
+        }
+
+        .tier-letter {
+            background: #b82b2b;
+            width: 48px;
+            height: 48px;
+            border-radius: 30px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+            font-weight: 800;
+            color: white;
+            text-shadow: 0 3px 0 #5f1414;
+            box-shadow: 0 4px 0 #641c1c;
+            border: 1px solid #ff7676;
+        }
+
+        .tier-name {
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: #ffbebe;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .tier-desc {
+            margin-left: auto;
+            background: #321b1b;
+            padding: 4px 14px;
+            border-radius: 30px;
+            font-size: 0.75rem;
+            font-weight: 700;
+            color: #ff9f9f;
+            border: 1px solid #b14b4b;
+        }
+
+        /* player cards inside tiers */
+        .player-grid {
             display: flex;
             flex-direction: column;
             gap: 10px;
-            margin-top: 8px;
         }
 
-        /* player card – clean, tappable look */
         .player-card {
-            background: #14161e;
-            border-radius: 28px;
-            padding: 14px 18px;
-            border: 1px solid #292e3b;
-            box-shadow: 0 4px 0 #0a0c10;
+            background: #251111;
+            border-radius: 30px;
+            padding: 16px 18px;
+            border: 1px solid #be4545;
+            box-shadow: 0 5px 0 #4d1a1a, 0 0 0 1px #ff7373 inset;
             display: flex;
             align-items: center;
             justify-content: space-between;
-            transition: 0.1s ease;
         }
 
-        /* left side: rank + player info */
         .player-main {
             display: flex;
             align-items: center;
             gap: 16px;
             flex: 1;
-            min-width: 0; /* avoid overflow */
+            min-width: 0;
         }
 
-        .rank-number {
-            font-size: 1.9rem;
+        .rank-icon {
+            font-size: 2rem;
             font-weight: 800;
-            color: #3d435b;
-            line-height: 1;
-            min-width: 48px;
-            text-align: left;
-            letter-spacing: -1px;
+            color: #c25151;
+            min-width: 44px;
+            text-shadow: 0 2px 0 #3f1313;
         }
 
         .player-details {
@@ -146,300 +190,398 @@
         }
 
         .player-name {
-            font-size: 1.3rem;
-            font-weight: 700;
-            color: white;
+            font-size: 1.4rem;
+            font-weight: 800;
+            color: #ffd6d6;
             line-height: 1.2;
             white-space: nowrap;
             overflow: hidden;
             text-overflow: ellipsis;
         }
 
-        .player-title {
+        .player-meta {
             font-size: 0.9rem;
-            color: #a5b3df;
-            font-weight: 500;
+            color: #f3a7a7;
+            font-weight: 600;
             margin-top: 4px;
             display: flex;
             align-items: center;
-            gap: 6px;
+            gap: 10px;
             flex-wrap: wrap;
         }
 
-        .points {
-            background: #262c3c;
-            padding: 2px 10px;
-            border-radius: 40px;
-            font-size: 0.75rem;
+        .badge {
+            background: #9f3131;
+            padding: 2px 12px;
+            border-radius: 50px;
+            font-size: 0.7rem;
             font-weight: 700;
-            color: #cbd5ff;
-            border: 1px solid #3c4560;
+            color: #ffdbdb;
+            border: 1px solid #ff8888;
+            letter-spacing: 0.3px;
         }
 
-        /* right side: region with flag & text */
-        .region-tag {
-            background: #1f232e;
+        .device-icon {
+            background: #2d1212;
+            border-radius: 20px;
+            padding: 2px 10px;
+            font-size: 0.7rem;
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+            border: 1px solid #c25a5a;
+            color: #ffbfbf;
+        }
+        /* asia region tag with flag */
+        .region-asia {
+            background: #882828;
             border-radius: 40px;
-            padding: 8px 12px;
-            font-size: 0.9rem;
-            font-weight: 600;
-            border: 1px solid #333a4a;
+            padding: 8px 14px;
+            font-size: 0.95rem;
+            font-weight: 700;
+            border: 1px solid #ff9494;
             display: flex;
             align-items: center;
-            gap: 6px;
+            gap: 8px;
             white-space: nowrap;
             margin-left: 8px;
+            color: white;
+            box-shadow: 0 2px 0 #4d1515;
         }
 
-        .flag {
-            font-size: 1.2rem;
+        .flag-big {
+            font-size: 1.4rem;
             line-height: 1;
         }
 
-        /* divider / extra meta like original “Tiers” – we recreate it subtly */
-        .tier-badge {
-            background: #292f3d;
-            border-radius: 20px;
-            padding: 4px 12px;
-            font-size: 0.7rem;
-            font-weight: 700;
-            color: #8d9edb;
-            letter-spacing: 0.3px;
-            border: 1px solid #3f4a66;
+        /* asia subregion flags for extra flavor */
+        .flag-group {
+            display: flex;
+            gap: 6px;
             margin-top: 4px;
-            display: inline-block;
+            font-size: 1rem;
         }
 
-        /* footer note */
+        /* footer */
         .footer-note {
-            margin-top: 30px;
-            color: #4d5472;
-            font-size: 0.75rem;
+            margin-top: 40px;
+            color: #b16262;
+            font-size: 0.8rem;
             text-align: center;
-            border-top: 1px dashed #2a2f3f;
-            padding-top: 20px;
+            border-top: 2px solid #923b3b;
+            padding-top: 24px;
         }
 
-        /* minor adjustments for very tiny screens */
+        /* asia map subtle decoration */
+        .asia-badge {
+            background: #b33e3e;
+            color: white;
+            border-radius: 12px;
+            padding: 2px 12px;
+            display: inline-block;
+            font-weight: 700;
+        }
+
         @media (max-width: 360px) {
-            .player-name { font-size: 1.1rem; }
-            .rank-number { font-size: 1.6rem; min-width: 40px; }
-            .region-tag { padding: 5px 8px; font-size: 0.8rem; }
-            .server-ip { font-size: 1.5rem; }
+            .player-name { font-size: 1.2rem; }
+            .rank-icon { font-size: 1.7rem; min-width: 38px; }
+            .region-asia { padding: 5px 10px; font-size: 0.85rem; }
         }
-
-        /* just to mimic original NA/EU pairs */
-        .na-bg { border-left: 3px solid #4e7db3; }
-        .eu-bg { border-left: 3px solid #b38f4e; }
-        /* small extra touch */
     </style>
 </head>
 <body>
-<div class="container">
-    <!-- header card with server IP (exactly from mctiers) -->
-    <div class="server-badge">
-        <div class="server-ip">
-            mcpvp.club <span>play</span>
+    <div class="container">
+        <!-- header asia mobile mcbe -->
+        <div class="server-badge">
+            <div class="server-ip">
+                asia.mcbe <span>MOBILE</span>
+            </div>
+            <div class="sub-title">⚡ ASIA EXCLUSIVE · BEDROCK EDITION ⚡</div>
         </div>
-        <div class="sub-title">#PlayerRegionTiers · OVERALL RANKINGS</div>
+
+        <!-- region filter: asia only / red theme active -->
+        <div class="region-tabs">
+            <div class="region-tab active">🇮🇳 IN</div>
+            <div class="region-tab">🇵🇭 PH</div>
+            <div class="region-tab">🇮🇩 ID</div>
+            <div class="region-tab">🇹🇭 TH</div>
+            <div class="region-tab">🇻🇳 VN</div>
+            <div class="region-tab">🇲🇾 MY</div>
+            <div class="region-tab">🇸🇬 SG</div>
+        </div>
+
+        <!-- S TIER - top asia mobile players -->
+        <div class="tier-section">
+            <div class="tier-header">
+                <div class="tier-letter">S</div>
+                <div class="tier-name">ELITE · ASIA LEGENDS</div>
+                <div class="tier-desc">top 0.1%</div>
+            </div>
+            <div class="player-grid">
+                <!-- player 1 -->
+                <div class="player-card">
+                    <div class="player-main">
+                        <span class="rank-icon">👑</span>
+                        <div class="player-details">
+                            <div class="player-name">iFlick_ID</div>
+                            <div class="player-meta">
+                                <span class="badge">🏆 12,500 pts</span>
+                                <span class="device-icon">📱 iPad Pro</span>
+                            </div>
+                            <div class="flag-group">🇮🇩 · javanese god</div>
+                        </div>
+                    </div>
+                    <div class="region-asia">
+                        <span class="flag-big">🇮🇩</span> ID
+                    </div>
+                </div>
+                <!-- player 2 -->
+                <div class="player-card">
+                    <div class="player-main">
+                        <span class="rank-icon">⚡</span>
+                        <div class="player-details">
+                            <div class="player-name">DinoRice_</div>
+                            <div class="player-meta">
+                                <span class="badge">🏆 11,980 pts</span>
+                                <span class="device-icon">📱 RedMagic 8</span>
+                            </div>
+                            <div class="flag-group">🇵🇭 · claw god</div>
+                        </div>
+                    </div>
+                    <div class="region-asia">
+                        <span class="flag-big">🇵🇭</span> PH
+                    </div>
+                </div>
+                <!-- player 3 -->
+                <div class="player-card">
+                    <div class="player-main">
+                        <span class="rank-icon">🔥</span>
+                        <div class="player-details">
+                            <div class="player-name">MongGamer</div>
+                            <div class="player-meta">
+                                <span class="badge">🏆 11,450 pts</span>
+                                <span class="device-icon">📱 ROG 6</span>
+                            </div>
+                            <div class="flag-group">🇹🇭 · Bangkok beast</div>
+                        </div>
+                    </div>
+                    <div class="region-asia">
+                        <span class="flag-big">🇹🇭</span> TH
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- A TIER - asia contenders -->
+        <div class="tier-section">
+            <div class="tier-header">
+                <div class="tier-letter">A</div>
+                <div class="tier-name">PRO · ASIA STARS</div>
+                <div class="tier-desc">top 3%</div>
+            </div>
+            <div class="player-grid">
+                <div class="player-card">
+                    <div class="player-main">
+                        <span class="rank-icon">🎯</span>
+                        <div class="player-details">
+                            <div class="player-name">ZzZian_</div>
+                            <div class="player-meta">
+                                <span class="badge">8,200 pts</span>
+                                <span class="device-icon">📱 iPhone 14</span>
+                            </div>
+                            <div class="flag-group">🇲🇾 · Malaysia</div>
+                        </div>
+                    </div>
+                    <div class="region-asia">
+                        <span class="flag-big">🇲🇾</span> MY
+                    </div>
+                </div>
+                <div class="player-card">
+                    <div class="player-main">
+                        <span class="rank-icon">🎮</span>
+                        <div class="player-details">
+                            <div class="player-name">NoobKillerVN</div>
+                            <div class="player-meta">
+                                <span class="badge">7,950 pts</span>
+                                <span class="device-icon">📱 Xiaomi 13</span>
+                            </div>
+                            <div class="flag-group">🇻🇳 · Saigon</div>
+                        </div>
+                    </div>
+                    <div class="region-asia">
+                        <span class="flag-big">🇻🇳</span> VN
+                    </div>
+                </div>
+                <div class="player-card">
+                    <div class="player-main">
+                        <span class="rank-icon">🌀</span>
+                        <div class="player-details">
+                            <div class="player-name">GoblinSJ</div>
+                            <div class="player-meta">
+                                <span class="badge">7,600 pts</span>
+                                <span class="device-icon">📱 Samsung S23</span>
+                            </div>
+                            <div class="flag-group">🇸🇬 · Singapore</div>
+                        </div>
+                    </div>
+                    <div class="region-asia">
+                        <span class="flag-big">🇸🇬</span> SG
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- B TIER - rising asia mobile talent -->
+        <div class="tier-section">
+            <div class="tier-header">
+                <div class="tier-letter">B</div>
+                <div class="tier-name">RISING · HOPEFULS</div>
+                <div class="tier-desc">top 15%</div>
+            </div>
+            <div class="player-grid">
+                <div class="player-card">
+                    <div class="player-main">
+                        <span class="rank-icon">🌏</span>
+                        <div class="player-details">
+                            <div class="player-name">KiritoIN</div>
+                            <div class="player-meta">
+                                <span class="badge">4,220 pts</span>
+                                <span class="device-icon">📱 POCO X5</span>
+                            </div>
+                            <div class="flag-group">🇮🇳 · Delhi</div>
+                        </div>
+                    </div>
+                    <div class="region-asia">
+                        <span class="flag-big">🇮🇳</span> IN
+                    </div>
+                </div>
+                <div class="player-card">
+                    <div class="player-main">
+                        <span class="rank-icon">🌱</span>
+                        <div class="player-details">
+                            <div class="player-name">RangerWhite</div>
+                            <div class="player-meta">
+                                <span class="badge">3,890 pts</span>
+                                <span class="device-icon">📱 iPad Mini</span>
+                            </div>
+                            <div class="flag-group">🇵🇭 · Cebu</div>
+                        </div>
+                    </div>
+                    <div class="region-asia">
+                        <span class="flag-big">🇵🇭</span> PH
+                    </div>
+                </div>
+                <div class="player-card">
+                    <div class="player-main">
+                        <span class="rank-icon">🌿</span>
+                        <div class="player-details">
+                            <div class="player-name">Jacky_ID</div>
+                            <div class="player-meta">
+                                <span class="badge">3,550 pts</span>
+                                <span class="device-icon">📱 Vivo Y100</span>
+                            </div>
+                            <div class="flag-group">🇮🇩 · Surabaya</div>
+                        </div>
+                    </div>
+                    <div class="region-asia">
+                        <span class="flag-big">🇮🇩</span> ID
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- C TIER - developing players -->
+        <div class="tier-section">
+            <div class="tier-header">
+                <div class="tier-letter">C</div>
+                <div class="tier-name">GRINDERS</div>
+                <div class="tier-desc">top 40%</div>
+            </div>
+            <div class="player-grid">
+                <div class="player-card">
+                    <div class="player-main">
+                        <span class="rank-icon">📱</span>
+                        <div class="player-details">
+                            <div class="player-name">MieKuah</div>
+                            <div class="player-meta">
+                                <span class="badge">2,100 pts</span>
+                                <span class="device-icon">📱 Realme C55</span>
+                            </div>
+                            <div class="flag-group">🇮🇩 · Aceh</div>
+                        </div>
+                    </div>
+                    <div class="region-asia">
+                        <span class="flag-big">🇮🇩</span> ID
+                    </div>
+                </div>
+                <div class="player-card">
+                    <div class="player-main">
+                        <span class="rank-icon">📱</span>
+                        <div class="player-details">
+                            <div class="player-name">ThaiFighterX</div>
+                            <div class="player-meta">
+                                <span class="badge">1,980 pts</span>
+                                <span class="device-icon">📱 OPPO A78</span>
+                            </div>
+                            <div class="flag-group">🇹🇭 · Chiang Mai</div>
+                        </div>
+                    </div>
+                    <div class="region-asia">
+                        <span class="flag-big">🇹🇭</span> TH
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- D TIER - new blood -->
+        <div class="tier-section">
+            <div class="tier-header">
+                <div class="tier-letter">D</div>
+                <div class="tier-name">NEW BLOOD</div>
+                <div class="tier-desc">rising stars</div>
+            </div>
+            <div class="player-grid">
+                <div class="player-card">
+                    <div class="player-main">
+                        <span class="rank-icon">✨</span>
+                        <div class="player-details">
+                            <div class="player-name">Arif_My</div>
+                            <div class="player-meta">
+                                <span class="badge">980 pts</span>
+                                <span class="device-icon">📱 Huawei Y9</span>
+                            </div>
+                            <div class="flag-group">🇲🇾 · Kuching</div>
+                        </div>
+                    </div>
+                    <div class="region-asia">
+                        <span class="flag-big">🇲🇾</span> MY
+                    </div>
+                </div>
+                <div class="player-card">
+                    <div class="player-main">
+                        <span class="rank-icon">✨</span>
+                        <div class="player-details">
+                            <div class="player-name">BinHoang</div>
+                            <div class="player-meta">
+                                <span class="badge">840 pts</span>
+                                <span class="device-icon">📱 Nokia G21</span>
+                            </div>
+                            <div class="flag-group">🇻🇳 · Hanoi</div>
+                        </div>
+                    </div>
+                    <div class="region-asia">
+                        <span class="flag-big">🇻🇳</span> VN
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- asia mobile region footer -->
+        <div class="footer-note">
+            <span class="asia-badge">🇦🇶 ASIA MOBILE MCBE · RED EDITION</span><br>
+            <span style="color: #d88;">⏺ data from asia tournaments · 10k+ mobile players</span><br>
+            <span style="font-size: 0.7rem;">⚔️ #1 Mobile Bedrock tierlist in Asia</span>
+        </div>
     </div>
-
-    <!-- simple region filter (visual only) -->
-    <div class="region-tabs">
-        <div class="region-tab active">All</div>
-        <div class="region-tab">NA</div>
-        <div class="region-tab">EU</div>
-        <div class="region-tab">Asia</div>
-    </div>
-
-    <!-- leaderboard list : data exactly from https://mctiers.com/rankings/overall -->
-    <div class="rank-list">
-        <!-- 1. Marlowww - NA -->
-        <div class="player-card">
-            <div class="player-main">
-                <span class="rank-number">1.</span>
-                <div class="player-details">
-                    <div class="player-name">Marlowww</div>
-                    <div class="player-title">
-                        Combat Grandmaster
-                        <span class="points">450 pts</span>
-                    </div>
-                    <span class="tier-badge">grandmaster tier</span>
-                </div>
-            </div>
-            <div class="region-tag">
-                <span class="flag">🇺🇸</span> NA
-            </div>
-        </div>
-
-        <!-- 2. ItzRealMe - NA -->
-        <div class="player-card">
-            <div class="player-main">
-                <span class="rank-number">2.</span>
-                <div class="player-details">
-                    <div class="player-name">ItzRealMe</div>
-                    <div class="player-title">
-                        Combat Master
-                        <span class="points">330 pts</span>
-                    </div>
-                    <span class="tier-badge">master tier</span>
-                </div>
-            </div>
-            <div class="region-tag">
-                <span class="flag">🇺🇸</span> NA
-            </div>
-        </div>
-
-        <!-- 3. coldified - EU -->
-        <div class="player-card">
-            <div class="player-main">
-                <span class="rank-number">3.</span>
-                <div class="player-details">
-                    <div class="player-name">coldified</div>
-                    <div class="player-title">
-                        Combat Master
-                        <span class="points">296 pts</span>
-                    </div>
-                    <span class="tier-badge">master tier</span>
-                </div>
-            </div>
-            <div class="region-tag">
-                <span class="flag">🇪🇺</span> EU
-            </div>
-        </div>
-
-        <!-- 4. Swight - NA -->
-        <div class="player-card">
-            <div class="player-main">
-                <span class="rank-number">4.</span>
-                <div class="player-details">
-                    <div class="player-name">Swight</div>
-                    <div class="player-title">
-                        Combat Master
-                        <span class="points">290 pts</span>
-                    </div>
-                    <span class="tier-badge">master tier</span>
-                </div>
-            </div>
-            <div class="region-tag">
-                <span class="flag">🇺🇸</span> NA
-            </div>
-        </div>
-
-        <!-- 5. janekv - EU -->
-        <div class="player-card">
-            <div class="player-main">
-                <span class="rank-number">5.</span>
-                <div class="player-details">
-                    <div class="player-name">janekv</div>
-                    <div class="player-title">
-                        Combat Ace
-                        <span class="points">230 pts</span>
-                    </div>
-                    <span class="tier-badge">ace tier</span>
-                </div>
-            </div>
-            <div class="region-tag">
-                <span class="flag">🇪🇺</span> EU
-            </div>
-        </div>
-
-        <!-- 6. BlvckWlf - EU (tied 6th) -->
-        <div class="player-card">
-            <div class="player-main">
-                <span class="rank-number">6.</span>
-                <div class="player-details">
-                    <div class="player-name">BlvckWlf</div>
-                    <div class="player-title">
-                        Combat Ace
-                        <span class="points">226 pts</span>
-                    </div>
-                    <span class="tier-badge">ace tier</span>
-                </div>
-            </div>
-            <div class="region-tag">
-                <span class="flag">🇪🇺</span> EU
-            </div>
-        </div>
-
-        <!-- 6. Kylaz - NA (same rank) we keep numbering as original shows "6." twice -->
-        <div class="player-card">
-            <div class="player-main">
-                <span class="rank-number">6.</span>
-                <div class="player-details">
-                    <div class="player-name">Kylaz</div>
-                    <div class="player-title">
-                        Combat Ace
-                        <span class="points">226 pts</span>
-                    </div>
-                    <span class="tier-badge">ace tier</span>
-                </div>
-            </div>
-            <div class="region-tag">
-                <span class="flag">🇺🇸</span> NA
-            </div>
-        </div>
-
-        <!-- 8. Lurrn - EU -->
-        <div class="player-card">
-            <div class="player-main">
-                <span class="rank-number">8.</span>
-                <div class="player-details">
-                    <div class="player-name">Lurrn</div>
-                    <div class="player-title">
-                        Combat Ace
-                        <span class="points">186 pts</span>
-                    </div>
-                    <span class="tier-badge">ace tier</span>
-                </div>
-            </div>
-            <div class="region-tag">
-                <span class="flag">🇪🇺</span> EU
-            </div>
-        </div>
-
-        <!-- 9. ninorc15 - EU -->
-        <div class="player-card">
-            <div class="player-main">
-                <span class="rank-number">9.</span>
-                <div class="player-details">
-                    <div class="player-name">ninorc15</div>
-                    <div class="player-title">
-                        Combat Ace
-                        <span class="points">181 pts</span>
-                    </div>
-                    <span class="tier-badge">ace tier</span>
-                </div>
-            </div>
-            <div class="region-tag">
-                <span class="flag">🇪🇺</span> EU
-            </div>
-        </div>
-
-        <!-- 10. yMiau - EU -->
-        <div class="player-card">
-            <div class="player-main">
-                <span class="rank-number">10.</span>
-                <div class="player-details">
-                    <div class="player-name">yMiau</div>
-                    <div class="player-title">
-                        Combat Ace
-                        <span class="points">177 pts</span>
-                    </div>
-                    <span class="tier-badge">ace tier</span>
-                </div>
-            </div>
-            <div class="region-tag">
-                <span class="flag">🇪🇺</span> EU
-            </div>
-        </div>
-    </div>
-
-    <!-- extra "tiers" note — just design, like original -->
-    <div class="footer-note">
-        <span>⚔️ #PlayerRegion · mobile edition · data from mctiers</span>
-    </div>
-</div>
-<!-- no scripts — pure static -->
 </body>
 </html>
