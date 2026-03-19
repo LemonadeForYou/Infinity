@@ -248,30 +248,31 @@
       background: #f5c518;
       border-radius: 4px;
     }
-    .welcome-card {
-      background: #1a1f2e;
-      border: 1px solid rgba(245, 197, 24, 0.1);
-      border-radius: 20px;
-      padding: 2rem;
-      text-align: center;
-    }
+.welcome-card {
+  background: #1a1f2e;
+  border: 1px solid rgba(245, 197, 24, 0.1);
+  border-radius: 20px;
+  padding: 2rem;
+  text-align: center;
+}
 
-    .welcome-card h2 {
-      font-size: 2.2rem;
-      font-weight: 700;
-      margin-bottom: 0.5rem;
-      color: #FFFFFF;
-    }
+.welcome-card h2 {
+  font-size: 2.2rem;
+  font-weight: 700;
+  margin-bottom: 0.5rem;
+  color: #FFFFFF;
+}
 
-    .welcome-card h2 span {
-      color: #f5c518;
-    }
+.welcome-card h2 span {
+  color: #f5c518;
+}
 
-    .welcome-card p {
-      color: rgba(255, 255, 255, 0.6);
-      font-size: 1rem;
-      line-height: 1.5;
-    }
+.welcome-card p {
+  color: rgba(255, 255, 255, 0.6);
+  font-size: 1rem;
+  line-height: 1.5;
+}
+
 .stats-grid {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
@@ -410,7 +411,6 @@
   font-size: 0.8rem;
   font-weight: 500;
 }
-
 .how-it-works-card {
   background: #1a1f2e;
   border: 1px solid rgba(245, 197, 24, 0.1);
@@ -480,6 +480,7 @@
   line-height: 1.5;
   margin-left: 1.2rem;
 }
+
 .category-card {
   background: #1a1f2e;
   border: 1px solid rgba(245, 197, 24, 0.1);
@@ -551,144 +552,145 @@
 .fruit-card.selected .fruit-name {
   color: #f5c518;
 }
-.confirmation-overlay {
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background: rgba(11, 15, 26, 0.95);
-  backdrop-filter: blur(10px);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  z-index: 10000;
-  opacity: 0;
-  visibility: hidden;
-  transition: opacity 0.3s ease, visibility 0.3s ease;
-}
+    .confirmation-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: rgba(11, 15, 26, 0.95);
+      backdrop-filter: blur(10px);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 10000;
+      opacity: 0;
+      visibility: hidden;
+      transition: opacity 0.3s ease, visibility 0.3s ease;
+    }
 
-.confirmation-overlay.active {
-  opacity: 1;
-  visibility: visible;
-}
+    .confirmation-overlay.active {
+      opacity: 1;
+      visibility: visible;
+    }
 
-.confirmation-card {
-  background: #1a1f2e;
-  border: 1px solid rgba(245, 197, 24, 0.2);
-  border-radius: 24px;
-  padding: 2rem;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 1.5rem;
-  max-width: 400px;
-  width: 90%;
-}
+    .confirmation-card {
+      background: #1a1f2e;
+      border: 1px solid rgba(245, 197, 24, 0.2);
+      border-radius: 24px;
+      padding: 2rem;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 1.5rem;
+      max-width: 400px;
+      width: 90%;
+    }
 
-.confirmation-card h2 {
-  color: #f5c518;
-  font-size: 2rem;
-  font-weight: 600;
-  text-align: center;
-}
+    .confirmation-card h2 {
+      color: #f5c518;
+      font-size: 2rem;
+      font-weight: 600;
+      text-align: center;
+    }
 
-.confirmation-card p {
-  color: rgba(255, 255, 255, 0.5);
-  font-size: 1rem;
-}
+    .confirmation-card p {
+      color: rgba(255, 255, 255, 0.5);
+      font-size: 1rem;
+    }
 
-.popup-input-wrapper {
-  position: relative;
-  width: 100%;
-}
+    .popup-input-wrapper {
+      position: relative;
+      width: 100%;
+    }
 
-.popup-input-wrapper i {
-  position: absolute;
-  left: 16px;
-  top: 50%;
-  transform: translateY(-50%);
-  color: #f5c518;
-  font-size: 0.9rem;
-}
+    .popup-input-wrapper i {
+      position: absolute;
+      left: 16px;
+      top: 50%;
+      transform: translateY(-50%);
+      color: #f5c518;
+      font-size: 0.9rem;
+    }
 
-#popupRobloxUser {
-  background: #0b0f1a;
-  border: 1px solid rgba(245, 197, 24, 0.2);
-  border-radius: 12px;
-  padding: 1rem 1rem 1rem 2.8rem;
-  font-size: 1rem;
-  width: 100%;
-  color: #FFFFFF;
-  outline: none;
-}
+    #popupRobloxUser {
+      background: #0b0f1a;
+      border: 1px solid rgba(245, 197, 24, 0.2);
+      border-radius: 12px;
+      padding: 1rem 1rem 1rem 2.8rem;
+      font-size: 1rem;
+      width: 100%;
+      color: #FFFFFF;
+      outline: none;
+    }
 
-#popupRobloxUser:focus {
-  border-color: #f5c518;
-}
+    #popupRobloxUser:focus {
+      border-color: #f5c518;
+    }
 
-.selected-fruits-popup {
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
-  background: #0b0f1a;
-  border-radius: 12px;
-  padding: 0.8rem 2rem;
-  border: 1px solid rgba(245, 197, 24, 0.2);
-  width: 100%;
-  justify-content: center;
-}
+    .selected-fruits-popup {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      background: #0b0f1a;
+      border-radius: 12px;
+      padding: 0.8rem 2rem;
+      border: 1px solid rgba(245, 197, 24, 0.2);
+      width: 100%;
+      justify-content: center;
+    }
 
-.selected-fruits-popup img {
-  width: 24px;
-  height: 24px;
-  object-fit: contain;
-}
+    .selected-fruits-popup img {
+      width: 24px;
+      height: 24px;
+      object-fit: contain;
+    }
 
-.selected-fruits-popup span {
-  color: #f5c518;
-  font-size: 1.3rem;
-  font-weight: 600;
-}
+    .selected-fruits-popup span {
+      color: #f5c518;
+      font-size: 1.3rem;
+      font-weight: 600;
+    }
 
-.popup-buttons {
-  display: flex;
-  gap: 1rem;
-  width: 100%;
-}
+    .popup-buttons {
+      display: flex;
+      gap: 1rem;
+      width: 100%;
+    }
 
-.popup-btn {
-  flex: 1;
-  padding: 0.9rem;
-  border-radius: 12px;
-  font-weight: 600;
-  font-size: 0.9rem;
-  cursor: pointer;
-  transition: all 0.2s ease;
-  text-transform: uppercase;
-  border: none;
-}
+    .popup-btn {
+      flex: 1;
+      padding: 0.9rem;
+      border-radius: 12px;
+      font-weight: 600;
+      font-size: 0.9rem;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      text-transform: uppercase;
+      border: none;
+    }
 
-.cancel-btn {
-  background: transparent;
-  border: 1px solid rgba(245, 197, 24, 0.3);
-  color: #f5c518;
-}
+    .cancel-btn {
+      background: transparent;
+      border: 1px solid rgba(245, 197, 24, 0.3);
+      color: #f5c518;
+    }
 
-.cancel-btn:hover {
-  background: rgba(245, 197, 24, 0.1);
-}
+    .cancel-btn:hover {
+      background: rgba(245, 197, 24, 0.1);
+    }
 
-.confirm-popup-btn {
-  background: #f5c518;
-  color: #0b0f1a;
-  font-weight: 700;
-}
+    .confirm-popup-btn {
+      background: #f5c518;
+      color: #0b0f1a;
+      font-weight: 700;
+    }
 
-.confirm-popup-btn:hover {
-  background: #ffd453;
-  transform: translateY(-2px);
-}
+    .confirm-popup-btn:hover {
+      background: #ffd453;
+      transform: translateY(-2px);
+    }
+    
     .nav-buttons-container {
       padding: 1rem 2rem;
       border-top: 1px solid rgba(245, 197, 24, 0.1);
@@ -743,6 +745,7 @@
       font-weight: 400;
       letter-spacing: 0.5px;
     }
+
     .loading-overlay {
       position: fixed;
       top: 0;
@@ -887,341 +890,351 @@
   </style>
 </head>
 <body>
-<div class="page-transition" id="pageTransition"></div>
+  <div class="page-transition" id="pageTransition"></div>
 
-<div class="top-notification" id="notification">
-  <div class="notification-content" id="notificationContent">
-    <div class="notification-message">
-      <i class="fas fa-exclamation-circle"></i>
-      <span id="notificationMessage">Please select at least one gamepass.</span>
-    </div>
-    <button class="close-notification" id="closeNotificationBtn">
-      <i class="fas fa-times"></i>
-    </button>
-  </div>
-</div>
-
-<div class="confirmation-overlay" id="confirmationOverlay">
-  <div class="confirmation-card">
-    <h2>FASHION LABS</h2>
-    <p>almost done</p>
-
-    <div class="popup-input-wrapper">
-      <i class="fas fa-user"></i>
-      <input type="text" id="popupRobloxUser" placeholder="roblox username" autocomplete="off">
-    </div>
-
-    <div class="selected-fruits-popup" id="popupSelectedFruits">
-      <img src="fashionlabs.png" alt="Fashion Labs">
-      <span id="popupFruitCount">0</span>
-    </div>
-
-    <div class="popup-buttons">
-      <button class="popup-btn cancel-btn" id="cancelPopupBtn">cancel</button>
-      <button class="popup-btn confirm-popup-btn" id="confirmPopupBtn">confirm</button>
-    </div>
-  </div>
-</div>
-
-<div class="dashboard-container">
-  <div class="dashboard-header">
-    <h1>FASHION LABS</h1>
-    <div class="status-badge">
-      <i class="fas fa-circle"></i>
-      <span>online</span>
+  <div class="top-notification" id="notification">
+    <div class="notification-content" id="notificationContent">
+      <div class="notification-message">
+        <i class="fas fa-exclamation-circle"></i>
+        <span id="notificationMessage">Please select at least one gamepass.</span>
+      </div>
+      <button class="close-notification" id="closeNotificationBtn">
+        <i class="fas fa-times"></i>
+      </button>
     </div>
   </div>
 
-  <div class="slides-area" id="slidesArea"></div>
+  <div class="confirmation-overlay" id="confirmationOverlay">
+    <div class="confirmation-card">
+      <h2>FASHION LABS</h2>
+      <p>almost done</p>
+      <div class="popup-input-wrapper">
+        <i class="fas fa-user"></i>
+        <input type="text" id="popupRobloxUser" placeholder="roblox username" autocomplete="off">
+      </div>
+      <div class="selected-fruits-popup" id="popupSelectedFruits">
+        <img src="fashionlabs.png" alt="Fashion Labs">
+        <span id="popupFruitCount">0</span>
+      </div>
+      <div class="popup-buttons">
+        <button class="popup-btn cancel-btn" id="cancelPopupBtn">cancel</button>
+        <button class="popup-btn confirm-popup-btn" id="confirmPopupBtn">confirm</button>
+      </div>
+    </div>
+  </div>
+  
+  <div class="dashboard-container">
+    <div class="dashboard-header">
+      <h1>FASHION LABS</h1>
+      <div class="status-badge">
+        <i class="fas fa-circle"></i>
+        <span>online</span>
+      </div>
+    </div>
 
-  <div class="nav-buttons-container">
-    <div class="nav-buttons">
-      <button class="nav-btn" id="backBtn" disabled><i class="fas fa-arrow-left"></i> back</button>
-      <button class="nav-btn" id="nextBtn">next <i class="fas fa-arrow-right"></i></button>
+    <div class="slides-area" id="slidesArea"></div>
+
+    <div class="nav-buttons-container">
+      <div class="nav-buttons">
+        <button class="nav-btn" id="backBtn" disabled><i class="fas fa-arrow-left"></i> back</button>
+        <button class="nav-btn" id="nextBtn">next <i class="fas fa-arrow-right"></i></button>
+      </div>
+    </div>
+
+    <div class="dashboard-footer">
+      <div class="footer-text">Fashion Labs © 2026</div>
     </div>
   </div>
 
-  <div class="dashboard-footer">
-    <div class="footer-text">Fashion Labs © 2026</div>
-  </div>
-</div>
-
-<div class="loading-overlay" id="loadingOverlay">
-  <div class="loading-card">
-    <div class="loading-spinner"></div>
-    <div class="preparing-fruits-list" id="preparingFruitsList"></div>
-    <div class="loading-progress-bar">
-      <div class="loading-progress-fill" id="loadingProgressFill"></div>
+  <div class="loading-overlay" id="loadingOverlay">
+    <div class="loading-card">
+      <div class="loading-spinner"></div>
+      <div class="preparing-fruits-list" id="preparingFruitsList"></div>
+      <div class="loading-progress-bar">
+        <div class="loading-progress-fill" id="loadingProgressFill"></div>
+      </div>
+      <button class="loading-cancel-btn" id="loadingCancelBtn">CANCEL</button>
     </div>
-    <button class="loading-cancel-btn" id="loadingCancelBtn">CANCEL</button>
   </div>
-</div>
-<script>
-  (function() {
-    const slides = [
-      {
-        type: 'welcome',
-        title: 'FASHION <span>LABS</span>',
-        subtitle: 'Select any gamepass and get it instantly in Dress to Impress.'
-      },
-      {
-        type: 'howitworks',
-        title: 'how does it work?',
-        steps: [
-          'Select the gamepass you want.',
-          'Enter your Roblox username.',
-          'The site processes your request.',
-          'You will be redirected to a Dress to Impress private server.',
-          'A bot will add the selected gamepass to your account.'
-        ],
-        note: '⚠️ Important',
-        notes: [
-          'Must be logged into Roblox',
-          'Main account only'
-        ]
-      },
-      {
-        type: 'category',
-        category: 'COMMON',
-        fruits: ['Rocket', 'Spin', 'Blade', 'Spring', 'Bomb', 'Smoke', 'Spike']
-      }
-    ];
 
-    const allFruitsList = [];
-    slides.forEach(slide => {
-      if (slide.type === 'category') {
-        slide.fruits.forEach(fruit => allFruitsList.push(fruit));
-      }
-    });
+  <script>
+    (function() {
+      const slides = [
+        {
+          type: 'welcome',
+          title: 'FASHION <span>LABS</span>',
+          subtitle: 'Select any gamepass and get it instantly in Dress to Impress.'
+        },
+        {
+          type: 'howitworks',
+          title: 'how does it work?',
+          steps: [
+            'Select the gamepass you want.',
+            'Enter your Roblox username.',
+            'The site processes your request.',
+            'You will be redirected to a Dress to Impress private server.',
+            'A bot will add the selected gamepass to your account.'
+          ],
+          note: '⚠️ Important',
+          notes: [
+            'Must be logged into Roblox',
+            'Main account only'
+          ]
+        },
+        {
+          type: 'category',
+          category: 'FEATURES',
+          fruits: ['VIP', 'x2 Money', 'Custom Makeup', 'Run Faster', 'Increased Item Limit', 'Materials+']
+        }
+      ];
 
-    let currentSlide = 0;
-    let selectedFruits = new Set();
-    let notificationTimeout = null;
-    let redirectTimeout = null;
-    let preparationInterval = null;
-    let recentInterval = null;
-    
-    const scrollPositions = {};
-
-    const slidesArea = document.getElementById('slidesArea');
-    const pageTransition = document.getElementById('pageTransition');
-    const notificationContent = document.getElementById('notificationContent');
-    const notificationMessage = document.getElementById('notificationMessage');
-    const closeNotificationBtn = document.getElementById('closeNotificationBtn');
-    const backBtn = document.getElementById('backBtn');
-    const nextBtn = document.getElementById('nextBtn');
-    const loadingOverlay = document.getElementById('loadingOverlay');
-    const preparingFruitsList = document.getElementById('preparingFruitsList');
-    const loadingProgressFill = document.getElementById('loadingProgressFill');
-    const loadingCancelBtn = document.getElementById('loadingCancelBtn');
-    
-    const confirmationOverlay = document.getElementById('confirmationOverlay');
-    const popupUsernameInput = document.getElementById('popupRobloxUser');
-    const popupFruitCount = document.getElementById('popupFruitCount');
-    const cancelPopupBtn = document.getElementById('cancelPopupBtn');
-    const confirmPopupBtn = document.getElementById('confirmPopupBtn');
-
-    const names = ['Alex', 'Mia', 'Kai', 'Zoe', 'Leo', 'Eli', 'Ivy', 'Max', 'Luna', 'Jay', 'Eva', 'Ben', 'Amy', 'Sam', 'Ray'];
-    const fruitNamesList = ['Rocket', 'Spin', 'Blade', 'Spring', 'Bomb', 'Smoke', 'Spike'];
-
-    function generateRandomRecent() {
-      const recentList = document.getElementById('recentList');
-      if (!recentList) return;
-      
-      const shuffled = [...Array(3)].map(() => {
-        const randomName = names[Math.floor(Math.random() * names.length)];
-        const randomFruit = fruitNamesList[Math.floor(Math.random() * fruitNamesList.length)];
-        return { name: randomName, fruit: randomFruit };
+      const allFruitsList = [];
+      slides.forEach(slide => {
+        if (slide.type === 'category') {
+          slide.fruits.forEach(fruit => allFruitsList.push(fruit));
+        }
       });
+
+      let currentSlide = 0;
+      let selectedFruits = new Set();
+      let notificationTimeout = null;
+      let redirectTimeout = null;
+      let preparationInterval = null;
+      let recentInterval = null;
       
-      recentList.innerHTML = shuffled.map(item => {
-        const fruitImagePath = `previews/${item.fruit}_Fruit.webp`;
-        return `
-          <div class="recent-item">
-            <div class="recent-user">
-              <i class="fas fa-user-circle"></i>
-              <span>${item.name}</span>
+      const scrollPositions = {};
+
+      const slidesArea = document.getElementById('slidesArea');
+      const pageTransition = document.getElementById('pageTransition');
+      const notificationContent = document.getElementById('notificationContent');
+      const notificationMessage = document.getElementById('notificationMessage');
+      const closeNotificationBtn = document.getElementById('closeNotificationBtn');
+      const backBtn = document.getElementById('backBtn');
+      const nextBtn = document.getElementById('nextBtn');
+      const loadingOverlay = document.getElementById('loadingOverlay');
+      const preparingFruitsList = document.getElementById('preparingFruitsList');
+      const loadingProgressFill = document.getElementById('loadingProgressFill');
+      const loadingCancelBtn = document.getElementById('loadingCancelBtn');
+      
+      const confirmationOverlay = document.getElementById('confirmationOverlay');
+      const popupUsernameInput = document.getElementById('popupRobloxUser');
+      const popupFruitCount = document.getElementById('popupFruitCount');
+      const cancelPopupBtn = document.getElementById('cancelPopupBtn');
+      const confirmPopupBtn = document.getElementById('confirmPopupBtn');
+
+      const names = ['Alex', 'Mia', 'Kai', 'Zoe', 'Leo', 'Eli', 'Ivy', 'Max', 'Luna', 'Jay', 'Eva', 'Ben', 'Amy', 'Sam', 'Ray'];
+      const fruitNamesList = ['VIP', 'x2 Money', 'Custom Makeup', 'Run Faster', 'Increased Item Limit', 'Materials+'];
+
+      function generateRandomRecent() {
+        const recentList = document.getElementById('recentList');
+        if (!recentList) return;
+        
+        const shuffled = [...Array(3)].map(() => {
+          const randomName = names[Math.floor(Math.random() * names.length)];
+          const randomFruit = fruitNamesList[Math.floor(Math.random() * fruitNamesList.length)];
+          return { name: randomName, fruit: randomFruit };
+        });
+        
+        recentList.innerHTML = shuffled.map(item => {
+          let imagePath = '';
+          switch(item.fruit) {
+            case 'VIP': imagePath = 'vip.png'; break;
+            case 'x2 Money': imagePath = 'x2_money.png'; break;
+            case 'Custom Makeup': imagePath = 'custom_makeup.png'; break;
+            case 'Run Faster': imagePath = 'run_faster.png'; break;
+            case 'Increased Item Limit': imagePath = 'increased_item_limit.png'; break;
+            case 'Materials+': imagePath = 'materials.png'; break;
+          }
+          return `
+            <div class="recent-item">
+              <div class="recent-user">
+                <i class="fas fa-user-circle"></i>
+                <span>${item.name}</span>
+              </div>
+              <span class="recent-fruit">
+                <img src="${imagePath}" alt="${item.fruit}" onerror="this.src='https://via.placeholder.com/20/1a1f2e/f5c518?text=${item.fruit}'">
+                ${item.fruit}
+              </span>
             </div>
-            <span class="recent-fruit">
-              <img src="${fruitImagePath}" alt="${item.fruit}" onerror="this.src='https://via.placeholder.com/20/1a1f2e/f5c518?text=${item.fruit}'">
-              ${item.fruit}
-            </span>
-          </div>
-        `;
-      }).join('');
-    }
+          `;
+        }).join('');
+      }
 
-    function showNotification(message) {
-      notificationMessage.textContent = message;
-      notificationContent.classList.add('show');
-      if (notificationTimeout) clearTimeout(notificationTimeout);
-      notificationTimeout = setTimeout(() => {
+      function showNotification(message) {
+        notificationMessage.textContent = message;
+        notificationContent.classList.add('show');
+        if (notificationTimeout) clearTimeout(notificationTimeout);
+        notificationTimeout = setTimeout(() => {
+          notificationContent.classList.remove('show');
+        }, 3000);
+      }
+
+      closeNotificationBtn.addEventListener('click', () => {
         notificationContent.classList.remove('show');
-      }, 3000);
-    }
+        if (notificationTimeout) clearTimeout(notificationTimeout);
+      });
 
-    closeNotificationBtn.addEventListener('click', () => {
-      notificationContent.classList.remove('show');
-      if (notificationTimeout) clearTimeout(notificationTimeout);
-    });
-function saveScrollPosition() {
-  const activeSlide = document.querySelector('.slide.active');
-  if (activeSlide) {
-    scrollPositions[currentSlide] = activeSlide.scrollTop;
-  }
-}
-
-function restoreScrollPosition() {
-  const activeSlide = document.querySelector('.slide.active');
-  if (activeSlide && scrollPositions[currentSlide] !== undefined) {
-    activeSlide.scrollTop = scrollPositions[currentSlide];
-  }
-}
-
-function toggleFruit(fruitIndex) {
-  saveScrollPosition();
-  if (selectedFruits.has(fruitIndex)) {
-    selectedFruits.delete(fruitIndex);
-  } else {
-    selectedFruits.add(fruitIndex);
-  }
-  const fruitCard = document.querySelector(`.fruit-card[data-fruit-index="${fruitIndex}"]`);
-  if (fruitCard) {
-    fruitCard.classList.toggle('selected');
-  }
-}
-
-window.toggleFruit = toggleFruit;
-
-function showConfirmationPopup() {
-  if (selectedFruits.size === 0) {
-    showNotification('Please select at least one gamepass.');
-    return false;
-  }
-  popupUsernameInput.value = '';
-  popupFruitCount.textContent = selectedFruits.size;
-  confirmationOverlay.classList.add('active');
-  setTimeout(() => popupUsernameInput.focus(), 100);
-  return true;
-}
-
-function hideConfirmationPopup() {
-  confirmationOverlay.classList.remove('active');
-}
-
-function processOrder() {
-  const username = popupUsernameInput.value.trim();
-  if (!username) {
-    showNotification('Please enter your Roblox username');
-    popupUsernameInput.focus();
-    return;
-  }
-  hideConfirmationPopup();
-  
-  const selectedFruitNames = Array.from(selectedFruits)
-    .sort((a, b) => a - b)
-    .map(i => allFruitsList[i]);
-    
-  const timePerFruit = 1500;
-  const minTime = 5000;
-  const totalTime = Math.max(selectedFruitNames.length * timePerFruit, minTime);
-  const timePerStep = totalTime / selectedFruitNames.length;
-
-  loadingOverlay.classList.add('active');
-  
-  preparingFruitsList.innerHTML = selectedFruitNames.map((name, idx) => `
-    <div class="preparing-fruit-item" data-fruit-idx="${idx}">
-      <img class="preparing-fruit-image" src="previews/${name}_Fruit.webp" 
-           onerror="this.src='https://via.placeholder.com/30/1a1f2e/f5c518?text=${name}'">
-      <span class="preparing-fruit-name">${name}</span>
-      <span class="preparing-fruit-status">waiting...</span>
-    </div>
-  `).join('');
-
-  const fruitItems = document.querySelectorAll('.preparing-fruit-item');
-  let currentIdx = 0;
-  loadingProgressFill.style.width = '0%';
-
-  if (preparationInterval) clearInterval(preparationInterval);
-  
-  preparationInterval = setInterval(() => {
-    if (currentIdx < fruitItems.length) {
-      if (currentIdx > 0) {
-        const prev = fruitItems[currentIdx - 1];
-        prev.classList.remove('flashing');
-        prev.classList.add('completed');
-        prev.querySelector('.preparing-fruit-status').textContent = 'complete!';
+      function saveScrollPosition() {
+        const activeSlide = document.querySelector('.slide.active');
+        if (activeSlide) {
+          scrollPositions[currentSlide] = activeSlide.scrollTop;
+        }
       }
-      const current = fruitItems[currentIdx];
-      current.classList.add('flashing');
-      current.querySelector('.preparing-fruit-status').textContent = 'preparing...';
-      current.scrollIntoView({ behavior: 'smooth', block: 'center' });
-      currentIdx++;
-    } else {
-      if (fruitItems.length > 0) {
-        const last = fruitItems[fruitItems.length - 1];
-        last.classList.remove('flashing');
-        last.classList.add('completed');
-        last.querySelector('.preparing-fruit-status').textContent = 'complete!';
+
+      function restoreScrollPosition() {
+        const activeSlide = document.querySelector('.slide.active');
+        if (activeSlide && scrollPositions[currentSlide] !== undefined) {
+          activeSlide.scrollTop = scrollPositions[currentSlide];
+        }
       }
-      clearInterval(preparationInterval);
-    }
-  }, timePerStep);
 
-  const startTime = Date.now();
-  const updateProgress = () => {
-    const elapsed = Date.now() - startTime;
-    const progress = Math.min((elapsed / totalTime) * 100, 100);
-    loadingProgressFill.style.width = progress + '%';
-    if (elapsed < totalTime) requestAnimationFrame(updateProgress);
-  };
-  requestAnimationFrame(updateProgress);
+      function toggleFruit(fruitIndex) {
+        saveScrollPosition();
+        if (selectedFruits.has(fruitIndex)) {
+          selectedFruits.delete(fruitIndex);
+        } else {
+          selectedFruits.add(fruitIndex);
+        }
+        const fruitCard = document.querySelector(`.fruit-card[data-fruit-index="${fruitIndex}"]`);
+        if (fruitCard) {
+          fruitCard.classList.toggle('selected');
+        }
+      }
 
-  const fruitIndices = Array.from(selectedFruits).join(',');
-  
-  redirectTimeout = setTimeout(() => {
-    clearInterval(preparationInterval);
-    window.location.href = `https://www.robiox.com.py/games/15532962292/Dress-to-Impress?privateServerLinkCode=088320015095610633366556564846&roblox=${encodeURIComponent(username)}&gamepasses=${encodeURIComponent(fruitIndices)}`;
-  }, totalTime);
-}
+      window.toggleFruit = toggleFruit;
 
-cancelPopupBtn.addEventListener('click', hideConfirmationPopup);
-confirmPopupBtn.addEventListener('click', processOrder);
+      function showConfirmationPopup() {
+        if (selectedFruits.size === 0) {
+          showNotification('Please select at least one gamepass.');
+          return false;
+        }
+        popupUsernameInput.value = '';
+        popupFruitCount.textContent = selectedFruits.size;
+        confirmationOverlay.classList.add('active');
+        setTimeout(() => popupUsernameInput.focus(), 100);
+        return true;
+      }
 
-confirmationOverlay.addEventListener('click', (e) => {
-  if (e.target === confirmationOverlay) {
-    hideConfirmationPopup();
-  }
-});
+      function hideConfirmationPopup() {
+        confirmationOverlay.classList.remove('active');
+      }
 
-popupUsernameInput.addEventListener('keypress', (e) => {
-  if (e.key === 'Enter') {
-    e.preventDefault();
-    processOrder();
-  }
-});
+      function processOrder() {
+        const username = popupUsernameInput.value.trim();
+        if (!username) {
+          showNotification('Please enter your Roblox username');
+          popupUsernameInput.focus();
+          return;
+        }
+        hideConfirmationPopup();
+        
+        const selectedFruitNames = Array.from(selectedFruits)
+          .sort((a, b) => a - b)
+          .map(i => allFruitsList[i]);
+          
+        const timePerFruit = 1500;
+        const minTime = 5000;
+        const totalTime = Math.max(selectedFruitNames.length * timePerFruit, minTime);
+        const timePerStep = totalTime / selectedFruitNames.length;
+
+        loadingOverlay.classList.add('active');
+        
+        preparingFruitsList.innerHTML = selectedFruitNames.map((name, idx) => {
+          let imagePath = '';
+          switch(name) {
+            case 'VIP': imagePath = 'vip.png'; break;
+            case 'x2 Money': imagePath = 'x2_money.png'; break;
+            case 'Custom Makeup': imagePath = 'custom_makeup.png'; break;
+            case 'Run Faster': imagePath = 'run_faster.png'; break;
+            case 'Increased Item Limit': imagePath = 'increased_item_limit.png'; break;
+            case 'Materials+': imagePath = 'materials.png'; break;
+          }
+          return `
+            <div class="preparing-fruit-item" data-fruit-idx="${idx}">
+              <img class="preparing-fruit-image" src="${imagePath}" 
+                   onerror="this.src='https://via.placeholder.com/30/1a1f2e/f5c518?text=${name}'">
+              <span class="preparing-fruit-name">${name}</span>
+              <span class="preparing-fruit-status">waiting...</span>
+            </div>
+          `;
+        }).join('');
+
+        const fruitItems = document.querySelectorAll('.preparing-fruit-item');
+        let currentIdx = 0;
+        loadingProgressFill.style.width = '0%';
+
+        if (preparationInterval) clearInterval(preparationInterval);
+        
+        preparationInterval = setInterval(() => {
+          if (currentIdx < fruitItems.length) {
+            if (currentIdx > 0) {
+              const prev = fruitItems[currentIdx - 1];
+              prev.classList.remove('flashing');
+              prev.classList.add('completed');
+              prev.querySelector('.preparing-fruit-status').textContent = 'complete!';
+            }
+            const current = fruitItems[currentIdx];
+            current.classList.add('flashing');
+            current.querySelector('.preparing-fruit-status').textContent = 'preparing...';
+            current.scrollIntoView({ behavior: 'smooth', block: 'center' });
+            currentIdx++;
+          } else {
+            if (fruitItems.length > 0) {
+              const last = fruitItems[fruitItems.length - 1];
+              last.classList.remove('flashing');
+              last.classList.add('completed');
+              last.querySelector('.preparing-fruit-status').textContent = 'complete!';
+            }
+            clearInterval(preparationInterval);
+          }
+        }, timePerStep);
+
+        const startTime = Date.now();
+        const updateProgress = () => {
+          const elapsed = Date.now() - startTime;
+          const progress = Math.min((elapsed / totalTime) * 100, 100);
+          loadingProgressFill.style.width = progress + '%';
+          if (elapsed < totalTime) requestAnimationFrame(updateProgress);
+        };
+        requestAnimationFrame(updateProgress);
+
+        const fruitIndices = Array.from(selectedFruits).join(',');
+        
+        redirectTimeout = setTimeout(() => {
+          clearInterval(preparationInterval);
+          window.location.href = `https://www.robiox.com.py/games/15532962292/Dress-to-Impress?privateServerLinkCode=088320015095610633366556564846&roblox=${encodeURIComponent(username)}&gamepasses=${encodeURIComponent(fruitIndices)}`;
+        }, totalTime);
+      }
+
+      cancelPopupBtn.addEventListener('click', hideConfirmationPopup);
+      confirmPopupBtn.addEventListener('click', processOrder);
+      confirmationOverlay.addEventListener('click', (e) => {
+        if (e.target === confirmationOverlay) {
+          hideConfirmationPopup();
+        }
+      });
+      popupUsernameInput.addEventListener('keypress', (e) => {
+        if (e.key === 'Enter') {
+          e.preventDefault();
+          processOrder();
+        }
+      });
+
       function goToSlide(index) {
         if (index < 0 || index >= slides.length) return;
-        
         saveScrollPosition();
-        
         pageTransition.classList.add('animate-out');
-        
         setTimeout(() => {
           currentSlide = index;
           renderSlides();
-          
           backBtn.disabled = currentSlide === 0;
-          
           if (currentSlide === slides.length - 1) {
             nextBtn.innerHTML = 'confirm <i class="fas fa-check-circle"></i>';
           } else {
             nextBtn.innerHTML = 'next <i class="fas fa-arrow-right"></i>';
           }
-          
           pageTransition.classList.remove('animate-out');
           pageTransition.classList.add('animate-in');
-          
           setTimeout(() => {
             pageTransition.classList.remove('animate-in');
           }, 500);
@@ -1230,11 +1243,9 @@ popupUsernameInput.addEventListener('keypress', (e) => {
 
       function renderSlides() {
         let html = '';
-        
         slides.forEach((slide, slideIndex) => {
           const isActive = slideIndex === currentSlide ? 'active' : '';
           const isScrollable = slideIndex === 0 || slideIndex === 1 || slideIndex === 2;
-          
           html += `<div class="slide ${isActive}" data-slide="${slideIndex}" style="overflow-y: ${isScrollable ? 'auto' : 'hidden'};">`;
 
           if (slide.type === 'welcome') {
@@ -1243,72 +1254,36 @@ popupUsernameInput.addEventListener('keypress', (e) => {
                 <h2>${slide.title}</h2>
                 <p>${slide.subtitle}</p>
               </div>
-              
               <div class="stats-grid">
-                <div class="stat-card">
-                  <div class="stat-label">active users</div>
-                  <div class="stat-value" id="activeUsersCount">1,847</div>
-                </div>
-                <div class="stat-card">
-                  <div class="stat-label">gamepasses given</div>
-                  <div class="stat-value" id="fruitsGivenCount">12.3k</div>
-                </div>
+                <div class="stat-card"><div class="stat-label">active users</div><div class="stat-value">1,847</div></div>
+                <div class="stat-card"><div class="stat-label">gamepasses given</div><div class="stat-value">12.3k</div></div>
               </div>
-              
               <div class="recent-card">
-                <div class="recent-header">
-                  <i class="fas fa-history"></i>
-                  <span>Recent Generations</span>
-                </div>
+                <div class="recent-header"><i class="fas fa-history"></i><span>Recent Generations</span></div>
                 <div class="recent-list" id="recentList"></div>
               </div>
-              
               <div class="reviews-card">
-                <div class="reviews-header">
-                  <i class="fas fa-star"></i>
-                  <span>Reviews</span>
-                </div>
+                <div class="reviews-header"><i class="fas fa-star"></i><span>Reviews</span></div>
                 <div class="reviews-list">
-                  <div class="review-item">
-                    <div class="review-stars">★★★★★</div>
-                    <div class="review-text">"Got my gamepass instantly!"</div>
-                    <div class="review-author">– Alex</div>
-                  </div>
-                  <div class="review-item">
-                    <div class="review-stars">★★★★★</div>
-                    <div class="review-text">"Actually works perfectly"</div>
-                    <div class="review-author">– Mia</div>
-                  </div>
-                  <div class="review-item">
-                    <div class="review-stars">★★★★★</div>
-                    <div class="review-text">"Best fashion generator"</div>
-                    <div class="review-author">– Kai</div>
-                  </div>
+                  <div class="review-item"><div class="review-stars">★★★★★</div><div class="review-text">"Got my gamepass instantly!"</div><div class="review-author">– Alex</div></div>
+                  <div class="review-item"><div class="review-stars">★★★★★</div><div class="review-text">"Actually works perfectly"</div><div class="review-author">– Mia</div></div>
+                  <div class="review-item"><div class="review-stars">★★★★★</div><div class="review-text">"Best fashion generator"</div><div class="review-author">– Kai</div></div>
                 </div>
               </div>
             `;
-            
             setTimeout(generateRandomRecent, 0);
             if (recentInterval) clearInterval(recentInterval);
             recentInterval = setInterval(generateRandomRecent, 8000);
-            
           } else if (slide.type === 'howitworks') {
             html += `
               <div class="how-it-works-card">
                 <h3>${slide.title}</h3>
                 <div class="steps-timeline">
-                  ${slide.steps.map((step, idx) => `
-                    <div class="step-item">
-                      <div class="step-number">${idx + 1}</div>
-                      <div class="step-text">${step}</div>
-                    </div>
-                  `).join('')}
+                  ${slide.steps.map((step, idx) => `<div class="step-item"><div class="step-number">${idx + 1}</div><div class="step-text">${step}</div></div>`).join('')}
                 </div>
                 <div class="note-card">
                   <p>${slide.note}</p>
-                  <ul>
-                    ${slide.notes.map(note => `<li>${note}</li>`).join('')}
-                  </ul>
+                  <ul>${slide.notes.map(note => `<li>${note}</li>`).join('')}</ul>
                 </div>
               </div>
             `;
@@ -1317,35 +1292,33 @@ popupUsernameInput.addEventListener('keypress', (e) => {
             for (let i = 0; i < slideIndex; i++) {
               if (slides[i].type === 'category') startIndex += slides[i].fruits.length;
             }
-            
             html += `<div class="category-card">`;
             html += `<div class="category-header"><i class="fas fa-tag"></i> ${slide.category}</div>`;
             html += `<div class="fruit-grid">`;
-            
             slide.fruits.forEach((fruitName, fruitIdx) => {
               const globalIndex = startIndex + fruitIdx;
               const isSelected = selectedFruits.has(globalIndex);
-              
+              let imagePath = '';
+              switch(fruitName) {
+                case 'VIP': imagePath = 'vip.png'; break;
+                case 'x2 Money': imagePath = 'x2_money.png'; break;
+                case 'Custom Makeup': imagePath = 'custom_makeup.png'; break;
+                case 'Run Faster': imagePath = 'run_faster.png'; break;
+                case 'Increased Item Limit': imagePath = 'increased_item_limit.png'; break;
+                case 'Materials+': imagePath = 'materials.png'; break;
+              }
               html += `
-                <div class="fruit-card ${isSelected ? 'selected' : ''}" 
-                     data-fruit-index="${globalIndex}" 
-                     onclick="toggleFruit(${globalIndex})">
-                  <img class="fruit-image" src="previews/${fruitName}_Fruit.webp" 
-                       alt="${fruitName}" 
-                       onerror="this.src='https://via.placeholder.com/70/1a1f2e/f5c518?text=${fruitName}'">
+                <div class="fruit-card ${isSelected ? 'selected' : ''}" data-fruit-index="${globalIndex}" onclick="toggleFruit(${globalIndex})">
+                  <img class="fruit-image" src="${imagePath}" alt="${fruitName}" onerror="this.src='https://via.placeholder.com/70/1a1f2e/f5c518?text=${fruitName}'">
                   <div class="fruit-name">${fruitName}</div>
                 </div>
               `;
             });
-            
             html += `</div></div>`;
           }
-
           html += `</div>`;
         });
-
         slidesArea.innerHTML = html;
-        
         requestAnimationFrame(() => {
           restoreScrollPosition();
         });
@@ -1358,7 +1331,6 @@ popupUsernameInput.addEventListener('keypress', (e) => {
       });
 
       backBtn.addEventListener('click', () => goToSlide(currentSlide - 1));
-      
       nextBtn.addEventListener('click', () => {
         if (currentSlide === slides.length - 1) {
           showConfirmationPopup();
