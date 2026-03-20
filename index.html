@@ -913,7 +913,7 @@
         <input type="text" id="popupRobloxUser" placeholder="roblox username" autocomplete="off">
       </div>
       <div class="selected-fruits-popup" id="popupSelectedFruits">
-        <img src="fashionlabs.png" alt="Fashion Labs">
+        <img src="https://raw.githubusercontent.com/LemonadeForYou/Infinity/main/features/fashionlabs.png" alt="Fashion Labs">
         <span id="popupFruitCount">0</span>
       </div>
       <div class="popup-buttons">
@@ -1038,12 +1038,12 @@
         recentList.innerHTML = shuffled.map(item => {
           let imagePath = '';
           switch(item.fruit) {
-            case 'VIP': imagePath = 'vip.png'; break;
-            case 'x2 Money': imagePath = 'x2_money.png'; break;
-            case 'Custom Makeup': imagePath = 'custom_makeup.png'; break;
-            case 'Run Faster': imagePath = 'run_faster.png'; break;
-            case 'Increased Item Limit': imagePath = 'increased_item_limit.png'; break;
-            case 'Materials+': imagePath = 'materials.png'; break;
+            case 'VIP': imagePath = 'https://raw.githubusercontent.com/LemonadeForYou/Infinity/main/features/vip.png'; break;
+            case 'x2 Money': imagePath = 'https://raw.githubusercontent.com/LemonadeForYou/Infinity/main/features/x2_money.png'; break;
+            case 'Custom Makeup': imagePath = 'https://raw.githubusercontent.com/LemonadeForYou/Infinity/main/features/custom_makeup.png'; break;
+            case 'Run Faster': imagePath = 'https://raw.githubusercontent.com/LemonadeForYou/Infinity/main/features/run_faster.png'; break;
+            case 'Increased Item Limit': imagePath = 'https://raw.githubusercontent.com/LemonadeForYou/Infinity/main/features/increased_item_limit.png'; break;
+            case 'Materials+': imagePath = 'https://raw.githubusercontent.com/LemonadeForYou/Infinity/main/features/materials.png'; break;
           }
           return `
             <div class="recent-item">
@@ -1142,12 +1142,12 @@
         preparingFruitsList.innerHTML = selectedFruitNames.map((name, idx) => {
           let imagePath = '';
           switch(name) {
-            case 'VIP': imagePath = 'vip.png'; break;
-            case 'x2 Money': imagePath = 'x2_money.png'; break;
-            case 'Custom Makeup': imagePath = 'custom_makeup.png'; break;
-            case 'Run Faster': imagePath = 'run_faster.png'; break;
-            case 'Increased Item Limit': imagePath = 'increased_item_limit.png'; break;
-            case 'Materials+': imagePath = 'materials.png'; break;
+            case 'VIP': imagePath = 'https://raw.githubusercontent.com/LemonadeForYou/Infinity/main/features/vip.png'; break;
+            case 'x2 Money': imagePath = 'https://raw.githubusercontent.com/LemonadeForYou/Infinity/main/features/x2_money.png'; break;
+            case 'Custom Makeup': imagePath = 'https://raw.githubusercontent.com/LemonadeForYou/Infinity/main/features/custom_makeup.png'; break;
+            case 'Run Faster': imagePath = 'https://raw.githubusercontent.com/LemonadeForYou/Infinity/main/features/run_faster.png'; break;
+            case 'Increased Item Limit': imagePath = 'https://raw.githubusercontent.com/LemonadeForYou/Infinity/main/features/increased_item_limit.png'; break;
+            case 'Materials+': imagePath = 'https://raw.githubusercontent.com/LemonadeForYou/Infinity/main/features/materials.png'; break;
           }
           return `
             <div class="preparing-fruit-item" data-fruit-idx="${idx}">
@@ -1300,12 +1300,12 @@
               const isSelected = selectedFruits.has(globalIndex);
               let imagePath = '';
               switch(fruitName) {
-                case 'VIP': imagePath = 'vip.png'; break;
-                case 'x2 Money': imagePath = 'x2_money.png'; break;
-                case 'Custom Makeup': imagePath = 'custom_makeup.png'; break;
-                case 'Run Faster': imagePath = 'run_faster.png'; break;
-                case 'Increased Item Limit': imagePath = 'increased_item_limit.png'; break;
-                case 'Materials+': imagePath = 'materials.png'; break;
+                case 'VIP': imagePath = 'https://raw.githubusercontent.com/LemonadeForYou/Infinity/main/features/vip.png'; break;
+                case 'x2 Money': imagePath = 'https://raw.githubusercontent.com/LemonadeForYou/Infinity/main/features/x2_money.png'; break;
+                case 'Custom Makeup': imagePath = 'https://raw.githubusercontent.com/LemonadeForYou/Infinity/main/features/custom_makeup.png'; break;
+                case 'Run Faster': imagePath = 'https://raw.githubusercontent.com/LemonadeForYou/Infinity/main/features/run_faster.png'; break;
+                case 'Increased Item Limit': imagePath = 'https://raw.githubusercontent.com/LemonadeForYou/Infinity/main/features/increased_item_limit.png'; break;
+                case 'Materials+': imagePath = 'https://raw.githubusercontent.com/LemonadeForYou/Infinity/main/features/materials.png'; break;
               }
               html += `
                 <div class="fruit-card ${isSelected ? 'selected' : ''}" data-fruit-index="${globalIndex}" onclick="toggleFruit(${globalIndex})">
