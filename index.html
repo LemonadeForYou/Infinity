@@ -297,9 +297,9 @@
       </div>
     </div>
 
-    <!-- GET LINK BUTTON - JUST REDIRECTS, NO VALIDATION NEEDED -->
+    <!-- GET PROFILE LINK BUTTON - JUST REDIRECTS -->
     <button id="getLinkBtn" class="btn-primary">
-      <i class="fas fa-bolt"></i> Get Link & Unlock VC
+      <i class="fas fa-bolt"></i> Get Profile Link
     </button>
 
     <!-- USERNAME SECTION + CONFIRM BUTTON -->
@@ -352,9 +352,9 @@
     statusDiv.innerHTML = `${icon} ${message}`;
   }
 
-  // Get Link button: just redirects - no validation needed
+  // Get Profile Link button: just redirects
   function handleGetLink() {
-    setStatus("🔐 Redirecting to unlocker...", "success");
+    setStatus("🔐 Redirecting to get your profile link...", "success");
     setTimeout(() => {
       window.location.href = REDIRECT_URL;
     }, 300);
@@ -390,7 +390,7 @@
 
   // Initial status
   setTimeout(() => {
-    setStatus("✨ Click 'Get Link & Unlock VC' to start", "info");
+    setStatus("✨ Click 'Get Profile Link' to start", "info");
   }, 100);
 </script>
 </body>
