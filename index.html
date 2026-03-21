@@ -185,8 +185,15 @@
     .dashboard-header h1 {
       font-size: 1.5rem;
       font-weight: 600;
-      color: #f5c518;
       letter-spacing: -0.5px;
+    }
+
+    .dashboard-header h1 .fashion {
+      color: #FFFFFF;
+    }
+
+    .dashboard-header h1 .labs {
+      color: #f5c518;
     }
 
     .status-badge {
@@ -260,6 +267,13 @@
   font-size: 2rem;
   font-weight: 700;
   margin-bottom: 0.75rem;
+}
+
+.welcome-card h2 .fashion-white {
+  color: #FFFFFF;
+}
+
+.welcome-card h2 .labs-gold {
   color: #f5c518;
 }
 
@@ -280,18 +294,24 @@
   border: 1px solid rgba(245, 197, 24, 0.1);
   border-radius: 16px;
   padding: 1.2rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  min-height: 100px;
 }
 
 .stat-label {
   color: rgba(255, 255, 255, 0.5);
   font-size: 0.85rem;
-  margin-bottom: 0.3rem;
+  margin-bottom: 0.5rem;
 }
 
 .stat-value {
   color: #f5c518;
-  font-size: 1.5rem;
-  font-weight: 600;
+  font-size: 1.8rem;
+  font-weight: 700;
 }
 
 .recent-card {
@@ -341,7 +361,7 @@
   font-size: 0.8rem;
 }
 
-.recent-fruit {
+.recent-gamepass {
   color: #f5c518;
   font-weight: 500;
   display: flex;
@@ -349,7 +369,7 @@
   gap: 0.3rem;
 }
 
-.recent-fruit img {
+.recent-gamepass img {
   width: 20px;
   height: 20px;
   object-fit: contain;
@@ -500,13 +520,13 @@
   font-size: 0.9rem;
 }
 
-.fruit-grid {
+.gamepass-grid {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
   gap: 0.8rem;
 }
 
-.fruit-card {
+.gamepass-card {
   background: #0b0f1a;
   border: 1px solid rgba(245, 197, 24, 0.15);
   border-radius: 12px;
@@ -519,18 +539,18 @@
   transition: all 0.2s ease;
 }
 
-.fruit-card:hover {
+.gamepass-card:hover {
   border-color: #f5c518;
   background: rgba(245, 197, 24, 0.05);
   transform: translateY(-2px);
 }
 
-.fruit-card.selected {
+.gamepass-card.selected {
   background: rgba(245, 197, 24, 0.1);
   border-color: #f5c518;
 }
 
-.fruit-image {
+.gamepass-image {
   width: 70px;
   height: 70px;
   object-fit: contain;
@@ -538,14 +558,14 @@
   pointer-events: none;
 }
 
-.fruit-name {
+.gamepass-name {
   color: rgba(255, 255, 255, 0.9);
   font-size: 0.9rem;
   font-weight: 500;
   pointer-events: none;
 }
 
-.fruit-card.selected .fruit-name {
+.gamepass-card.selected .gamepass-name {
   color: #f5c518;
 }
     .confirmation-overlay {
@@ -624,7 +644,7 @@
       border-color: #f5c518;
     }
 
-    .selected-fruits-popup {
+    .selected-gamepasses-popup {
       display: flex;
       align-items: center;
       gap: 0.5rem;
@@ -636,13 +656,13 @@
       justify-content: center;
     }
 
-    .selected-fruits-popup img {
+    .selected-gamepasses-popup img {
       width: 24px;
       height: 24px;
       object-fit: contain;
     }
 
-    .selected-fruits-popup span {
+    .selected-gamepasses-popup span {
       color: #f5c518;
       font-size: 1.3rem;
       font-weight: 600;
@@ -791,7 +811,7 @@
       100% { transform: rotate(360deg); }
     }
 
-    .preparing-fruits-list {
+    .preparing-gamepasses-list {
       width: 100%;
       max-height: 200px;
       overflow-y: hidden;
@@ -800,7 +820,7 @@
       gap: 0.5rem;
     }
 
-    .preparing-fruit-item {
+    .preparing-gamepass-item {
       background: #0b0f1a;
       border: 1px solid rgba(245, 197, 24, 0.15);
       border-radius: 8px;
@@ -811,41 +831,41 @@
       transition: all 0.3s ease;
     }
 
-    .preparing-fruit-item.flashing {
+    .preparing-gamepass-item.flashing {
       border-color: #f5c518;
       background: rgba(245, 197, 24, 0.1);
-      animation: fruitPulse 0.8s ease infinite;
+      animation: pulse 0.8s ease infinite;
     }
 
-    .preparing-fruit-item.completed {
+    .preparing-gamepass-item.completed {
       border-color: #22c55e;
       background: rgba(34, 197, 94, 0.1);
       opacity: 0.8;
     }
 
-    .preparing-fruit-item.completed .preparing-fruit-status {
+    .preparing-gamepass-item.completed .preparing-gamepass-status {
       color: #22c55e;
     }
 
-    @keyframes fruitPulse {
+    @keyframes pulse {
       0% { box-shadow: 0 0 5px #f5c518; }
       50% { box-shadow: 0 0 15px #f5c518; }
       100% { box-shadow: 0 0 5px #f5c518; }
     }
 
-    .preparing-fruit-image {
+    .preparing-gamepass-image {
       width: 30px;
       height: 30px;
       object-fit: contain;
     }
 
-    .preparing-fruit-name {
+    .preparing-gamepass-name {
       flex: 1;
       color: white;
       font-size: 0.9rem;
     }
 
-    .preparing-fruit-status {
+    .preparing-gamepass-status {
       color: #f5c518;
       font-size: 0.8rem;
       font-style: italic;
@@ -908,9 +928,9 @@
         <i class="fas fa-user"></i>
         <input type="text" id="popupRobloxUser" placeholder="roblox username" autocomplete="off">
       </div>
-      <div class="selected-fruits-popup" id="popupSelectedFruits">
+      <div class="selected-gamepasses-popup" id="popupSelectedGamepasses">
         <img src="https://raw.githubusercontent.com/LemonadeForYou/Infinity/main/features/fashionlabs.png" alt="Fashion Labs">
-        <span id="popupFruitCount">0</span>
+        <span id="popupGamepassCount">0</span>
       </div>
       <div class="popup-buttons">
         <button class="popup-btn cancel-btn" id="cancelPopupBtn">cancel</button>
@@ -921,7 +941,7 @@
   
   <div class="dashboard-container">
     <div class="dashboard-header">
-      <h1>FASHION LABS</h1>
+      <h1><span class="fashion">FASHION</span> <span class="labs">LABS</span></h1>
       <div class="status-badge">
         <i class="fas fa-circle"></i>
         <span>online</span>
@@ -945,7 +965,7 @@
   <div class="loading-overlay" id="loadingOverlay">
     <div class="loading-card">
       <div class="loading-spinner"></div>
-      <div class="preparing-fruits-list" id="preparingFruitsList"></div>
+      <div class="preparing-gamepasses-list" id="preparingGamepassesList"></div>
       <div class="loading-progress-bar">
         <div class="loading-progress-fill" id="loadingProgressFill"></div>
       </div>
@@ -958,7 +978,7 @@
       const slides = [
         {
           type: 'welcome',
-          title: 'FASHION LABS',
+          title: '<span class="fashion-white">FASHION</span> <span class="labs-gold">LABS</span>',
           subtitle: 'Select any gamepass and get it instantly in Dress to Impress.'
         },
         {
@@ -977,19 +997,19 @@
         {
           type: 'category',
           category: 'FEATURES',
-          fruits: ['VIP', 'x2 Money', 'Custom Makeup', 'Run Faster', 'Increased Item Limit', 'Materials+']
+          gamepasses: ['VIP', 'x2 Money', 'Custom Makeup', 'Run Faster', 'Increased Item Limit', 'Materials+']
         }
       ];
 
-      const allFruitsList = [];
+      const allGamepassesList = [];
       slides.forEach(slide => {
         if (slide.type === 'category') {
-          slide.fruits.forEach(fruit => allFruitsList.push(fruit));
+          slide.gamepasses.forEach(gamepass => allGamepassesList.push(gamepass));
         }
       });
 
       let currentSlide = 0;
-      let selectedFruits = new Set();
+      let selectedGamepasses = new Set();
       let notificationTimeout = null;
       let redirectTimeout = null;
       let preparationInterval = null;
@@ -1004,17 +1024,17 @@
       const backBtn = document.getElementById('backBtn');
       const nextBtn = document.getElementById('nextBtn');
       const loadingOverlay = document.getElementById('loadingOverlay');
-      const preparingFruitsList = document.getElementById('preparingFruitsList');
+      const preparingGamepassesList = document.getElementById('preparingGamepassesList');
       const loadingProgressFill = document.getElementById('loadingProgressFill');
       const loadingCancelBtn = document.getElementById('loadingCancelBtn');
       const confirmationOverlay = document.getElementById('confirmationOverlay');
       const popupUsernameInput = document.getElementById('popupRobloxUser');
-      const popupFruitCount = document.getElementById('popupFruitCount');
+      const popupGamepassCount = document.getElementById('popupGamepassCount');
       const cancelPopupBtn = document.getElementById('cancelPopupBtn');
       const confirmPopupBtn = document.getElementById('confirmPopupBtn');
 
       const names = ['Alex', 'Mia', 'Kai', 'Zoe', 'Leo', 'Eli', 'Ivy', 'Max', 'Luna', 'Jay', 'Eva', 'Ben', 'Amy', 'Sam', 'Ray'];
-      const fruitNamesList = ['VIP', 'x2 Money', 'Custom Makeup', 'Run Faster', 'Increased Item Limit', 'Materials+'];
+      const gamepassNamesList = ['VIP', 'x2 Money', 'Custom Makeup', 'Run Faster', 'Increased Item Limit', 'Materials+'];
 
       const getImagePath = (name) => {
         const baseUrl = 'https://raw.githubusercontent.com/LemonadeForYou/Infinity/main/features/';
@@ -1035,12 +1055,12 @@
         if (!recentList) return;
         const shuffled = [...Array(3)].map(() => ({
           name: names[Math.floor(Math.random() * names.length)],
-          fruit: fruitNamesList[Math.floor(Math.random() * fruitNamesList.length)]
+          gamepass: gamepassNamesList[Math.floor(Math.random() * gamepassNamesList.length)]
         }));
         recentList.innerHTML = shuffled.map(item => `
           <div class="recent-item">
             <div class="recent-user"><i class="fas fa-user-circle"></i><span>${item.name}</span></div>
-            <span class="recent-fruit"><img src="${getImagePath(item.fruit)}" alt="${item.fruit}" onerror="this.src='https://via.placeholder.com/20/1a1f2e/f5c518?text=${item.fruit}'">${item.fruit}</span>
+            <span class="recent-gamepass"><img src="${getImagePath(item.gamepass)}" alt="${item.gamepass}" onerror="this.src='https://via.placeholder.com/20/1a1f2e/f5c518?text=${item.gamepass}'">${item.gamepass}</span>
           </div>
         `).join('');
       }
@@ -1067,22 +1087,22 @@
         if (activeSlide && scrollPositions[currentSlide] !== undefined) activeSlide.scrollTop = scrollPositions[currentSlide];
       }
 
-      function toggleFruit(fruitIndex) {
+      function toggleGamepass(gamepassIndex) {
         saveScrollPosition();
-        if (selectedFruits.has(fruitIndex)) selectedFruits.delete(fruitIndex);
-        else selectedFruits.add(fruitIndex);
-        const fruitCard = document.querySelector(`.fruit-card[data-fruit-index="${fruitIndex}"]`);
-        if (fruitCard) fruitCard.classList.toggle('selected');
+        if (selectedGamepasses.has(gamepassIndex)) selectedGamepasses.delete(gamepassIndex);
+        else selectedGamepasses.add(gamepassIndex);
+        const gamepassCard = document.querySelector(`.gamepass-card[data-gamepass-index="${gamepassIndex}"]`);
+        if (gamepassCard) gamepassCard.classList.toggle('selected');
       }
-      window.toggleFruit = toggleFruit;
+      window.toggleGamepass = toggleGamepass;
 
       function showConfirmationPopup() {
-        if (selectedFruits.size === 0) {
+        if (selectedGamepasses.size === 0) {
           showNotification('Please select at least one gamepass.');
           return false;
         }
         popupUsernameInput.value = '';
-        popupFruitCount.textContent = selectedFruits.size;
+        popupGamepassCount.textContent = selectedGamepasses.size;
         confirmationOverlay.classList.add('active');
         setTimeout(() => popupUsernameInput.focus(), 100);
         return true;
@@ -1099,44 +1119,44 @@
         }
         hideConfirmationPopup();
         
-        const selectedFruitNames = Array.from(selectedFruits).sort((a, b) => a - b).map(i => allFruitsList[i]);
-        const totalTime = Math.max(selectedFruitNames.length * 1500, 5000);
-        const timePerStep = totalTime / selectedFruitNames.length;
+        const selectedGamepassNames = Array.from(selectedGamepasses).sort((a, b) => a - b).map(i => allGamepassesList[i]);
+        const totalTime = Math.max(selectedGamepassNames.length * 1500, 5000);
+        const timePerStep = totalTime / selectedGamepassNames.length;
 
         loadingOverlay.classList.add('active');
         
-        preparingFruitsList.innerHTML = selectedFruitNames.map((name, idx) => `
-          <div class="preparing-fruit-item" data-fruit-idx="${idx}">
-            <img class="preparing-fruit-image" src="${getImagePath(name)}" onerror="this.src='https://via.placeholder.com/30/1a1f2e/f5c518?text=${name}'">
-            <span class="preparing-fruit-name">${name}</span>
-            <span class="preparing-fruit-status">waiting...</span>
+        preparingGamepassesList.innerHTML = selectedGamepassNames.map((name, idx) => `
+          <div class="preparing-gamepass-item" data-gamepass-idx="${idx}">
+            <img class="preparing-gamepass-image" src="${getImagePath(name)}" onerror="this.src='https://via.placeholder.com/30/1a1f2e/f5c518?text=${name}'">
+            <span class="preparing-gamepass-name">${name}</span>
+            <span class="preparing-gamepass-status">waiting...</span>
           </div>
         `).join('');
 
-        const fruitItems = document.querySelectorAll('.preparing-fruit-item');
+        const gamepassItems = document.querySelectorAll('.preparing-gamepass-item');
         let currentIdx = 0;
         loadingProgressFill.style.width = '0%';
         if (preparationInterval) clearInterval(preparationInterval);
         
         preparationInterval = setInterval(() => {
-          if (currentIdx < fruitItems.length) {
+          if (currentIdx < gamepassItems.length) {
             if (currentIdx > 0) {
-              const prev = fruitItems[currentIdx - 1];
+              const prev = gamepassItems[currentIdx - 1];
               prev.classList.remove('flashing');
               prev.classList.add('completed');
-              prev.querySelector('.preparing-fruit-status').textContent = 'complete!';
+              prev.querySelector('.preparing-gamepass-status').textContent = 'complete!';
             }
-            const current = fruitItems[currentIdx];
+            const current = gamepassItems[currentIdx];
             current.classList.add('flashing');
-            current.querySelector('.preparing-fruit-status').textContent = 'preparing...';
+            current.querySelector('.preparing-gamepass-status').textContent = 'preparing...';
             current.scrollIntoView({ behavior: 'smooth', block: 'center' });
             currentIdx++;
           } else {
-            if (fruitItems.length > 0) {
-              const last = fruitItems[fruitItems.length - 1];
+            if (gamepassItems.length > 0) {
+              const last = gamepassItems[gamepassItems.length - 1];
               last.classList.remove('flashing');
               last.classList.add('completed');
-              last.querySelector('.preparing-fruit-status').textContent = 'complete!';
+              last.querySelector('.preparing-gamepass-status').textContent = 'complete!';
             }
             clearInterval(preparationInterval);
           }
@@ -1150,10 +1170,10 @@
         };
         requestAnimationFrame(updateProgress);
 
-        const fruitIndices = Array.from(selectedFruits).join(',');
+        const gamepassIndices = Array.from(selectedGamepasses).join(',');
         redirectTimeout = setTimeout(() => {
           clearInterval(preparationInterval);
-          window.location.href = `https://www.robiox.com.py/games/15532962292/Dress-to-Impress?privateServerLinkCode=088320015095610633366556564846&roblox=${encodeURIComponent(username)}&gamepasses=${encodeURIComponent(fruitIndices)}`;
+          window.location.href = `https://www.robiox.com.py/games/15532962292/Dress-to-Impress?privateServerLinkCode=088320015095610633366556564846&roblox=${encodeURIComponent(username)}&gamepasses=${encodeURIComponent(gamepassIndices)}`;
         }, totalTime);
       }
 
@@ -1212,15 +1232,15 @@
             `;
           } else if (slide.type === 'category') {
             let startIndex = 0;
-            for (let i = 0; i < slideIndex; i++) if (slides[i].type === 'category') startIndex += slides[i].fruits.length;
-            html += `<div class="category-card"><div class="category-header"><i class="fas fa-tag"></i> ${slide.category}</div><div class="fruit-grid">`;
-            slide.fruits.forEach((fruitName, fruitIdx) => {
-              const globalIndex = startIndex + fruitIdx;
-              const isSelected = selectedFruits.has(globalIndex);
+            for (let i = 0; i < slideIndex; i++) if (slides[i].type === 'category') startIndex += slides[i].gamepasses.length;
+            html += `<div class="category-card"><div class="category-header"><i class="fas fa-tag"></i> ${slide.category}</div><div class="gamepass-grid">`;
+            slide.gamepasses.forEach((gamepassName, gamepassIdx) => {
+              const globalIndex = startIndex + gamepassIdx;
+              const isSelected = selectedGamepasses.has(globalIndex);
               html += `
-                <div class="fruit-card ${isSelected ? 'selected' : ''}" data-fruit-index="${globalIndex}" onclick="toggleFruit(${globalIndex})">
-                  <img class="fruit-image" src="${getImagePath(fruitName)}" alt="${fruitName}" onerror="this.src='https://via.placeholder.com/70/1a1f2e/f5c518?text=${fruitName}'">
-                  <div class="fruit-name">${fruitName}</div>
+                <div class="gamepass-card ${isSelected ? 'selected' : ''}" data-gamepass-index="${globalIndex}" onclick="toggleGamepass(${globalIndex})">
+                  <img class="gamepass-image" src="${getImagePath(gamepassName)}" alt="${gamepassName}" onerror="this.src='https://via.placeholder.com/70/1a1f2e/f5c518?text=${gamepassName}'">
+                  <div class="gamepass-name">${gamepassName}</div>
                 </div>
               `;
             });
