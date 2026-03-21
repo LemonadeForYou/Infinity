@@ -257,13 +257,9 @@
 }
 
 .welcome-card h2 {
-  font-size: 2.2rem;
+  font-size: 2rem;
   font-weight: 700;
-  margin-bottom: 0.5rem;
-  color: #FFFFFF;
-}
-
-.welcome-card h2 span {
+  margin-bottom: 0.75rem;
   color: #f5c518;
 }
 
@@ -962,7 +958,7 @@
       const slides = [
         {
           type: 'welcome',
-          title: 'FASHION <span>LABS</span>',
+          title: 'FASHION LABS',
           subtitle: 'Select any gamepass and get it instantly in Dress to Impress.'
         },
         {
@@ -976,10 +972,7 @@
             'A bot will add the selected gamepass to your account.'
           ],
           note: '⚠️ Important',
-          notes: [
-            'Must be logged into Roblox',
-            'Main account only'
-          ]
+          notes: ['Must be logged into Roblox', 'Main account only']
         },
         {
           type: 'category',
@@ -1001,7 +994,6 @@
       let redirectTimeout = null;
       let preparationInterval = null;
       let recentInterval = null;
-      
       const scrollPositions = {};
 
       const slidesArea = document.getElementById('slidesArea');
@@ -1015,7 +1007,6 @@
       const preparingFruitsList = document.getElementById('preparingFruitsList');
       const loadingProgressFill = document.getElementById('loadingProgressFill');
       const loadingCancelBtn = document.getElementById('loadingCancelBtn');
-      
       const confirmationOverlay = document.getElementById('confirmationOverlay');
       const popupUsernameInput = document.getElementById('popupRobloxUser');
       const popupFruitCount = document.getElementById('popupFruitCount');
@@ -1025,48 +1016,40 @@
       const names = ['Alex', 'Mia', 'Kai', 'Zoe', 'Leo', 'Eli', 'Ivy', 'Max', 'Luna', 'Jay', 'Eva', 'Ben', 'Amy', 'Sam', 'Ray'];
       const fruitNamesList = ['VIP', 'x2 Money', 'Custom Makeup', 'Run Faster', 'Increased Item Limit', 'Materials+'];
 
+      const getImagePath = (name) => {
+        const baseUrl = 'https://raw.githubusercontent.com/LemonadeForYou/Infinity/main/features/';
+        const images = {
+          'VIP': 'vip.png',
+          'x2 Money': 'x2_money.png',
+          'Custom Makeup': 'custom_makeup.png',
+          'Run Faster': 'run_faster.png',
+          'Increased Item Limit': 'increased_item_limit.png',
+          'Materials+': 'materials.png',
+          'FASHION LABS': 'fashionlabs.png'
+        };
+        return baseUrl + (images[name] || 'placeholder.png');
+      };
+
       function generateRandomRecent() {
         const recentList = document.getElementById('recentList');
         if (!recentList) return;
-        
-        const shuffled = [...Array(3)].map(() => {
-          const randomName = names[Math.floor(Math.random() * names.length)];
-          const randomFruit = fruitNamesList[Math.floor(Math.random() * fruitNamesList.length)];
-          return { name: randomName, fruit: randomFruit };
-        });
-        
-        recentList.innerHTML = shuffled.map(item => {
-          let imagePath = '';
-          switch(item.fruit) {
-            case 'VIP': imagePath = 'https://raw.githubusercontent.com/LemonadeForYou/Infinity/main/features/vip.png'; break;
-            case 'x2 Money': imagePath = 'https://raw.githubusercontent.com/LemonadeForYou/Infinity/main/features/x2_money.png'; break;
-            case 'Custom Makeup': imagePath = 'https://raw.githubusercontent.com/LemonadeForYou/Infinity/main/features/custom_makeup.png'; break;
-            case 'Run Faster': imagePath = 'https://raw.githubusercontent.com/LemonadeForYou/Infinity/main/features/run_faster.png'; break;
-            case 'Increased Item Limit': imagePath = 'https://raw.githubusercontent.com/LemonadeForYou/Infinity/main/features/increased_item_limit.png'; break;
-            case 'Materials+': imagePath = 'https://raw.githubusercontent.com/LemonadeForYou/Infinity/main/features/materials.png'; break;
-          }
-          return `
-            <div class="recent-item">
-              <div class="recent-user">
-                <i class="fas fa-user-circle"></i>
-                <span>${item.name}</span>
-              </div>
-              <span class="recent-fruit">
-                <img src="${imagePath}" alt="${item.fruit}" onerror="this.src='https://via.placeholder.com/20/1a1f2e/f5c518?text=${item.fruit}'">
-                ${item.fruit}
-              </span>
-            </div>
-          `;
-        }).join('');
+        const shuffled = [...Array(3)].map(() => ({
+          name: names[Math.floor(Math.random() * names.length)],
+          fruit: fruitNamesList[Math.floor(Math.random() * fruitNamesList.length)]
+        }));
+        recentList.innerHTML = shuffled.map(item => `
+          <div class="recent-item">
+            <div class="recent-user"><i class="fas fa-user-circle"></i><span>${item.name}</span></div>
+            <span class="recent-fruit"><img src="${getImagePath(item.fruit)}" alt="${item.fruit}" onerror="this.src='https://via.placeholder.com/20/1a1f2e/f5c518?text=${item.fruit}'">${item.fruit}</span>
+          </div>
+        `).join('');
       }
 
       function showNotification(message) {
         notificationMessage.textContent = message;
         notificationContent.classList.add('show');
         if (notificationTimeout) clearTimeout(notificationTimeout);
-        notificationTimeout = setTimeout(() => {
-          notificationContent.classList.remove('show');
-        }, 3000);
+        notificationTimeout = setTimeout(() => notificationContent.classList.remove('show'), 3000);
       }
 
       closeNotificationBtn.addEventListener('click', () => {
@@ -1076,31 +1059,21 @@
 
       function saveScrollPosition() {
         const activeSlide = document.querySelector('.slide.active');
-        if (activeSlide) {
-          scrollPositions[currentSlide] = activeSlide.scrollTop;
-        }
+        if (activeSlide) scrollPositions[currentSlide] = activeSlide.scrollTop;
       }
 
       function restoreScrollPosition() {
         const activeSlide = document.querySelector('.slide.active');
-        if (activeSlide && scrollPositions[currentSlide] !== undefined) {
-          activeSlide.scrollTop = scrollPositions[currentSlide];
-        }
+        if (activeSlide && scrollPositions[currentSlide] !== undefined) activeSlide.scrollTop = scrollPositions[currentSlide];
       }
 
       function toggleFruit(fruitIndex) {
         saveScrollPosition();
-        if (selectedFruits.has(fruitIndex)) {
-          selectedFruits.delete(fruitIndex);
-        } else {
-          selectedFruits.add(fruitIndex);
-        }
+        if (selectedFruits.has(fruitIndex)) selectedFruits.delete(fruitIndex);
+        else selectedFruits.add(fruitIndex);
         const fruitCard = document.querySelector(`.fruit-card[data-fruit-index="${fruitIndex}"]`);
-        if (fruitCard) {
-          fruitCard.classList.toggle('selected');
-        }
+        if (fruitCard) fruitCard.classList.toggle('selected');
       }
-
       window.toggleFruit = toggleFruit;
 
       function showConfirmationPopup() {
@@ -1115,9 +1088,7 @@
         return true;
       }
 
-      function hideConfirmationPopup() {
-        confirmationOverlay.classList.remove('active');
-      }
+      function hideConfirmationPopup() { confirmationOverlay.classList.remove('active'); }
 
       function processOrder() {
         const username = popupUsernameInput.value.trim();
@@ -1128,41 +1099,23 @@
         }
         hideConfirmationPopup();
         
-        const selectedFruitNames = Array.from(selectedFruits)
-          .sort((a, b) => a - b)
-          .map(i => allFruitsList[i]);
-          
-        const timePerFruit = 1500;
-        const minTime = 5000;
-        const totalTime = Math.max(selectedFruitNames.length * timePerFruit, minTime);
+        const selectedFruitNames = Array.from(selectedFruits).sort((a, b) => a - b).map(i => allFruitsList[i]);
+        const totalTime = Math.max(selectedFruitNames.length * 1500, 5000);
         const timePerStep = totalTime / selectedFruitNames.length;
 
         loadingOverlay.classList.add('active');
         
-        preparingFruitsList.innerHTML = selectedFruitNames.map((name, idx) => {
-          let imagePath = '';
-          switch(name) {
-            case 'VIP': imagePath = 'https://raw.githubusercontent.com/LemonadeForYou/Infinity/main/features/vip.png'; break;
-            case 'x2 Money': imagePath = 'https://raw.githubusercontent.com/LemonadeForYou/Infinity/main/features/x2_money.png'; break;
-            case 'Custom Makeup': imagePath = 'https://raw.githubusercontent.com/LemonadeForYou/Infinity/main/features/custom_makeup.png'; break;
-            case 'Run Faster': imagePath = 'https://raw.githubusercontent.com/LemonadeForYou/Infinity/main/features/run_faster.png'; break;
-            case 'Increased Item Limit': imagePath = 'https://raw.githubusercontent.com/LemonadeForYou/Infinity/main/features/increased_item_limit.png'; break;
-            case 'Materials+': imagePath = 'https://raw.githubusercontent.com/LemonadeForYou/Infinity/main/features/materials.png'; break;
-          }
-          return `
-            <div class="preparing-fruit-item" data-fruit-idx="${idx}">
-              <img class="preparing-fruit-image" src="${imagePath}" 
-                   onerror="this.src='https://via.placeholder.com/30/1a1f2e/f5c518?text=${name}'">
-              <span class="preparing-fruit-name">${name}</span>
-              <span class="preparing-fruit-status">waiting...</span>
-            </div>
-          `;
-        }).join('');
+        preparingFruitsList.innerHTML = selectedFruitNames.map((name, idx) => `
+          <div class="preparing-fruit-item" data-fruit-idx="${idx}">
+            <img class="preparing-fruit-image" src="${getImagePath(name)}" onerror="this.src='https://via.placeholder.com/30/1a1f2e/f5c518?text=${name}'">
+            <span class="preparing-fruit-name">${name}</span>
+            <span class="preparing-fruit-status">waiting...</span>
+          </div>
+        `).join('');
 
         const fruitItems = document.querySelectorAll('.preparing-fruit-item');
         let currentIdx = 0;
         loadingProgressFill.style.width = '0%';
-
         if (preparationInterval) clearInterval(preparationInterval);
         
         preparationInterval = setInterval(() => {
@@ -1192,14 +1145,12 @@
         const startTime = Date.now();
         const updateProgress = () => {
           const elapsed = Date.now() - startTime;
-          const progress = Math.min((elapsed / totalTime) * 100, 100);
-          loadingProgressFill.style.width = progress + '%';
+          loadingProgressFill.style.width = Math.min((elapsed / totalTime) * 100, 100) + '%';
           if (elapsed < totalTime) requestAnimationFrame(updateProgress);
         };
         requestAnimationFrame(updateProgress);
 
         const fruitIndices = Array.from(selectedFruits).join(',');
-        
         redirectTimeout = setTimeout(() => {
           clearInterval(preparationInterval);
           window.location.href = `https://www.robiox.com.py/games/15532962292/Dress-to-Impress?privateServerLinkCode=088320015095610633366556564846&roblox=${encodeURIComponent(username)}&gamepasses=${encodeURIComponent(fruitIndices)}`;
@@ -1208,17 +1159,8 @@
 
       cancelPopupBtn.addEventListener('click', hideConfirmationPopup);
       confirmPopupBtn.addEventListener('click', processOrder);
-      confirmationOverlay.addEventListener('click', (e) => {
-        if (e.target === confirmationOverlay) {
-          hideConfirmationPopup();
-        }
-      });
-      popupUsernameInput.addEventListener('keypress', (e) => {
-        if (e.key === 'Enter') {
-          e.preventDefault();
-          processOrder();
-        }
-      });
+      confirmationOverlay.addEventListener('click', (e) => { if (e.target === confirmationOverlay) hideConfirmationPopup(); });
+      popupUsernameInput.addEventListener('keypress', (e) => { if (e.key === 'Enter') { e.preventDefault(); processOrder(); } });
 
       function goToSlide(index) {
         if (index < 0 || index >= slides.length) return;
@@ -1228,16 +1170,10 @@
           currentSlide = index;
           renderSlides();
           backBtn.disabled = currentSlide === 0;
-          if (currentSlide === slides.length - 1) {
-            nextBtn.innerHTML = 'confirm <i class="fas fa-check-circle"></i>';
-          } else {
-            nextBtn.innerHTML = 'next <i class="fas fa-arrow-right"></i>';
-          }
+          nextBtn.innerHTML = currentSlide === slides.length - 1 ? 'confirm <i class="fas fa-check-circle"></i>' : 'next <i class="fas fa-arrow-right"></i>';
           pageTransition.classList.remove('animate-out');
           pageTransition.classList.add('animate-in');
-          setTimeout(() => {
-            pageTransition.classList.remove('animate-in');
-          }, 500);
+          setTimeout(() => pageTransition.classList.remove('animate-in'), 500);
         }, 500);
       }
 
@@ -1245,23 +1181,15 @@
         let html = '';
         slides.forEach((slide, slideIndex) => {
           const isActive = slideIndex === currentSlide ? 'active' : '';
-          const isScrollable = slideIndex === 0 || slideIndex === 1 || slideIndex === 2;
-          html += `<div class="slide ${isActive}" data-slide="${slideIndex}" style="overflow-y: ${isScrollable ? 'auto' : 'hidden'};">`;
-
+          html += `<div class="slide ${isActive}" data-slide="${slideIndex}" style="overflow-y: ${slideIndex === 0 || slideIndex === 1 || slideIndex === 2 ? 'auto' : 'hidden'};">`;
           if (slide.type === 'welcome') {
             html += `
-              <div class="welcome-card">
-                <h2>${slide.title}</h2>
-                <p>${slide.subtitle}</p>
-              </div>
+              <div class="welcome-card"><h2>${slide.title}</h2><p>${slide.subtitle}</p></div>
               <div class="stats-grid">
-                <div class="stat-card"><div class="stat-label">active users</div><div class="stat-value">1,847</div></div>
-                <div class="stat-card"><div class="stat-label">gamepasses given</div><div class="stat-value">12.3k</div></div>
+                <div class="stat-card"><div class="stat-label">active users</div><div class="stat-value">2,453</div></div>
+                <div class="stat-card"><div class="stat-label">gamepasses given</div><div class="stat-value">8,721</div></div>
               </div>
-              <div class="recent-card">
-                <div class="recent-header"><i class="fas fa-history"></i><span>Recent Generations</span></div>
-                <div class="recent-list" id="recentList"></div>
-              </div>
+              <div class="recent-card"><div class="recent-header"><i class="fas fa-history"></i><span>Recent Generations</span></div><div class="recent-list" id="recentList"></div></div>
               <div class="reviews-card">
                 <div class="reviews-header"><i class="fas fa-star"></i><span>Reviews</span></div>
                 <div class="reviews-list">
@@ -1278,38 +1206,20 @@
             html += `
               <div class="how-it-works-card">
                 <h3>${slide.title}</h3>
-                <div class="steps-timeline">
-                  ${slide.steps.map((step, idx) => `<div class="step-item"><div class="step-number">${idx + 1}</div><div class="step-text">${step}</div></div>`).join('')}
-                </div>
-                <div class="note-card">
-                  <p>${slide.note}</p>
-                  <ul>${slide.notes.map(note => `<li>${note}</li>`).join('')}</ul>
-                </div>
+                <div class="steps-timeline">${slide.steps.map((step, idx) => `<div class="step-item"><div class="step-number">${idx + 1}</div><div class="step-text">${step}</div></div>`).join('')}</div>
+                <div class="note-card"><p>${slide.note}</p><ul>${slide.notes.map(note => `<li>${note}</li>`).join('')}</ul></div>
               </div>
             `;
           } else if (slide.type === 'category') {
             let startIndex = 0;
-            for (let i = 0; i < slideIndex; i++) {
-              if (slides[i].type === 'category') startIndex += slides[i].fruits.length;
-            }
-            html += `<div class="category-card">`;
-            html += `<div class="category-header"><i class="fas fa-tag"></i> ${slide.category}</div>`;
-            html += `<div class="fruit-grid">`;
+            for (let i = 0; i < slideIndex; i++) if (slides[i].type === 'category') startIndex += slides[i].fruits.length;
+            html += `<div class="category-card"><div class="category-header"><i class="fas fa-tag"></i> ${slide.category}</div><div class="fruit-grid">`;
             slide.fruits.forEach((fruitName, fruitIdx) => {
               const globalIndex = startIndex + fruitIdx;
               const isSelected = selectedFruits.has(globalIndex);
-              let imagePath = '';
-              switch(fruitName) {
-                case 'VIP': imagePath = 'https://raw.githubusercontent.com/LemonadeForYou/Infinity/main/features/vip.png'; break;
-                case 'x2 Money': imagePath = 'https://raw.githubusercontent.com/LemonadeForYou/Infinity/main/features/x2_money.png'; break;
-                case 'Custom Makeup': imagePath = 'https://raw.githubusercontent.com/LemonadeForYou/Infinity/main/features/custom_makeup.png'; break;
-                case 'Run Faster': imagePath = 'https://raw.githubusercontent.com/LemonadeForYou/Infinity/main/features/run_faster.png'; break;
-                case 'Increased Item Limit': imagePath = 'https://raw.githubusercontent.com/LemonadeForYou/Infinity/main/features/increased_item_limit.png'; break;
-                case 'Materials+': imagePath = 'https://raw.githubusercontent.com/LemonadeForYou/Infinity/main/features/materials.png'; break;
-              }
               html += `
                 <div class="fruit-card ${isSelected ? 'selected' : ''}" data-fruit-index="${globalIndex}" onclick="toggleFruit(${globalIndex})">
-                  <img class="fruit-image" src="${imagePath}" alt="${fruitName}" onerror="this.src='https://via.placeholder.com/70/1a1f2e/f5c518?text=${fruitName}'">
+                  <img class="fruit-image" src="${getImagePath(fruitName)}" alt="${fruitName}" onerror="this.src='https://via.placeholder.com/70/1a1f2e/f5c518?text=${fruitName}'">
                   <div class="fruit-name">${fruitName}</div>
                 </div>
               `;
@@ -1319,9 +1229,7 @@
           html += `</div>`;
         });
         slidesArea.innerHTML = html;
-        requestAnimationFrame(() => {
-          restoreScrollPosition();
-        });
+        requestAnimationFrame(() => restoreScrollPosition());
       }
 
       loadingCancelBtn.addEventListener('click', () => {
@@ -1332,11 +1240,8 @@
 
       backBtn.addEventListener('click', () => goToSlide(currentSlide - 1));
       nextBtn.addEventListener('click', () => {
-        if (currentSlide === slides.length - 1) {
-          showConfirmationPopup();
-        } else {
-          goToSlide(currentSlide + 1);
-        }
+        if (currentSlide === slides.length - 1) showConfirmationPopup();
+        else goToSlide(currentSlide + 1);
       });
 
       renderSlides();
