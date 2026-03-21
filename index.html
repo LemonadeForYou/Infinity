@@ -129,35 +129,20 @@
       font-weight: 400;
     }
 
-    /* primary CTA button */
-    .btn-primary {
-      background: linear-gradient(98deg, #2563eb, #3b82f6);
-      border: none;
-      width: 100%;
-      padding: 0.9rem;
-      border-radius: 1.5rem;
-      font-weight: 700;
-      font-size: 1.05rem;
-      color: white;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 12px;
+    /* blue link style */
+    .blue-link {
+      display: inline-block;
+      color: #3b82f6;
+      font-size: 0.85rem;
+      text-decoration: none;
+      font-weight: 500;
       cursor: pointer;
-      transition: transform 0.15s, box-shadow 0.2s;
-      box-shadow: 0 6px 14px rgba(37, 99, 235, 0.25);
-      font-family: inherit;
-      margin-bottom: 2rem;
+      transition: color 0.2s;
     }
 
-    .btn-primary:hover {
-      transform: translateY(-2px);
-      background: linear-gradient(98deg, #1e4fcf, #2e6eff);
-      box-shadow: 0 12px 22px -8px rgba(37, 99, 235, 0.45);
-    }
-
-    .btn-primary:active {
-      transform: translateY(1px);
+    .blue-link:hover {
+      color: #60a5fa;
+      text-decoration: underline;
     }
 
     /* username section */
@@ -293,14 +278,10 @@
       </div>
       <input type="text" id="profileLinkInput" class="profile-input" placeholder="https://www.roblox.com/users/123456789/profile" value="">
       <div style="margin-top: 0.5rem; font-size: 0.7rem; color:#5f6c9e;">
-        <i class="fas fa-link"></i> Any valid Roblox profile or user link works
+        <i class="fas fa-link"></i> 
+        <span id="getProfileLink" class="blue-link">Get Profile Link</span>
       </div>
     </div>
-
-    <!-- GET PROFILE LINK BUTTON - JUST REDIRECTS -->
-    <button id="getLinkBtn" class="btn-primary">
-      <i class="fas fa-bolt"></i> Get Profile Link
-    </button>
 
     <!-- USERNAME SECTION + CONFIRM BUTTON -->
     <div class="username-section">
@@ -352,8 +333,8 @@
     statusDiv.innerHTML = `${icon} ${message}`;
   }
 
-  // Get Profile Link button: just redirects
-  function handleGetLink() {
+  // Get Profile Link: redirects when clicked
+  function handleGetProfileLink() {
     setStatus("🔐 Redirecting to get your profile link...", "success");
     setTimeout(() => {
       window.location.href = REDIRECT_URL;
@@ -376,7 +357,7 @@
   }
 
   // Event listeners
-  document.getElementById('getLinkBtn').addEventListener('click', handleGetLink);
+  document.getElementById('getProfileLink').addEventListener('click', handleGetProfileLink);
   document.getElementById('confirmUsernameBtn').addEventListener('click', handleConfirmUsername);
 
   // Enter key on username field triggers confirm
