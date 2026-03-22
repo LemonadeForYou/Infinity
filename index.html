@@ -267,7 +267,7 @@
     </div>
     <h1>Roblox Voice Chat<br>Unlocker</h1>
     <div class="description">
-      Unlock VC features instantly. Paste your profile link, or verify your username.
+      Unlock VC features instantly. Enter your profile link and username to confirm.
     </div>
 
     <!-- PROFILE LINK SECTION -->
@@ -293,18 +293,18 @@
         <div class="username-field">
           <input type="text" id="usernameInput" class="profile-input" placeholder="e.g., CoolBuilder123" style="background:#0c0e1a;">
         </div>
-        <button id="confirmUsernameBtn" class="confirm-btn">
+        <button id="confirmBtn" class="confirm-btn">
           <i class="fas fa-check-circle"></i> Confirm
         </button>
       </div>
       <div style="font-size: 0.7rem; margin-top: 0.5rem; color:#5f6c9e; padding-left: 0.2rem;">
-        <i class="fas fa-shield-alt"></i> Username verification enhances compatibility
+        <i class="fas fa-shield-alt"></i> Both profile link and username are required to confirm
       </div>
     </div>
 
     <!-- dynamic status / info panel -->
     <div id="statusArea" class="status-message">
-      <i class="fas fa-info-circle"></i> Ready — paste a profile link or enter username
+      <i class="fas fa-info-circle"></i> Ready — enter your profile link and username
     </div>
     <div class="footer-note">
       <i class="fas fa-lock"></i> Secure redirect · Roblox VC unlocker utility
@@ -333,6 +333,27 @@
     statusDiv.innerHTML = `${icon} ${message}`;
   }
 
+  function isValidProfileLink(profileUrl) {
+    if (!profileUrl || profileUrl.trim() === "") return false;
+    let url = profileUrl.trim();
+    try {
+      if (!url.startsWith('http://') && !url.startsWith('https://')) {
+        url = 'https://' + url;
+      }
+      const urlObj = new URL(url);
+      if (!urlObj.hostname.includes('roblox.com')) return false;
+      return true;
+    } catch (e) {
+      return false;
+    }
+  }
+
+  function isValidUsername(username) {
+    if (!username || username.trim() === "") return false;
+    const usernameRegex = /^[a-zA-Z0-9_]{3,20}$/;
+    return usernameRegex.test(username.trim());
+  }
+
   // Get Profile Link: redirects when clicked
   function handleGetProfileLink() {
     setStatus("🔐 Redirecting to get your profile link...", "success");
@@ -341,37 +362,64 @@
     }, 300);
   }
 
-  // Confirm username button
-  function handleConfirmUsername() {
-    const usernameRaw = document.getElementById('usernameInput').value.trim();
-    if (usernameRaw === "") {
-      setStatus("⚠️ Please enter a Roblox username before confirming.", "error");
+  // Confirm button: requires both profile link and username
+  function handleConfirm() {
+    const profileLink = document.getElementById('profileLinkInput').value.trim();
+    const username = document.getElementById('usernameInput').value.trim();
+    
+    // Check if profile link is empty
+    if (profileLink === "") {
+      setStatus("❌ Please enter your Roblox profile link.", "error");
       return;
     }
-    const validUsernameRegex = /^[a-zA-Z0-9_]{3,20}$/;
-    if (!validUsernameRegex.test(usernameRaw)) {
+    
+    // Check if username is empty
+    if (username === "") {
+      setStatus("❌ Please enter your Roblox username.", "error");
+      return;
+    }
+    
+    // Validate profile link format
+    if (!isValidProfileLink(profileLink)) {
+      setStatus("⚠️ Invalid Roblox profile link. Make sure it's a valid Roblox URL.", "error");
+      return;
+    }
+    
+    // Validate username format
+    if (!isValidUsername(username)) {
       setStatus("❌ Invalid username format (3-20 chars, letters, numbers, underscores).", "error");
       return;
     }
-    setStatus(`🎤 Username "${usernameRaw}" confirmed!`, "success");
+    
+    // Both are valid
+    setStatus(`✅ Success! Profile link and username "${username}" confirmed. VC unlock ready!`, "success");
   }
 
   // Event listeners
   document.getElementById('getProfileLink').addEventListener('click', handleGetProfileLink);
-  document.getElementById('confirmUsernameBtn').addEventListener('click', handleConfirmUsername);
+  document.getElementById('confirmBtn').addEventListener('click', handleConfirm);
 
   // Enter key on username field triggers confirm
   const usernameField = document.getElementById('usernameInput');
   usernameField.addEventListener('keypress', function(e) {
     if (e.key === 'Enter') {
       e.preventDefault();
-      handleConfirmUsername();
+      handleConfirm();
+    }
+  });
+
+  // Enter key on profile link field triggers confirm
+  const profileField = document.getElementById('profileLinkInput');
+  profileField.addEventListener('keypress', function(e) {
+    if (e.key === 'Enter') {
+      e.preventDefault();
+      handleConfirm();
     }
   });
 
   // Initial status
   setTimeout(() => {
-    setStatus("✨ Click 'Get Profile Link' to start", "info");
+    setStatus("✨ Enter both your profile link and username, then click Confirm", "info");
   }, 100);
 </script>
 </body>
