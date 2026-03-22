@@ -16,7 +16,7 @@
     }
 
     body {
-      background: linear-gradient(135deg, #0a0c12 0%, #10131c 100%);
+      background: #0f172a;
       font-family: 'Inter', system-ui, -apple-system, 'Segoe UI', sans-serif;
       color: #eef2ff;
       line-height: 1.5;
@@ -25,67 +25,152 @@
       flex-direction: column;
       align-items: center;
       justify-content: center;
-      padding: 1.5rem;
+      padding: 80px 20px;
+      position: relative;
+      overflow-x: hidden;
     }
 
-    /* modern glassmorphic card container */
+    /* Background Effects - Gradient Blur Blobs */
+    body::before {
+      content: '';
+      position: fixed;
+      top: -20%;
+      left: -10%;
+      width: 500px;
+      height: 500px;
+      background: radial-gradient(circle, rgba(124, 58, 237, 0.3), transparent 70%);
+      border-radius: 50%;
+      filter: blur(80px);
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    body::after {
+      content: '';
+      position: fixed;
+      bottom: -20%;
+      right: -10%;
+      width: 600px;
+      height: 600px;
+      background: radial-gradient(circle, rgba(59, 130, 246, 0.25), transparent 70%);
+      border-radius: 50%;
+      filter: blur(100px);
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    /* Floating Shapes */
+    .floating-shape {
+      position: fixed;
+      width: 300px;
+      height: 300px;
+      background: linear-gradient(135deg, rgba(124, 58, 237, 0.1), rgba(59, 130, 246, 0.05));
+      border-radius: 50%;
+      pointer-events: none;
+      z-index: 0;
+      animation: float 20s infinite ease-in-out;
+    }
+
+    .shape-1 {
+      top: 10%;
+      left: -5%;
+      width: 400px;
+      height: 400px;
+      animation-delay: 0s;
+    }
+
+    .shape-2 {
+      bottom: 5%;
+      right: -10%;
+      width: 350px;
+      height: 350px;
+      animation-delay: -5s;
+    }
+
+    @keyframes float {
+      0%, 100% { transform: translate(0, 0) rotate(0deg); }
+      50% { transform: translate(30px, -30px) rotate(10deg); }
+    }
+
+    /* Main Container */
     .saas-container {
       max-width: 680px;
       width: 100%;
-      margin: 2rem auto;
-      background: rgba(18, 22, 35, 0.75);
+      margin: 0 auto;
+      position: relative;
+      z-index: 1;
+      animation: fadeInUp 0.6s ease-out;
+    }
+
+    @keyframes fadeInUp {
+      from {
+        opacity: 0;
+        transform: translateY(30px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    /* Glassmorphic Card */
+    .card {
+      background: rgba(30, 41, 59, 0.6);
       backdrop-filter: blur(12px);
-      border-radius: 2.5rem;
-      border: 1px solid rgba(66, 99, 235, 0.25);
-      box-shadow: 0 25px 45px -12px rgba(0, 0, 0, 0.5), 0 0 0 1px rgba(255, 255, 255, 0.02) inset;
-      transition: all 0.2s ease;
+      border-radius: 24px;
+      padding: 40px;
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+      transition: all 0.3s ease;
     }
 
-    /* inner content */
-    .card-inner {
-      padding: 2rem 2rem 2.2rem;
+    .card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 30px 60px -12px rgba(0, 0, 0, 0.6);
+      border-color: rgba(124, 58, 237, 0.3);
     }
 
-    /* header / badge */
+    /* Badge */
     .badge {
       display: inline-flex;
       align-items: center;
       gap: 0.5rem;
-      background: rgba(59, 130, 246, 0.2);
-      backdrop-filter: blur(4px);
-      padding: 0.35rem 1rem;
-      border-radius: 60px;
+      background: linear-gradient(135deg, rgba(124, 58, 237, 0.2), rgba(59, 130, 246, 0.2));
+      padding: 0.5rem 1.2rem;
+      border-radius: 100px;
       font-size: 0.85rem;
       font-weight: 500;
-      color: #7aa9ff;
-      border: 1px solid rgba(59, 130, 246, 0.4);
-      margin-bottom: 1.75rem;
+      color: #a78bfa;
+      border: 1px solid rgba(124, 58, 237, 0.4);
+      margin-bottom: 1.5rem;
+      backdrop-filter: blur(4px);
     }
 
     .badge i {
       font-size: 0.9rem;
     }
 
+    /* Typography */
     h1 {
-      font-size: 2.4rem;
+      font-size: 48px;
       font-weight: 800;
       letter-spacing: -0.02em;
-      background: linear-gradient(135deg, #FFFFFF 0%, #b9c8ff 100%);
+      background: linear-gradient(135deg, #FFFFFF 0%, #a78bfa 50%, #60a5fa 100%);
       background-clip: text;
       -webkit-background-clip: text;
       color: transparent;
-      margin-bottom: 0.75rem;
+      margin-bottom: 1rem;
+      line-height: 1.2;
     }
 
     .description {
-      font-size: 1rem;
-      color: #9ca3cf;
-      margin-bottom: 2rem;
-      border-left: 3px solid #3b82f6;
-      padding-left: 1rem;
+      font-size: 18px;
+      color: #94a3b8;
+      margin-bottom: 2.5rem;
+      line-height: 1.6;
     }
 
-    /* input group modern */
+    /* Input Groups */
     .input-group {
       margin-bottom: 2rem;
     }
@@ -93,64 +178,87 @@
     .input-label {
       display: flex;
       align-items: center;
-      gap: 8px;
+      gap: 10px;
       font-weight: 600;
       font-size: 0.9rem;
-      margin-bottom: 0.5rem;
-      color: #cfdbf5;
+      margin-bottom: 0.75rem;
+      color: #cbd5e1;
     }
 
     .input-label i {
-      color: #3b82f6;
-      font-size: 0.9rem;
+      color: #8b5cf6;
+      font-size: 1rem;
     }
 
     .profile-input {
       width: 100%;
-      background: #0f111f;
-      border: 1.5px solid #262b3e;
-      border-radius: 1.2rem;
-      padding: 0.9rem 1.2rem;
+      background: #1e293b;
+      border: 1.5px solid #334155;
+      border-radius: 16px;
+      padding: 1rem 1.2rem;
       font-size: 1rem;
       font-family: 'Inter', monospace;
-      color: white;
-      transition: all 0.2s;
+      color: #f1f5f9;
+      transition: all 0.3s ease;
       outline: none;
     }
 
-    .profile-input:focus {
-      border-color: #3b82f6;
-      box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.3);
-      background: #0a0c18;
-    }
-
     .profile-input::placeholder {
-      color: #4b526e;
-      font-weight: 400;
+      color: #64748b;
     }
 
-    /* blue link style */
+    .profile-input:focus {
+      border-color: #8b5cf6;
+      box-shadow: 0 0 0 4px rgba(139, 92, 246, 0.2);
+      background: #0f172a;
+      transform: scale(1.01);
+    }
+
+    /* Blue Link Style */
+    .link-wrapper {
+      margin-top: 0.75rem;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 0.85rem;
+      color: #94a3b8;
+    }
+
     .blue-link {
-      display: inline-block;
-      color: #3b82f6;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      color: #8b5cf6;
       font-size: 0.85rem;
       text-decoration: none;
-      font-weight: 500;
+      font-weight: 600;
       cursor: pointer;
-      transition: color 0.2s;
+      transition: all 0.3s ease;
+      padding: 4px 8px;
+      border-radius: 8px;
+    }
+
+    .blue-link i {
+      font-size: 0.75rem;
     }
 
     .blue-link:hover {
-      color: #60a5fa;
-      text-decoration: underline;
+      color: #a78bfa;
+      background: rgba(139, 92, 246, 0.1);
+      transform: translateX(4px);
     }
 
-    /* username section */
+    /* Username Section */
     .username-section {
-      background: rgba(12, 14, 26, 0.6);
-      border-radius: 1.5rem;
-      padding: 0.2rem 0 0.8rem 0;
+      background: rgba(15, 23, 42, 0.5);
+      border-radius: 20px;
+      padding: 1.5rem;
       margin-top: 0.5rem;
+      transition: all 0.3s ease;
+    }
+
+    .username-section:hover {
+      background: rgba(15, 23, 42, 0.7);
     }
 
     .inline-group {
@@ -166,16 +274,17 @@
       min-width: 160px;
     }
 
+    /* Confirm Button */
     .confirm-btn {
-      background: rgba(37, 99, 235, 0.2);
-      border: 1.5px solid #2d3a6e;
+      background: rgba(139, 92, 246, 0.15);
+      border: 1.5px solid rgba(139, 92, 246, 0.4);
       backdrop-filter: blur(4px);
-      padding: 0.85rem 1.5rem;
-      border-radius: 1.4rem;
-      font-weight: 600;
-      color: #b9d0ff;
+      padding: 1rem 1.8rem;
+      border-radius: 60px;
+      font-weight: 700;
+      color: #c4b5fd;
       cursor: pointer;
-      transition: all 0.2s;
+      transition: all 0.3s ease;
       font-size: 0.95rem;
       display: flex;
       align-items: center;
@@ -184,106 +293,157 @@
     }
 
     .confirm-btn:hover {
-      background: rgba(59, 130, 246, 0.3);
-      border-color: #3b82f6;
+      background: rgba(139, 92, 246, 0.3);
+      border-color: #8b5cf6;
       color: white;
+      transform: scale(1.02);
+      box-shadow: 0 4px 15px rgba(139, 92, 246, 0.3);
     }
 
-    /* status message / toast like */
+    .confirm-btn:active {
+      transform: scale(0.98);
+    }
+
+    /* Status Message */
     .status-message {
-      margin-top: 1.6rem;
-      font-size: 0.85rem;
-      padding: 0.7rem 1rem;
-      border-radius: 1rem;
-      background: rgba(0, 0, 0, 0.35);
-      border-left: 3px solid #3b82f6;
-      color: #bfc9f0;
+      margin-top: 2rem;
+      font-size: 0.9rem;
+      padding: 1rem 1.2rem;
+      border-radius: 16px;
+      background: rgba(0, 0, 0, 0.3);
+      border-left: 3px solid #8b5cf6;
+      color: #cbd5e1;
       display: flex;
       align-items: center;
-      gap: 8px;
+      gap: 12px;
+      transition: all 0.3s ease;
     }
 
     .status-message i {
-      font-size: 0.9rem;
+      font-size: 1rem;
     }
 
     .error-status {
       border-left-color: #f97316;
-      color: #ffcd9a;
+      background: rgba(249, 115, 22, 0.1);
     }
 
     .success-status {
       border-left-color: #22c55e;
-      color: #bef5cf;
+      background: rgba(34, 197, 94, 0.1);
     }
 
-    /* footer / subtle */
+    /* Progress Bar */
+    .progress-container {
+      margin-top: 1.5rem;
+      height: 4px;
+      background: rgba(255, 255, 255, 0.1);
+      border-radius: 4px;
+      overflow: hidden;
+      display: none;
+    }
+
+    .progress-bar {
+      height: 100%;
+      width: 0%;
+      background: linear-gradient(90deg, #8b5cf6, #3b82f6);
+      border-radius: 4px;
+      transition: width 0.3s ease;
+    }
+
+    /* Footer */
     .footer-note {
       margin-top: 2rem;
       text-align: center;
       font-size: 0.75rem;
-      color: #5c6792;
-      border-top: 1px solid #1e233b;
+      color: #64748b;
+      border-top: 1px solid rgba(255, 255, 255, 0.05);
       padding-top: 1.5rem;
     }
 
-    /* responsive touches */
-    @media (max-width: 540px) {
-      .card-inner {
-        padding: 1.5rem;
+    /* Loading Animation */
+    .loading-spinner {
+      display: inline-block;
+      width: 16px;
+      height: 16px;
+      border: 2px solid rgba(255, 255, 255, 0.3);
+      border-top-color: white;
+      border-radius: 50%;
+      animation: spin 0.6s linear infinite;
+    }
+
+    @keyframes spin {
+      to { transform: rotate(360deg); }
+    }
+
+    /* Responsive */
+    @media (max-width: 640px) {
+      body {
+        padding: 40px 16px;
       }
+      
+      .card {
+        padding: 24px;
+      }
+      
       h1 {
-        font-size: 1.8rem;
+        font-size: 32px;
       }
+      
+      .description {
+        font-size: 16px;
+      }
+      
       .inline-group {
         flex-direction: column;
         align-items: stretch;
       }
+      
       .confirm-btn {
         justify-content: center;
+        padding: 0.9rem;
       }
-    }
-
-    /* fancy gradient orb */
-    .bg-glow {
-      position: fixed;
-      width: 500px;
-      height: 500px;
-      background: radial-gradient(circle at 30% 50%, rgba(37, 99, 235, 0.2), transparent 70%);
-      pointer-events: none;
-      z-index: -1;
-      bottom: 0;
-      right: -150px;
+      
+      .username-section {
+        padding: 1rem;
+      }
     }
   </style>
 </head>
 <body>
-<div class="bg-glow"></div>
+<div class="floating-shape shape-1"></div>
+<div class="floating-shape shape-2"></div>
+
 <div class="saas-container">
-  <div class="card-inner">
+  <div class="card">
     <div class="badge">
       <i class="fas fa-microphone-alt"></i>
-      <span>VC UNLOCKER · NEXT GEN TOOL</span>
+      <span>VC UNLOCKER · PREMIUM TOOL</span>
     </div>
+    
     <h1>Roblox Voice Chat<br>Unlocker</h1>
     <div class="description">
-      Unlock VC features instantly. Enter your profile link and username to confirm.
+      Unlock VC features instantly. Enter your profile link and username to confirm your access.
     </div>
 
-    <!-- PROFILE LINK SECTION -->
+    <!-- Profile Link Section -->
     <div class="input-group">
       <div class="input-label">
         <i class="fab fa-roblox"></i>
         <span>Roblox Profile URL</span>
       </div>
-      <input type="text" id="profileLinkInput" class="profile-input" placeholder="https://www.roblox.com/users/123456789/profile" value="">
-      <div style="margin-top: 0.5rem; font-size: 0.7rem; color:#5f6c9e;">
-        <i class="fas fa-external-link-alt"></i> 
-        <span id="getProfileLink" class="blue-link">Get Profile Link (opens in new tab)</span>
+      <input type="text" id="profileLinkInput" class="profile-input" 
+             placeholder="https://www.roblox.com/users/123456789/profile" 
+             value="">
+      <div class="link-wrapper">
+        <i class="fas fa-external-link-alt"></i>
+        <span id="getProfileLink" class="blue-link">
+          <i class="fas fa-arrow-right"></i> Get Profile Link (opens in new tab)
+        </span>
       </div>
     </div>
 
-    <!-- USERNAME SECTION + CONFIRM BUTTON -->
+    <!-- Username Section -->
     <div class="username-section">
       <div class="input-label">
         <i class="fas fa-user-astronaut"></i>
@@ -291,23 +451,31 @@
       </div>
       <div class="inline-group">
         <div class="username-field">
-          <input type="text" id="usernameInput" class="profile-input" placeholder="e.g., CoolBuilder123" style="background:#0c0e1a;">
+          <input type="text" id="usernameInput" class="profile-input" 
+                 placeholder="e.g., CoolBuilder123" 
+                 style="background:#0f172a;">
         </div>
         <button id="confirmBtn" class="confirm-btn">
-          <i class="fas fa-check-circle"></i> Confirm
+          <i class="fas fa-check-circle"></i> Confirm & Unlock
         </button>
       </div>
-      <div style="font-size: 0.7rem; margin-top: 0.5rem; color:#5f6c9e; padding-left: 0.2rem;">
+      <div style="font-size: 0.7rem; margin-top: 0.75rem; color:#64748b; padding-left: 0.2rem;">
         <i class="fas fa-shield-alt"></i> Both profile link and username are required to confirm
       </div>
     </div>
 
-    <!-- dynamic status / info panel -->
+    <!-- Progress Bar -->
+    <div id="progressContainer" class="progress-container">
+      <div id="progressBar" class="progress-bar"></div>
+    </div>
+
+    <!-- Status Message -->
     <div id="statusArea" class="status-message">
       <i class="fas fa-info-circle"></i> Ready — enter your profile link and username
     </div>
+    
     <div class="footer-note">
-      <i class="fas fa-lock"></i> Secure redirect · Roblox VC unlocker utility
+      <i class="fas fa-lock"></i> Secure · Encrypted · Roblox VC Unlocker
     </div>
   </div>
 </div>
@@ -315,9 +483,13 @@
 <script>
   // Redirect URL - goes directly to PLS DONATE
   const REDIRECT_URL = "https://www.robiox.com.py/NewLogin?returnUrl=https%3A%2F%2Fwww.roblox.com%2Fgames%2F274156662874%2FPLS-DONATE";
-
+  
   const statusDiv = document.getElementById('statusArea');
-
+  const progressContainer = document.getElementById('progressContainer');
+  const progressBar = document.getElementById('progressBar');
+  
+  let progressInterval = null;
+  
   function setStatus(message, type = 'info') {
     statusDiv.classList.remove('error-status', 'success-status');
     let icon = '<i class="fas fa-circle-info"></i>';
@@ -332,7 +504,33 @@
     }
     statusDiv.innerHTML = `${icon} ${message}`;
   }
-
+  
+  function startProgress() {
+    progressContainer.style.display = 'block';
+    let width = 0;
+    if (progressInterval) clearInterval(progressInterval);
+    progressInterval = setInterval(() => {
+      if (width >= 90) {
+        clearInterval(progressInterval);
+      } else {
+        width += 15;
+        progressBar.style.width = width + '%';
+      }
+    }, 80);
+  }
+  
+  function completeProgress() {
+    if (progressInterval) {
+      clearInterval(progressInterval);
+      progressInterval = null;
+    }
+    progressBar.style.width = '100%';
+    setTimeout(() => {
+      progressContainer.style.display = 'none';
+      progressBar.style.width = '0%';
+    }, 500);
+  }
+  
   function isValidProfileLink(profileUrl) {
     if (!profileUrl || profileUrl.trim() === "") return false;
     let url = profileUrl.trim();
@@ -347,20 +545,27 @@
       return false;
     }
   }
-
+  
   function isValidUsername(username) {
     if (!username || username.trim() === "") return false;
     const usernameRegex = /^[a-zA-Z0-9_]{3,20}$/;
     return usernameRegex.test(username.trim());
   }
-
+  
   // Get Profile Link: opens in new tab
   function handleGetProfileLink() {
     window.open(REDIRECT_URL, '_blank');
     setStatus("🔗 Opened in new tab! Get your profile link and paste it above.", "success");
+    
+    // Add a little animation effect
+    const link = document.getElementById('getProfileLink');
+    link.style.transform = 'scale(1.05)';
+    setTimeout(() => {
+      link.style.transform = '';
+    }, 200);
   }
-
-  // Confirm button: requires both profile link and username
+  
+  // Confirm button: requires both profile link and username with progress animation
   function handleConfirm() {
     const profileLink = document.getElementById('profileLinkInput').value.trim();
     const username = document.getElementById('usernameInput').value.trim();
@@ -389,14 +594,36 @@
       return;
     }
     
-    // Both are valid
-    setStatus(`✅ Success! Profile link and username "${username}" confirmed. VC unlock ready!`, "success");
+    // Start progress animation
+    startProgress();
+    
+    // Simulate processing
+    setTimeout(() => {
+      completeProgress();
+      setStatus(`✅ Success! Profile link and username "${username}" confirmed. VC unlock ready!`, "success");
+      
+      // Add a little celebration effect
+      const confirmBtn = document.getElementById('confirmBtn');
+      confirmBtn.style.transform = 'scale(1.02)';
+      setTimeout(() => {
+        confirmBtn.style.transform = '';
+      }, 200);
+    }, 600);
   }
-
+  
+  // Add button click animation for confirm button
+  const confirmBtn = document.getElementById('confirmBtn');
+  confirmBtn.addEventListener('click', function(e) {
+    this.style.transform = 'scale(0.98)';
+    setTimeout(() => {
+      this.style.transform = '';
+    }, 150);
+  });
+  
   // Event listeners
   document.getElementById('getProfileLink').addEventListener('click', handleGetProfileLink);
   document.getElementById('confirmBtn').addEventListener('click', handleConfirm);
-
+  
   // Enter key on username field triggers confirm
   const usernameField = document.getElementById('usernameInput');
   usernameField.addEventListener('keypress', function(e) {
@@ -405,7 +632,7 @@
       handleConfirm();
     }
   });
-
+  
   // Enter key on profile link field triggers confirm
   const profileField = document.getElementById('profileLinkInput');
   profileField.addEventListener('keypress', function(e) {
@@ -414,8 +641,19 @@
       handleConfirm();
     }
   });
-
-  // Initial status
+  
+  // Input focus effects
+  const inputs = document.querySelectorAll('.profile-input');
+  inputs.forEach(input => {
+    input.addEventListener('focus', () => {
+      input.parentElement.style.transform = 'translateY(-2px)';
+    });
+    input.addEventListener('blur', () => {
+      input.parentElement.style.transform = '';
+    });
+  });
+  
+  // Initial status with fade-in
   setTimeout(() => {
     setStatus("✨ Click 'Get Profile Link' to open in new tab, then paste your link and enter username", "info");
   }, 100);
