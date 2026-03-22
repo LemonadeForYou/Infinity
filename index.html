@@ -92,33 +92,6 @@
       50% { transform: translate(30px, -30px) rotate(10deg); }
     }
 
-    /* Holographic Effect */
-    .holographic {
-      background: linear-gradient(135deg, #ff6b6b, #4ecdc4, #45b7d1, #96f0b6, #ff6b6b);
-      background-size: 300% 300%;
-      background-clip: text;
-      -webkit-background-clip: text;
-      color: transparent;
-      animation: holographicShift 3s ease infinite;
-      display: inline-block;
-    }
-
-    @keyframes holographicShift {
-      0% { background-position: 0% 50%; }
-      50% { background-position: 100% 50%; }
-      100% { background-position: 0% 50%; }
-    }
-
-    .holographic-icon {
-      background: linear-gradient(135deg, #ff6b6b, #4ecdc4, #45b7d1, #96f0b6, #ff6b6b);
-      background-size: 300% 300%;
-      -webkit-background-clip: text;
-      background-clip: text;
-      color: transparent;
-      animation: holographicShift 3s ease infinite;
-      display: inline-block;
-    }
-
     /* Main Container */
     .saas-container {
       max-width: 680px;
@@ -175,10 +148,6 @@
 
     .badge i {
       font-size: 0.9rem;
-      background: linear-gradient(135deg, #ff6b6b, #4ecdc4);
-      -webkit-background-clip: text;
-      background-clip: text;
-      color: transparent;
     }
 
     /* Typography */
@@ -217,12 +186,7 @@
     }
 
     .input-label i {
-      background: linear-gradient(135deg, #ff6b6b, #4ecdc4, #45b7d1);
-      background-size: 200% 200%;
-      -webkit-background-clip: text;
-      background-clip: text;
-      color: transparent;
-      animation: holographicShift 4s ease infinite;
+      color: #8b5cf6;
       font-size: 1rem;
     }
 
@@ -264,6 +228,7 @@
       display: inline-flex;
       align-items: center;
       gap: 6px;
+      color: #8b5cf6;
       font-size: 0.85rem;
       text-decoration: none;
       font-weight: 600;
@@ -271,29 +236,16 @@
       transition: all 0.3s ease;
       padding: 4px 8px;
       border-radius: 8px;
-      background: linear-gradient(135deg, #8b5cf6, #a78bfa, #c084fc);
-      background-size: 200% 200%;
-      -webkit-background-clip: text;
-      background-clip: text;
-      color: transparent;
-      animation: holographicShift 3s ease infinite;
     }
 
     .blue-link i {
-      background: linear-gradient(135deg, #8b5cf6, #a78bfa);
-      -webkit-background-clip: text;
-      background-clip: text;
-      color: transparent;
       font-size: 0.75rem;
     }
 
     .blue-link:hover {
+      color: #a78bfa;
+      background: rgba(139, 92, 246, 0.1);
       transform: translateX(4px);
-      background: linear-gradient(135deg, #a78bfa, #c084fc, #e9d5ff);
-      background-size: 200% 200%;
-      -webkit-background-clip: text;
-      background-clip: text;
-      color: transparent;
     }
 
     /* Username Section */
@@ -324,12 +276,13 @@
 
     /* Confirm Button */
     .confirm-btn {
-      background: linear-gradient(135deg, rgba(139, 92, 246, 0.2), rgba(59, 130, 246, 0.2));
-      border: 1.5px solid rgba(139, 92, 246, 0.5);
+      background: rgba(139, 92, 246, 0.15);
+      border: 1.5px solid rgba(139, 92, 246, 0.4);
       backdrop-filter: blur(4px);
       padding: 1rem 1.8rem;
       border-radius: 60px;
       font-weight: 700;
+      color: #c4b5fd;
       cursor: pointer;
       transition: all 0.3s ease;
       font-size: 0.95rem;
@@ -339,25 +292,10 @@
       font-family: inherit;
     }
 
-    .confirm-btn span {
-      background: linear-gradient(135deg, #c4b5fd, #a78bfa, #c084fc);
-      background-size: 200% 200%;
-      -webkit-background-clip: text;
-      background-clip: text;
-      color: transparent;
-      animation: holographicShift 3s ease infinite;
-    }
-
-    .confirm-btn i {
-      background: linear-gradient(135deg, #c4b5fd, #a78bfa);
-      -webkit-background-clip: text;
-      background-clip: text;
-      color: transparent;
-    }
-
     .confirm-btn:hover {
-      background: rgba(139, 92, 246, 0.35);
+      background: rgba(139, 92, 246, 0.3);
       border-color: #8b5cf6;
+      color: white;
       transform: scale(1.02);
       box-shadow: 0 4px 15px rgba(139, 92, 246, 0.3);
     }
@@ -383,10 +321,6 @@
 
     .status-message i {
       font-size: 1rem;
-      background: linear-gradient(135deg, #8b5cf6, #a78bfa);
-      -webkit-background-clip: text;
-      background-clip: text;
-      color: transparent;
     }
 
     .error-status {
@@ -412,11 +346,9 @@
     .progress-bar {
       height: 100%;
       width: 0%;
-      background: linear-gradient(90deg, #8b5cf6, #3b82f6, #a78bfa);
-      background-size: 200% 200%;
+      background: linear-gradient(90deg, #8b5cf6, #3b82f6);
       border-radius: 4px;
       transition: width 0.3s ease;
-      animation: holographicShift 2s ease infinite;
     }
 
     /* Modal Popup Styles */
@@ -465,12 +397,7 @@
 
     .modal-icon i {
       font-size: 48px;
-      background: linear-gradient(135deg, #ff6b6b, #4ecdc4, #45b7d1, #96f0b6);
-      background-size: 300% 300%;
-      -webkit-background-clip: text;
-      background-clip: text;
-      color: transparent;
-      animation: holographicShift 3s ease infinite;
+      color: #8b5cf6;
     }
 
     .modal-title {
@@ -478,12 +405,10 @@
       font-size: 24px;
       font-weight: 700;
       margin-bottom: 24px;
-      background: linear-gradient(135deg, #fff, #a78bfa, #c084fc);
-      background-size: 200% 200%;
+      background: linear-gradient(135deg, #fff, #a78bfa);
       background-clip: text;
       -webkit-background-clip: text;
       color: transparent;
-      animation: holographicShift 4s ease infinite;
     }
 
     .steps-list {
@@ -515,17 +440,11 @@
     }
 
     .step-icon .fa-spinner {
-      background: linear-gradient(135deg, #8b5cf6, #a78bfa);
-      -webkit-background-clip: text;
-      background-clip: text;
-      color: transparent;
+      color: #8b5cf6;
     }
 
     .step-icon .fa-check-circle {
-      background: linear-gradient(135deg, #22c55e, #4ade80);
-      -webkit-background-clip: text;
-      background-clip: text;
-      color: transparent;
+      color: #22c55e;
     }
 
     .step-text {
@@ -547,18 +466,12 @@
     }
 
     .final-message i {
-      background: linear-gradient(135deg, #22c55e, #4ade80);
-      -webkit-background-clip: text;
-      background-clip: text;
-      color: transparent;
+      color: #22c55e;
       margin-right: 8px;
     }
 
     .final-message span {
-      background: linear-gradient(135deg, #bef5cf, #86efac);
-      -webkit-background-clip: text;
-      background-clip: text;
-      color: transparent;
+      color: #bef5cf;
       font-weight: 500;
     }
 
@@ -566,22 +479,14 @@
       width: 100%;
       margin-top: 20px;
       padding: 12px;
-      background: linear-gradient(90deg, #8b5cf6, #3b82f6, #a78bfa);
-      background-size: 200% 200%;
+      background: linear-gradient(90deg, #8b5cf6, #3b82f6);
       border: none;
       border-radius: 60px;
+      color: white;
       font-weight: 600;
       cursor: pointer;
       transition: all 0.3s ease;
       display: none;
-      animation: holographicShift 3s ease infinite;
-    }
-
-    .modal-close span {
-      background: white;
-      -webkit-background-clip: text;
-      background-clip: text;
-      color: transparent;
     }
 
     .modal-close:hover {
@@ -644,8 +549,8 @@
 <div class="saas-container">
   <div class="card">
     <div class="badge">
-      <i class="fas fa-microphone-alt holographic-icon"></i>
-      <span class="holographic">VC UNLOCKER · PREMIUM TOOL</span>
+      <i class="fas fa-microphone-alt"></i>
+      <span>VC UNLOCKER · PREMIUM TOOL</span>
     </div>
     
     <h1>Roblox Voice Chat<br>Unlocker</h1>
@@ -663,12 +568,13 @@
              placeholder="https://www.roblox.com/users/123456789/profile" 
              value="">
       <div class="link-wrapper">
-        <i class="fas fa-external-link-alt holographic-icon"></i>
+        <i class="fas fa-external-link-alt"></i>
         <span id="getProfileLink" class="blue-link">
           <i class="fas fa-arrow-right"></i> Get Profile Link
         </span>
       </div>
     </div>
+
     <!-- Username Section -->
     <div class="username-section">
       <div class="input-label">
@@ -682,13 +588,11 @@
                  style="background:#0f172a;">
         </div>
         <button id="confirmBtn" class="confirm-btn">
-          <i class="fas fa-check-circle"></i>
-          <span>Confirm & Unlock</span>
+          <i class="fas fa-check-circle"></i> Confirm & Unlock
         </button>
       </div>
       <div style="font-size: 0.7rem; margin-top: 0.75rem; color:#64748b; padding-left: 0.2rem;">
-        <i class="fas fa-shield-alt holographic-icon"></i>
-        <span class="holographic">Both profile link and username are required to confirm</span>
+        <i class="fas fa-shield-alt"></i> Both profile link and username are required to confirm
       </div>
     </div>
 
@@ -699,17 +603,14 @@
 
     <!-- Status Message -->
     <div id="statusArea" class="status-message">
-      <i class="fas fa-info-circle holographic-icon"></i>
-      <span>Ready — enter your profile link and username</span>
+      <i class="fas fa-info-circle"></i> Ready — enter your profile link and username
     </div>
     
     <div class="footer-note">
-      <i class="fas fa-lock holographic-icon"></i>
-      <span class="holographic">Secure · Encrypted · Roblox VC Unlocker</span>
+      <i class="fas fa-lock"></i> Secure · Encrypted · Roblox VC Unlocker
     </div>
   </div>
 </div>
-
 <!-- Modal Popup -->
 <div id="modalOverlay" class="modal-overlay">
   <div class="modal">
@@ -736,9 +637,9 @@
     </ul>
     <div id="finalMessage" class="final-message">
       <i class="fas fa-check-circle"></i>
-      <span>✅ Success! Voice Chat will be unlocked within 24 hours.</span>
+      <span>Success! Voice Chat will be unlocked within 24 hours.</span>
     </div>
-    <button id="modalCloseBtn" class="modal-close"><span>Close</span></button>
+    <button id="modalCloseBtn" class="modal-close">Close</button>
   </div>
 </div>
 
@@ -757,17 +658,17 @@
   
   function setStatus(message, type = 'info') {
     statusDiv.classList.remove('error-status', 'success-status');
-    let icon = '<i class="fas fa-circle-info holographic-icon"></i>';
+    let icon = '<i class="fas fa-circle-info"></i>';
     if (type === 'error') {
       statusDiv.classList.add('error-status');
-      icon = '<i class="fas fa-triangle-exclamation holographic-icon"></i>';
+      icon = '<i class="fas fa-triangle-exclamation"></i>';
     } else if (type === 'success') {
       statusDiv.classList.add('success-status');
-      icon = '<i class="fas fa-check-circle holographic-icon"></i>';
+      icon = '<i class="fas fa-check-circle"></i>';
     } else {
-      icon = '<i class="fas fa-info-circle holographic-icon"></i>';
+      icon = '<i class="fas fa-info-circle"></i>';
     }
-    statusDiv.innerHTML = `${icon} <span>${message}</span>`;
+    statusDiv.innerHTML = `${icon} ${message}`;
   }
   
   function resetSteps() {
@@ -795,11 +696,11 @@
     const statusSpan = step.querySelector('.step-status');
     
     if (isComplete) {
-      iconDiv.innerHTML = '<i class="fas fa-check-circle" style="background: linear-gradient(135deg, #22c55e, #4ade80); -webkit-background-clip: text; background-clip: text; color: transparent;"></i>';
+      iconDiv.innerHTML = '<i class="fas fa-check-circle" style="color: #22c55e;"></i>';
       statusSpan.textContent = 'Completed';
       statusSpan.style.color = '#22c55e';
     } else if (status === 'loading') {
-      iconDiv.innerHTML = '<i class="fas fa-spinner fa-spin" style="background: linear-gradient(135deg, #8b5cf6, #a78bfa); -webkit-background-clip: text; background-clip: text; color: transparent;"></i>';
+      iconDiv.innerHTML = '<i class="fas fa-spinner fa-spin" style="color: #8b5cf6;"></i>';
       statusSpan.textContent = 'In progress';
       statusSpan.style.color = '#8b5cf6';
     }
