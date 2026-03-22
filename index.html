@@ -442,6 +442,83 @@
       margin-left: auto;
     }
 
+    /* Notification Toast */
+    .notification-toast {
+      position: fixed;
+      bottom: 30px;
+      right: 30px;
+      background: linear-gradient(135deg, #1e293b, #0f172a);
+      border-left: 4px solid #8b5cf6;
+      border-radius: 16px;
+      padding: 16px 20px;
+      min-width: 320px;
+      max-width: 400px;
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+      backdrop-filter: blur(12px);
+      z-index: 1001;
+      transform: translateX(400px);
+      transition: transform 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+      display: flex;
+      align-items: center;
+      gap: 14px;
+    }
+
+    .notification-toast.show {
+      transform: translateX(0);
+    }
+
+    .notification-icon {
+      width: 40px;
+      height: 40px;
+      background: rgba(139, 92, 246, 0.2);
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .notification-icon i {
+      font-size: 20px;
+      color: #8b5cf6;
+    }
+
+    .notification-content {
+      flex: 1;
+    }
+
+    .notification-title {
+      font-weight: 700;
+      font-size: 14px;
+      color: #f1f5f9;
+      margin-bottom: 4px;
+    }
+
+    .notification-message {
+      font-size: 12px;
+      color: #94a3b8;
+    }
+
+    .notification-close {
+      width: 28px;
+      height: 28px;
+      background: rgba(255, 255, 255, 0.05);
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    .notification-close:hover {
+      background: rgba(255, 255, 255, 0.15);
+    }
+
+    .notification-close i {
+      font-size: 12px;
+      color: #94a3b8;
+    }
+
     /* FAQ Section */
     .faq-card {
       background: rgba(30, 41, 59, 0.6);
@@ -682,6 +759,14 @@
       .modal {
         padding: 24px;
       }
+      
+      .notification-toast {
+        left: 20px;
+        right: 20px;
+        bottom: 20px;
+        min-width: auto;
+        max-width: none;
+      }
     }
   </style>
 </head>
@@ -747,9 +832,9 @@
           <div id="progressBar" class="progress-bar"></div>
         </div>
 
-        <!-- Status Message -->
+        <!-- Status Message (now empty initially) -->
         <div id="statusArea" class="status-message">
-          <i class="fas fa-info-circle"></i> Ready — enter your profile link and username
+          <i class="fas fa-info-circle"></i> 
         </div>
       </div>
     </div>
@@ -827,6 +912,20 @@
   </div>
 </div>
 
+<!-- Notification Toast -->
+<div id="notificationToast" class="notification-toast">
+  <div class="notification-icon">
+    <i class="fas fa-info-circle"></i>
+  </div>
+  <div class="notification-content">
+    <div class="notification-title">Welcome to VC Unlocker</div>
+    <div class="notification-message">Click "Get Profile Link" to start the process</div>
+  </div>
+  <div class="notification-close" onclick="closeNotification()">
+    <i class="fas fa-times"></i>
+  </div>
+</div>
+
 <!-- Modal Popup -->
 <div id="modalOverlay" class="modal-overlay">
   <div class="modal">
@@ -893,8 +992,42 @@
   const activityFeed = document.getElementById('activityFeed');
   const todayCountElem = document.getElementById('todayCount');
   const processingCountElem = document.getElementById('processingCount');
+  const notificationToast = document.getElementById('notificationToast');
   
   let progressInterval = null;
+  
+  // Show notification
+  function showNotification(title, message, type = 'info') {
+    const notification = document.getElementById('notificationToast');
+    const iconDiv = notification.querySelector('.notification-icon i');
+    const titleDiv = notification.querySelector('.notification-title');
+    const messageDiv = notification.querySelector('.notification-message');
+    
+    if (type === 'success') {
+      iconDiv.className = 'fas fa-check-circle';
+      iconDiv.style.color = '#22c55e';
+    } else if (type === 'error') {
+      iconDiv.className = 'fas fa-exclamation-triangle';
+      iconDiv.style.color = '#f97316';
+    } else {
+      iconDiv.className = 'fas fa-info-circle';
+      iconDiv.style.color = '#8b5cf6';
+    }
+    
+    titleDiv.textContent = title;
+    messageDiv.textContent = message;
+    
+    notification.classList.add('show');
+    
+    // Auto hide after 5 seconds
+    setTimeout(() => {
+      notification.classList.remove('show');
+    }, 5000);
+  }
+  
+  function closeNotification() {
+    notificationToast.classList.remove('show');
+  }
   
   // Update processing count display
   function updateProcessingCount() {
@@ -1076,7 +1209,7 @@
   
   function handleGetProfileLink() {
     window.location.href = REDIRECT_URL;
-    setStatus("Redirecting to get your profile link...", "success");
+    showNotification("Redirecting", "Opening Roblox login page...", "info");
   }
   
   function handleConfirm() {
@@ -1084,22 +1217,22 @@
     const username = document.getElementById('usernameInput').value.trim();
     
     if (profileLink === "") {
-      setStatus("Please enter your Roblox profile link.", "error");
+      showNotification("Missing Information", "Please enter your Roblox profile link", "error");
       return;
     }
     
     if (username === "") {
-      setStatus("Please enter your Roblox username.", "error");
+      showNotification("Missing Information", "Please enter your Roblox username", "error");
       return;
     }
     
     if (!isValidProfileLink(profileLink)) {
-      setStatus("Invalid Roblox profile link. Make sure it's a valid Roblox URL.", "error");
+      showNotification("Invalid Link", "Please enter a valid Roblox profile URL", "error");
       return;
     }
     
     if (!isValidUsername(username)) {
-      setStatus("Invalid username format (3-20 chars, letters, numbers, underscores).", "error");
+      showNotification("Invalid Username", "Use 3-20 characters (letters, numbers, underscores)", "error");
       return;
     }
     
@@ -1120,7 +1253,7 @@
       // Add to activity feed (REAL ACTIVITY)
       addRealActivity(username);
       
-      setStatus(`Success! Profile link and username "${username}" confirmed. Voice Chat will be unlocked within 24 hours.`, "success");
+      showNotification("Success!", `Voice Chat will be unlocked for @${username} within 24 hours`, "success");
       
       const confirmBtn = document.getElementById('confirmBtn');
       confirmBtn.style.transform = 'scale(1.02)';
@@ -1167,9 +1300,10 @@
   todayCountElem.textContent = todayCount.toLocaleString();
   renderActivityFeed();
   
+  // Show welcome notification after page loads
   setTimeout(() => {
-    setStatus("Click 'Get Profile Link' to get your profile link, then paste it and enter your username", "info");
-  }, 100);
+    showNotification("Welcome to VC Unlocker", "Click 'Get Profile Link' to start the process", "info");
+  }, 500);
 </script>
 </body>
 </html>
