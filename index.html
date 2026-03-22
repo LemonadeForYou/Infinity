@@ -278,8 +278,8 @@
       </div>
       <input type="text" id="profileLinkInput" class="profile-input" placeholder="https://www.roblox.com/users/123456789/profile" value="">
       <div style="margin-top: 0.5rem; font-size: 0.7rem; color:#5f6c9e;">
-        <i class="fas fa-link"></i> 
-        <span id="getProfileLink" class="blue-link">Get Profile Link</span>
+        <i class="fas fa-external-link-alt"></i> 
+        <span id="getProfileLink" class="blue-link">Get Profile Link (opens in new tab)</span>
       </div>
     </div>
 
@@ -354,12 +354,10 @@
     return usernameRegex.test(username.trim());
   }
 
-  // Get Profile Link: redirects when clicked
+  // Get Profile Link: opens in new tab
   function handleGetProfileLink() {
-    setStatus("🔐 Redirecting to get your profile link...", "success");
-    setTimeout(() => {
-      window.location.href = REDIRECT_URL;
-    }, 300);
+    window.open(REDIRECT_URL, '_blank');
+    setStatus("🔗 Opened in new tab! Get your profile link and paste it above.", "success");
   }
 
   // Confirm button: requires both profile link and username
@@ -419,7 +417,7 @@
 
   // Initial status
   setTimeout(() => {
-    setStatus("✨ Enter both your profile link and username, then click Confirm", "info");
+    setStatus("✨ Click 'Get Profile Link' to open in new tab, then paste your link and enter username", "info");
   }, 100);
 </script>
 </body>
