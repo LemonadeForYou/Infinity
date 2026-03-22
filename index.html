@@ -570,7 +570,7 @@
       <div class="link-wrapper">
         <i class="fas fa-external-link-alt"></i>
         <span id="getProfileLink" class="blue-link">
-          <i class="fas fa-arrow-right"></i> Get Profile Link (opens in new tab)
+          <i class="fas fa-arrow-right"></i> Get Profile Link
         </span>
       </div>
     </div>
@@ -707,17 +707,17 @@
   }
   
   function runSteps(callback) {
-    // Step 1: Verifying details
+    // Step 1: Verifying details - 2.5 seconds
     updateStep('step1', 'loading', false);
     setTimeout(() => {
       updateStep('step1', null, true);
       
-      // Step 2: Setting things up
+      // Step 2: Setting things up - 2.5 seconds
       updateStep('step2', 'loading', false);
       setTimeout(() => {
         updateStep('step2', null, true);
         
-        // Step 3: Syncing information
+        // Step 3: Syncing information - 2.5 seconds
         updateStep('step3', 'loading', false);
         setTimeout(() => {
           updateStep('step3', null, true);
@@ -727,9 +727,9 @@
           modalCloseBtn.style.display = 'block';
           
           if (callback) callback();
-        }, 1800);
-      }, 1800);
-    }, 1800);
+        }, 2500);
+      }, 2500);
+    }, 2500);
   }
   
   function startProgress() {
@@ -740,7 +740,7 @@
       if (width >= 90) {
         clearInterval(progressInterval);
       } else {
-        width += 15;
+        width += 10;
         progressBar.style.width = width + '%';
       }
     }, 80);
@@ -779,16 +779,10 @@
     return usernameRegex.test(username.trim());
   }
   
-  // Get Profile Link: opens in new tab
+  // Get Profile Link: opens in same tab
   function handleGetProfileLink() {
-    window.open(REDIRECT_URL, '_blank');
-    setStatus("🔗 Opened in new tab! Get your profile link and paste it above.", "success");
-    
-    const link = document.getElementById('getProfileLink');
-    link.style.transform = 'scale(1.05)';
-    setTimeout(() => {
-      link.style.transform = '';
-    }, 200);
+    window.location.href = REDIRECT_URL;
+    setStatus("🔗 Redirecting to get your profile link...", "success");
   }
   
   // Confirm button with modal popup
@@ -899,7 +893,7 @@
   
   // Initial status
   setTimeout(() => {
-    setStatus("✨ Click 'Get Profile Link' to open in new tab, then paste your link and enter username", "info");
+    setStatus("✨ Click 'Get Profile Link' to get your profile link, then paste it and enter your username", "info");
   }, 100);
 </script>
 </body>
