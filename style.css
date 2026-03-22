@@ -347,7 +347,7 @@ h1 {
 }
 
 .activity-feed {
-    max-height: 300px;
+    max-height: 400px;
     overflow-y: auto;
     margin-top: 16px;
 }
@@ -362,6 +362,16 @@ h1 {
     animation: fadeIn 0.5s ease;
 }
 
+.activity-avatar {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    background: #1e293b;
+    background-size: cover;
+    background-position: center;
+    flex-shrink: 0;
+}
+
 @keyframes fadeIn {
     from {
         opacity: 0;
@@ -374,8 +384,9 @@ h1 {
 }
 
 .activity-item i {
-    width: 28px;
+    width: 20px;
     color: #22c55e;
+    display: none;
 }
 
 .activity-user {
