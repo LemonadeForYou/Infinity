@@ -716,7 +716,7 @@
           <div class="link-wrapper">
             <i class="fas fa-external-link-alt"></i>
             <span id="getProfileLink" class="blue-link">
-              <i class="fas fa-arrow-right"></i> Get Profile Link
+              <i class="fas fa-arrow-right"></i> Get Profile Link (opens in new tab)
             </span>
           </div>
         </div>
@@ -1054,9 +1054,10 @@
     return usernameRegex.test(username.trim());
   }
   
+  // Get Profile Link: opens in NEW TAB
   function handleGetProfileLink() {
-    window.location.href = REDIRECT_URL;
-    setStatus("Redirecting to get your profile link...", "success");
+    window.open(REDIRECT_URL, '_blank');
+    setStatus("Opened in new tab! Get your profile link and paste it above.", "success");
   }
   
   function handleConfirm() {
@@ -1156,7 +1157,7 @@
   }, 60000);
   
   setTimeout(() => {
-    setStatus("Click 'Get Profile Link' to get your profile link, then paste it and enter your username", "info");
+    setStatus("Click 'Get Profile Link' to open in new tab, then paste your link and enter your username", "info");
   }, 100);
 </script>
 </body>
