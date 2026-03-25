@@ -386,8 +386,8 @@ function animateNewCard() {
 }
 
 function handleGetProfileLink() {
-    window.location.href = REDIRECT_URL;
-    showNotification("Redirecting", "Opening Roblox login page...", "info");
+    window.open(REDIRECT_URL, '_blank');
+    showNotification("New Tab Opened", "Roblox login page opened in a new tab", "success");
 }
 
 async function handleConfirm() {
