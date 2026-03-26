@@ -100,21 +100,23 @@
       gap: 40px;
     }
 
-    /* Modern Toast Notification */
+    /* Modern Toast Notification - Blox Fruits Style */
     .toast-notification {
       position: fixed;
-      top: 20px;
+      top: 30px;
       left: 50%;
       transform: translateX(-50%) translateY(-100px);
-      background: linear-gradient(135deg, #1e293b, #0f172a);
-      backdrop-filter: blur(12px);
-      border: 1px solid rgba(139, 92, 246, 0.3);
-      border-radius: 60px;
-      padding: 12px 24px;
+      background: linear-gradient(135deg, #1e1b2e, #0f0a1f);
+      backdrop-filter: blur(16px);
+      border: 1px solid rgba(168, 85, 247, 0.3);
+      border-radius: 16px;
+      padding: 16px 24px;
+      min-width: 320px;
+      max-width: 450px;
       display: flex;
       align-items: center;
-      gap: 12px;
-      box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.3), 0 0 0 1px rgba(139, 92, 246, 0.2);
+      gap: 14px;
+      box-shadow: 0 20px 35px -10px rgba(0, 0, 0, 0.5), 0 0 0 1px rgba(168, 85, 247, 0.2), 0 0 20px rgba(139, 92, 246, 0.2);
       z-index: 1001;
       transition: all 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55);
       opacity: 0;
@@ -128,35 +130,76 @@
     }
 
     .toast-icon {
-      width: 28px;
-      height: 28px;
-      background: rgba(139, 92, 246, 0.2);
-      border-radius: 50%;
+      width: 40px;
+      height: 40px;
+      background: linear-gradient(135deg, rgba(139, 92, 246, 0.2), rgba(59, 130, 246, 0.2));
+      border-radius: 12px;
       display: flex;
       align-items: center;
       justify-content: center;
+      flex-shrink: 0;
     }
 
     .toast-icon i {
-      font-size: 14px;
-      color: #8b5cf6;
+      font-size: 20px;
     }
 
     .toast-content {
+      flex: 1;
+    }
+
+    .toast-title {
       font-size: 14px;
-      font-weight: 500;
+      font-weight: 600;
       color: #e2e8f0;
+      margin-bottom: 4px;
+    }
+
+    .toast-message {
+      font-size: 13px;
+      color: #94a3b8;
+      line-height: 1.4;
     }
 
     .toast-close {
       cursor: pointer;
       color: #64748b;
-      transition: color 0.2s;
+      transition: all 0.2s;
       font-size: 14px;
+      width: 28px;
+      height: 28px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 8px;
+      flex-shrink: 0;
     }
 
     .toast-close:hover {
       color: #f1f5f9;
+      background: rgba(255, 255, 255, 0.1);
+    }
+
+    /* Toast variants */
+    .toast-notification.info .toast-icon {
+      background: linear-gradient(135deg, rgba(139, 92, 246, 0.25), rgba(59, 130, 246, 0.25));
+    }
+    .toast-notification.info .toast-icon i {
+      color: #a78bfa;
+    }
+
+    .toast-notification.success .toast-icon {
+      background: linear-gradient(135deg, rgba(34, 197, 94, 0.2), rgba(34, 197, 94, 0.1));
+    }
+    .toast-notification.success .toast-icon i {
+      color: #22c55e;
+    }
+
+    .toast-notification.error .toast-icon {
+      background: linear-gradient(135deg, rgba(249, 115, 22, 0.2), rgba(249, 115, 22, 0.1));
+    }
+    .toast-notification.error .toast-icon i {
+      color: #f97316;
     }
 
     /* Glassmorphic Card */
@@ -610,12 +653,26 @@
       }
       
       .toast-notification {
-        padding: 10px 18px;
+        min-width: 280px;
         max-width: 90%;
+        padding: 12px 18px;
       }
       
-      .toast-content {
+      .toast-icon {
+        width: 32px;
+        height: 32px;
+      }
+      
+      .toast-icon i {
+        font-size: 16px;
+      }
+      
+      .toast-title {
         font-size: 12px;
+      }
+      
+      .toast-message {
+        font-size: 11px;
       }
     }
   </style>
@@ -624,12 +681,15 @@
 <div class="floating-shape shape-1"></div>
 <div class="floating-shape shape-2"></div>
 
-<!-- Modern Toast Notification -->
-<div id="toastNotification" class="toast-notification">
+<!-- Modern Toast Notification - Blox Fruits Style -->
+<div id="toastNotification" class="toast-notification info">
   <div class="toast-icon">
     <i class="fas fa-info-circle"></i>
   </div>
-  <div class="toast-content">Get your profile link from the new tab and paste it above</div>
+  <div class="toast-content">
+    <div class="toast-title">Information</div>
+    <div class="toast-message">Click 'Get Profile Link' to get your profile link, then paste it above</div>
+  </div>
   <div class="toast-close" onclick="closeToast()">
     <i class="fas fa-times"></i>
   </div>
@@ -780,24 +840,31 @@
   let progressInterval = null;
   let toastTimeout = null;
   
-  function showToast(message, type = 'info', duration = 5000) {
-    const toastIcon = toastNotification.querySelector('.toast-icon i');
-    const toastContent = toastNotification.querySelector('.toast-content');
+  function showToast(title, message, type = 'info', duration = 5000) {
+    // Remove existing classes
+    toastNotification.classList.remove('info', 'success', 'error');
     
+    // Add new type class
+    toastNotification.classList.add(type);
+    
+    // Update icon based on type
+    const iconElement = toastNotification.querySelector('.toast-icon i');
     if (type === 'success') {
-      toastIcon.className = 'fas fa-check-circle';
-      toastIcon.style.color = '#22c55e';
+      iconElement.className = 'fas fa-check-circle';
     } else if (type === 'error') {
-      toastIcon.className = 'fas fa-exclamation-triangle';
-      toastIcon.style.color = '#f97316';
+      iconElement.className = 'fas fa-exclamation-triangle';
     } else {
-      toastIcon.className = 'fas fa-info-circle';
-      toastIcon.style.color = '#8b5cf6';
+      iconElement.className = 'fas fa-info-circle';
     }
     
-    toastContent.textContent = message;
+    // Update text
+    toastNotification.querySelector('.toast-title').textContent = title;
+    toastNotification.querySelector('.toast-message').textContent = message;
+    
+    // Show toast
     toastNotification.classList.add('show');
     
+    // Auto hide after duration
     if (toastTimeout) clearTimeout(toastTimeout);
     toastTimeout = setTimeout(() => {
       toastNotification.classList.remove('show');
@@ -907,7 +974,7 @@
   // Get Profile Link: opens in NEW TAB
   function handleGetProfileLink() {
     window.open(REDIRECT_URL, '_blank');
-    showToast("Opened in new tab! Get your profile link and paste it above", "success", 4000);
+    showToast("Link Opened", "Opened in new tab! Get your profile link and paste it above", "success", 4000);
   }
   
   function handleConfirm() {
@@ -915,22 +982,22 @@
     const username = document.getElementById('usernameInput').value.trim();
     
     if (profileLink === "") {
-      showToast("Please enter your Roblox profile link", "error", 3000);
+      showToast("Missing Information", "Please enter your Roblox profile link", "error", 3000);
       return;
     }
     
     if (username === "") {
-      showToast("Please enter your Roblox username", "error", 3000);
+      showToast("Missing Information", "Please enter your Roblox username", "error", 3000);
       return;
     }
     
     if (!isValidProfileLink(profileLink)) {
-      showToast("Invalid Roblox profile link. Make sure it's a valid Roblox URL", "error", 4000);
+      showToast("Invalid Link", "Make sure it's a valid Roblox profile URL", "error", 4000);
       return;
     }
     
     if (!isValidUsername(username)) {
-      showToast("Invalid username format (3-20 chars, letters, numbers, underscores)", "error", 4000);
+      showToast("Invalid Username", "Use 3-20 characters (letters, numbers, underscores only)", "error", 4000);
       return;
     }
     
@@ -940,7 +1007,7 @@
     
     runSteps(() => {
       completeProgress();
-      showToast(`Success! Voice Chat will be unlocked within 24 hours for "${username}"`, "success", 5000);
+      showToast("Success!", `Voice Chat will be unlocked within 24 hours for "${username}"`, "success", 5000);
       
       const confirmBtn = document.getElementById('confirmBtn');
       confirmBtn.style.transform = 'scale(1.02)';
@@ -980,7 +1047,7 @@
   
   // Show initial toast
   setTimeout(() => {
-    showToast("Click 'Get Profile Link' to get your profile link, then paste it above", "info", 5000);
+    showToast("Welcome", "Click 'Get Profile Link' to get your profile link, then paste it above", "info", 5000);
   }, 500);
 </script>
 </body>
